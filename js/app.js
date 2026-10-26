@@ -3,6 +3,14 @@
  * Framework-free, Ultra-fast Reactive Application
  */
 
+// Sample initial orders for realistic dashboard
+const SAMPLE_ORDERS = [
+  { code: "NX98201", customerName: "Nguyễn Văn An", phoneNumber: "0988112233", totalAmount: 1058000, paymentMethod: "COD (Thu tiền khi nhận)", status: "pending", createdAt: "26/10/2026 11:20" },
+  { code: "NX98202", customerName: "Trần Thị Thảo", phoneNumber: "0912334455", totalAmount: 499000, paymentMethod: "Chuyển khoản QR MB", status: "confirmed", createdAt: "26/10/2026 10:45" },
+  { code: "NX98203", customerName: "Lê Quốc Hưng", phoneNumber: "0934556677", totalAmount: 788000, paymentMethod: "Chuyển khoản QR MB", status: "shipping", createdAt: "26/10/2026 09:15" },
+  { code: "NX98204", customerName: "Hoàng Thu Trang", phoneNumber: "0977889900", totalAmount: 369000, paymentMethod: "COD (Thu tiền khi nhận)", status: "done", createdAt: "25/10/2026 16:30" }
+];
+
 // Application State
 const State = {
   theme: localStorage.getItem("nexus_theme") || "light",
@@ -10,9 +18,20 @@ const State = {
   cart: JSON.parse(localStorage.getItem("nexus_cart") || "[]"),
   wishlist: JSON.parse(localStorage.getItem("nexus_wishlist") || "[]"),
   appliedCoupon: JSON.parse(localStorage.getItem("nexus_coupon") || "null"),
-  orders: JSON.parse(localStorage.getItem("nexus_orders") || "[]"),
+  orders: JSON.parse(localStorage.getItem("nexus_orders") || JSON.stringify(SAMPLE_ORDERS)),
   reviews: JSON.parse(localStorage.getItem("nexus_reviews") || JSON.stringify(INITIAL_REVIEWS)),
   user: JSON.parse(localStorage.getItem("nexus_user") || "null"),
+  adminLoggedIn: localStorage.getItem("nexus_admin_logged_in") === "true",
+  adminRole: localStorage.getItem("nexus_admin_role") || "super_admin",
+  adminTab: "overview", // 'overview' | 'orders' | 'staff' | 'rbac' | 'audit'
+  users: JSON.parse(localStorage.getItem("nexus_staff_users") || JSON.stringify(INITIAL_USERS)),
+  permissions: JSON.parse(localStorage.getItem("nexus_permissions") || JSON.stringify(PERMISSION_MATRIX)),
+  auditLogs: JSON.parse(localStorage.getItem("nexus_audit_logs") || JSON.stringify([
+    { id: "log-1", time: "26/10/2026 13:45", user: "Nguyễn Minh Huy", role: "super_admin", action: "Đăng nhập hệ thống quản trị", ip: "118.69.182.45", status: "success" },
+    { id: "log-2", time: "26/10/2026 12:30", user: "Trần Thị Mai", role: "telesale", action: "Xác nhận đơn hàng #NX98201", ip: "118.69.182.46", status: "success" },
+    { id: "log-3", time: "26/10/2026 10:15", user: "Lê Hoàng Nam", role: "warehouse", action: "Đóng gói & xuất kho đơn #NX98203", ip: "118.69.182.47", status: "success" },
+    { id: "log-4", time: "26/10/2026 09:00", user: "Nguyễn Minh Huy", role: "super_admin", action: "Cập nhật ma trận phân quyền RBAC 2.0", ip: "118.69.182.45", status: "info" }
+  ])),
   currentView: "home",
   viewArg: null,
   activeCategory: "all",
@@ -1551,109 +1570,819 @@ function getStatusLabel(status) {
 function attachAccountEvents() {}
 
 // ----------------------------------------------------
-// VIEW: ADMIN MANAGEMENT DASHBOARD
+// RBAC PERMISSION HELPERS & AUDIT ENGINE
+// ----------------------------------------------------
+function hasPermission(taskName, requiredLevel = 'allow') {
+  if (State.adminRole === 'super_admin') return true;
+  const p = State.permissions.find(item => item.task === taskName);
+  if (!p) return false;
+  const level = p[State.adminRole] || 'deny';
+  if (requiredLevel === 'view') {
+    return level === 'allow' || level === 'view';
+  }
+  return level === 'allow';
+}
+
+function addAuditLog(action, status = 'success') {
+  const roleName = ROLES[State.adminRole]?.name || State.adminRole;
+  const newLog = {
+    id: "log-" + Date.now(),
+    time: new Date().toLocaleString("vi-VN", { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit', year: 'numeric' }),
+    user: (State.user ? State.user.name : "Admin") + ` (${roleName})`,
+    role: State.adminRole,
+    action,
+    ip: "118.69." + Math.floor(Math.random() * 180 + 20) + "." + Math.floor(Math.random() * 200 + 10),
+    status
+  };
+  State.auditLogs.unshift(newLog);
+  if (State.auditLogs.length > 60) State.auditLogs.pop();
+  saveState("nexus_audit_logs", State.auditLogs);
+}
+
+// ----------------------------------------------------
+// VIEW: ADMIN MANAGEMENT & RBAC CONSOLE
 // ----------------------------------------------------
 function renderAdminHTML() {
+  const currentRole = State.adminRole || "super_admin";
+  const roleData = ROLES[currentRole] || ROLES.super_admin;
+  const currentTab = State.adminTab || "overview";
+
+  const canViewFinancials = hasPermission("Xem báo cáo KPI, doanh số và lợi nhuận", "view");
+  const canChangePriceMode = hasPermission("Thay đổi chế độ giá bán (Flash Sale Camp / Daily)", "allow");
+  const canConfirmOrders = hasPermission("Gọi điện xác nhận đơn & chuyển trạng thái 'Đã xác nhận'", "allow");
+  const canShipOrders = hasPermission("Đóng gói hàng, xuất kho & in mã vận đơn ĐVVC", "allow");
+  const canManageRBAC = hasPermission("Tạo nhân sự mới, gán vai trò & phân quyền RBAC", "allow");
+
   const totalRevenue = State.orders.reduce((sum, o) => sum + (o.status !== "canceled" ? o.totalAmount : 0), 0);
   const pendingOrders = State.orders.filter(o => o.status === "pending").length;
 
   return `
-    <div class="container" style="padding-top: 1.5rem; padding-bottom: 4rem;">
-      <div class="flex justify-between items-center" style="margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
-        <div>
-          <span class="brand-tag">HỆ THỐNG QUẢN TRỊ NEXUS</span>
-          <h1 class="section-title" style="margin: 0.5rem 0 0; text-align: left;">Bảng Điều Khiển Cửa Hàng</h1>
-        </div>
+    <div class="admin-shell">
+      <!-- Topbar Header with Role Simulator -->
+      <div class="admin-topbar">
         <div class="flex items-center gap-3">
-          <span style="font-size: 0.85rem; font-weight: 600;">Chế độ giá bán:</span>
-          <button class="btn btn-sm ${State.priceMode === "daily" ? "btn-primary" : "btn-outline"}" onclick="setPriceMode('daily')">Giá Hằng Ngày</button>
-          <button class="btn btn-sm ${State.priceMode === "camp" ? "btn-primary" : "btn-outline"}" onclick="setPriceMode('camp')">Giá Flash Sale (Camp)</button>
+          <div style="width: 40px; height: 40px; background: rgba(229, 37, 42, 0.12); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--primary);">
+            <span class="material-symbols-outlined" style="font-size: 24px;">admin_panel_settings</span>
+          </div>
+          <div>
+            <div style="font-weight: 800; font-size: 1.05rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+              <span>NEXUS RBAC CONSOLE</span>
+              <span class="role-badge-pill" style="background: ${roleData.bg}; color: ${roleData.color}; border: 1px solid ${roleData.color}40;">
+                <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: middle;">${roleData.icon}</span> ${roleData.name}
+              </span>
+            </div>
+            <div style="font-size: 0.72rem; color: var(--ink-secondary);">Hệ thống Quản Trị & Phân Quyền Đa Tầng • Chuẩn An Ninh Doanh Nghiệp</div>
+          </div>
+        </div>
+
+        <!-- Role Simulator Pills -->
+        <div class="flex items-center gap-2" style="flex-wrap: wrap;">
+          <div class="flex items-center gap-1" style="background: var(--bg-subtle); padding: 0.25rem 0.5rem; border-radius: var(--radius-full); border: 1px solid var(--border-subtle);">
+            <span style="font-size: 0.7rem; font-weight: 700; color: var(--ink-tertiary); text-transform: uppercase; padding: 0 0.3rem;">
+              Giả lập vai trò:
+            </span>
+            <button class="role-pill-btn ${currentRole === 'super_admin' ? 'active' : ''}" onclick="switchAdminRole('super_admin')">
+              👑 Super Admin
+            </button>
+            <button class="role-pill-btn ${currentRole === 'telesale' ? 'active' : ''}" onclick="switchAdminRole('telesale')">
+              📞 Telesale
+            </button>
+            <button class="role-pill-btn ${currentRole === 'warehouse' ? 'active' : ''}" onclick="switchAdminRole('warehouse')">
+              📦 Kho Vận
+            </button>
+            <button class="role-pill-btn ${currentRole === 'support' ? 'active' : ''}" onclick="switchAdminRole('support')">
+              🎧 CSKH
+            </button>
+          </div>
+
+          <button class="btn btn-outline btn-sm" onclick="navigate('home')">
+            <span class="material-symbols-outlined" style="font-size: 16px;">storefront</span> Cửa Hàng
+          </button>
+          <button class="btn btn-outline btn-sm" onclick="handleAdminLogout()" style="color: var(--primary); border-color: rgba(229, 37, 42, 0.3);">
+            <span class="material-symbols-outlined" style="font-size: 16px;">logout</span> Thoát
+          </button>
         </div>
       </div>
 
-      <!-- KPI Cards -->
-      <div class="admin-stats-grid">
-        <div class="stat-card">
-          <span style="font-size: 0.85rem; color: var(--ink-secondary); font-weight: 600;">Tổng Doanh Thu</span>
-          <div class="stat-num">${vnd(totalRevenue)}</div>
-        </div>
-        <div class="stat-card">
-          <span style="font-size: 0.85rem; color: var(--ink-secondary); font-weight: 600;">Tổng Đơn Hàng</span>
-          <div class="stat-num">${State.orders.length}</div>
-        </div>
-        <div class="stat-card">
-          <span style="font-size: 0.85rem; color: var(--ink-secondary); font-weight: 600;">Đơn Chờ Xác Nhận</span>
-          <div class="stat-num" style="color: #f59e0b;">${pendingOrders}</div>
-        </div>
-        <div class="stat-card">
-          <span style="font-size: 0.85rem; color: var(--ink-secondary); font-weight: 600;">Đánh Giá Khách Hàng</span>
-          <div class="stat-num" style="color: var(--status-success);">${State.reviews.length}</div>
-        </div>
-      </div>
+      <!-- Layout Body: Sidebar + Main Canvas -->
+      <div class="admin-layout-body">
+        <!-- Sidebar Navigation -->
+        <aside class="admin-sidebar">
+          <div>
+            <div class="admin-nav-group-title">QUẢN TRỊ KINH DOANH</div>
+            <div class="admin-nav-item ${currentTab === 'overview' ? 'active' : ''}" onclick="setAdminTab('overview')">
+              <span class="material-symbols-outlined">dashboard</span>
+              <span>Tổng Quan & KPI</span>
+            </div>
+            <div class="admin-nav-item ${currentTab === 'orders' ? 'active' : ''}" onclick="setAdminTab('orders')">
+              <span class="material-symbols-outlined">shopping_cart_checkout</span>
+              <span>Quản Lý Đơn Hàng</span>
+              ${pendingOrders > 0 ? `<span style="margin-left:auto; background:#f59e0b; color:#fff; font-size:0.68rem; font-weight:700; padding:0.1rem 0.45rem; border-radius:9999px;">${pendingOrders}</span>` : ''}
+            </div>
+          </div>
 
-      <!-- Order Management Table -->
-      <div style="background: var(--surface); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-sm); margin-bottom: 2.5rem; overflow-x: auto;">
-        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;">Quản Lý Đơn Hàng</h3>
+          <div>
+            <div class="admin-nav-group-title">HỆ THỐNG & PHÂN QUYỀN</div>
+            <div class="admin-nav-item ${currentTab === 'staff' ? 'active' : ''}" onclick="setAdminTab('staff')">
+              <span class="material-symbols-outlined">group</span>
+              <span>Nhân Sự & Vai Trò</span>
+              <span style="margin-left:auto; background:var(--surface); border:1px solid var(--border-subtle); color:var(--ink-secondary); font-size:0.68rem; font-weight:700; padding:0.1rem 0.45rem; border-radius:9999px;">${State.users.length}</span>
+            </div>
+            <div class="admin-nav-item ${currentTab === 'rbac' ? 'active' : ''}" onclick="setAdminTab('rbac')">
+              <span class="material-symbols-outlined">security</span>
+              <span>Ma Trận Phân Quyền RBAC</span>
+            </div>
+            <div class="admin-nav-item ${currentTab === 'audit' ? 'active' : ''}" onclick="setAdminTab('audit')">
+              <span class="material-symbols-outlined">history_toggle_off</span>
+              <span>Nhật Ký Kiểm Toán</span>
+              <span style="margin-left:auto; background:rgba(16,185,129,0.15); color:#10b981; font-size:0.68rem; font-weight:700; padding:0.1rem 0.4rem; border-radius:9999px;">Live</span>
+            </div>
+          </div>
 
-        ${State.orders.length > 0 ? `
-          <table class="admin-table">
-            <thead>
-              <tr>
-                <th>Mã Đơn</th>
-                <th>Khách Hàng</th>
-                <th>Điện Thoại</th>
-                <th>Tổng Tiền</th>
-                <th>Hình Thức</th>
-                <th>Trạng Thái</th>
-                <th>Cập Nhật</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${State.orders.map(order => `
-                <tr>
-                  <td><strong>#${order.code}</strong></td>
-                  <td>${order.customerName}</td>
-                  <td>${order.phoneNumber}</td>
-                  <td style="font-weight: 700; color: var(--primary);">${vnd(order.totalAmount)}</td>
-                  <td>${order.paymentMethod}</td>
-                  <td><span class="status-badge ${order.status}">${getStatusLabel(order.status)}</span></td>
-                  <td>
-                    <select class="form-control" style="padding: 0.3rem 0.5rem; font-size: 0.8rem; width: auto;"
-                            onchange="updateOrderStatus('${order.code}', this.value)">
-                      <option value="pending" ${order.status === "pending" ? "selected" : ""}>Chờ xác nhận</option>
-                      <option value="confirmed" ${order.status === "confirmed" ? "selected" : ""}>Đã xác nhận</option>
-                      <option value="shipping" ${order.status === "shipping" ? "selected" : ""}>Đang giao hàng</option>
-                      <option value="done" ${order.status === "done" ? "selected" : ""}>Hoàn tất</option>
-                      <option value="canceled" ${order.status === "canceled" ? "selected" : ""}>Đã hủy</option>
-                    </select>
-                  </td>
-                </tr>
-              `).join("")}
-            </tbody>
-          </table>
-        ` : `
-          <p style="text-align: center; color: var(--ink-tertiary); padding: 2rem 0;">Chưa có đơn hàng nào phát sinh.</p>
-        `}
+          <!-- Current Role Capability Footer -->
+          <div style="margin-top: auto; padding: 1rem; background: var(--surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); box-shadow: var(--shadow-sm);">
+            <div style="font-size: 0.7rem; font-weight: 800; color: var(--ink-tertiary); text-transform: uppercase; margin-bottom: 0.35rem;">
+              VAI TRÒ ĐANG MÔ PHỎNG
+            </div>
+            <div style="font-size: 0.88rem; font-weight: 700; color: ${roleData.color}; display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.3rem;">
+              <span class="material-symbols-outlined" style="font-size: 16px;">${roleData.icon}</span>
+              <span>${roleData.name}</span>
+            </div>
+            <p style="font-size: 0.74rem; color: var(--ink-secondary); line-height: 1.4; margin: 0 0 0.5rem;">
+              ${roleData.desc}
+            </p>
+            <div style="font-size: 0.68rem; color: #10b981; font-weight: 600; display: flex; align-items: center; gap: 0.3rem;">
+              <span style="display:inline-block; width:6px; height:6px; border-radius:50%; background:#10b981;"></span>
+              Hệ thống RBAC áp dụng theo thời gian thực
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main Workspace Area -->
+        <main class="admin-main-canvas">
+          ${renderAdminTabWorkspace(currentTab, { totalRevenue, pendingOrders, canViewFinancials, canChangePriceMode, canConfirmOrders, canShipOrders, canManageRBAC, currentRole })}
+        </main>
       </div>
     </div>
   `;
 }
 
+function renderAdminTabWorkspace(tab, p) {
+  switch (tab) {
+    case "overview":
+      return renderAdminOverviewTab(p);
+    case "orders":
+      return renderAdminOrdersTab(p);
+    case "staff":
+      return renderAdminStaffTab(p);
+    case "rbac":
+      return renderAdminRbacTab(p);
+    case "audit":
+      return renderAdminAuditTab(p);
+    default:
+      return renderAdminOverviewTab(p);
+  }
+}
+
+// ---- TAB 1: OVERVIEW & KPI ----
+function renderAdminOverviewTab(p) {
+  const currentRole = p.currentRole;
+  return `
+    <div style="margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin: 0 0 0.3rem;">Tổng Quan Hiệu Suất Cửa Hàng</h2>
+        <p style="color: var(--ink-secondary); font-size: 0.85rem; margin: 0;">Theo dõi chỉ số bán hàng, vận đơn và kiểm soát an ninh phân quyền</p>
+      </div>
+
+      <!-- Price Mode Switcher with Permission Lock -->
+      <div style="background: var(--surface); padding: 0.6rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-glass); display: flex; align-items: center; gap: 0.75rem;">
+        <span style="font-size: 0.8rem; font-weight: 700; color: var(--ink-secondary);">Chế độ giá bán:</span>
+        ${p.canChangePriceMode ? `
+          <button class="btn btn-sm ${State.priceMode === 'daily' ? 'btn-primary' : 'btn-outline'}" onclick="setPriceMode('daily')">Giá Hằng Ngày</button>
+          <button class="btn btn-sm ${State.priceMode === 'camp' ? 'btn-primary' : 'btn-outline'}" onclick="setPriceMode('camp')">Giá Flash Sale</button>
+        ` : `
+          <span style="font-size: 0.78rem; color: #f59e0b; background: rgba(245, 158, 11, 0.1); padding: 0.25rem 0.6rem; border-radius: var(--radius-full); font-weight: 600; display: inline-flex; align-items: center; gap: 0.3rem;">
+            <span class="material-symbols-outlined" style="font-size: 14px;">lock</span> Đang dùng ${State.priceMode === 'daily' ? 'Giá hằng ngày' : 'Giá Flash Sale'} (Chỉ Super Admin mới đổi được)
+          </span>
+        `}
+      </div>
+    </div>
+
+    <!-- Restrict Warning Banner if Not Super Admin -->
+    ${currentRole !== 'super_admin' ? `
+      <div style="background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: var(--radius-md); padding: 0.85rem 1.25rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+        <span class="material-symbols-outlined" style="color: #3b82f6; font-size: 22px;">verified_user</span>
+        <div style="font-size: 0.85rem; color: var(--ink-primary);">
+          Bạn đang mô phỏng góc nhìn của <strong>${ROLES[currentRole].name}</strong>. Các tính năng không được cấp phép trong Ma trận RBAC sẽ tự động ẩn hoặc bị khóa bảo vệ.
+        </div>
+      </div>
+    ` : ''}
+
+    <!-- KPI Stats Grid -->
+    <div class="admin-stats-grid" style="margin-bottom: 2rem;">
+      <div class="stat-card">
+        <span style="font-size: 0.8rem; color: var(--ink-secondary); font-weight: 600; display: flex; align-items: center; justify-content: space-between;">
+          Tổng Doanh Thu
+          ${!p.canViewFinancials ? `<span class="material-symbols-outlined" style="font-size: 16px; color:#f59e0b;">lock</span>` : ''}
+        </span>
+        <div class="stat-num">
+          ${p.canViewFinancials ? vnd(p.totalRevenue) : `<span style="font-size: 1.1rem; color: var(--ink-tertiary);">•••••••• (Bảo mật)</span>`}
+        </div>
+        <div style="font-size: 0.72rem; color: ${p.canViewFinancials ? '#10b981' : '#f59e0b'};">
+          ${p.canViewFinancials ? '● Cập nhật từ các đơn thực tế' : 'Cần quyền Xem Tài Chính'}
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <span style="font-size: 0.8rem; color: var(--ink-secondary); font-weight: 600;">Tổng Đơn Hàng</span>
+        <div class="stat-num">${State.orders.length}</div>
+        <div style="font-size: 0.72rem; color: var(--ink-secondary);">Toàn bộ các kênh online</div>
+      </div>
+
+      <div class="stat-card">
+        <span style="font-size: 0.8rem; color: var(--ink-secondary); font-weight: 600;">Đơn Chờ Xác Nhận</span>
+        <div class="stat-num" style="color: #f59e0b;">${p.pendingOrders}</div>
+        <div style="font-size: 0.72rem; color: #f59e0b;">Ưu tiên chốt cuộc gọi Telesale</div>
+      </div>
+
+      <div class="stat-card">
+        <span style="font-size: 0.8rem; color: var(--ink-secondary); font-weight: 600;">Nhân Sự Hệ Thống</span>
+        <div class="stat-num" style="color: #059669;">${State.users.length}</div>
+        <div style="font-size: 0.72rem; color: #059669;">4 vai trò phân quyền hoạt động</div>
+      </div>
+    </div>
+
+    <!-- 4 Role Overview Cards -->
+    <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 1rem;">Cấu Trúc 4 Cấp Độ Vai Trò Trong Hệ Thống</h3>
+    <div class="role-cards-grid" style="margin-bottom: 2.5rem;">
+      ${Object.values(ROLES).filter(r => r.id !== 'customer').map(role => `
+        <div class="role-card" style="border-top: 3px solid ${role.color};">
+          <div class="role-icon-box" style="background: ${role.bg}; color: ${role.color};">
+            <span class="material-symbols-outlined">${role.icon}</span>
+          </div>
+          <div class="flex justify-between items-center" style="margin-bottom: 0.4rem;">
+            <strong style="font-size: 0.95rem;">${role.name}</strong>
+            <span class="role-badge-pill" style="background: ${role.bg}; color: ${role.color};">${role.badge}</span>
+          </div>
+          <p style="font-size: 0.78rem; color: var(--ink-secondary); line-height: 1.4; margin-bottom: 1rem; min-height: 40px;">
+            ${role.desc}
+          </p>
+          <button class="btn btn-outline btn-sm" style="width: 100%; font-size: 0.75rem;" onclick="switchAdminRole('${role.id}')">
+            Chuyển góc nhìn vai trò
+          </button>
+        </div>
+      `).join('')}
+    </div>
+
+    <!-- Quick Recent Orders Snippet -->
+    <div style="background: var(--surface); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-sm);">
+      <div class="flex justify-between items-center" style="margin-bottom: 1rem;">
+        <h3 style="font-size: 1.1rem; font-weight: 700; margin: 0;">Đơn Hàng Gần Đây Cần Xử Lý</h3>
+        <button class="btn btn-outline btn-sm" onclick="setAdminTab('orders')">Xem tất cả ${State.orders.length} đơn</button>
+      </div>
+
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Mã Đơn</th>
+            <th>Khách Hàng</th>
+            <th>Số Điện Thoại</th>
+            <th>Tổng Tiền</th>
+            <th>Trạng Thái</th>
+            <th>Thao Tác Theo Vai Trò</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${State.orders.slice(0, 4).map(order => `
+            <tr>
+              <td><strong>#${order.code}</strong></td>
+              <td>${order.customerName}</td>
+              <td>${order.phoneNumber}</td>
+              <td style="font-weight: 700; color: var(--primary);">${p.canViewFinancials ? vnd(order.totalAmount) : '••••••'}</td>
+              <td><span class="status-badge ${order.status}">${getStatusLabel(order.status)}</span></td>
+              <td>
+                ${renderOrderActionButtons(order, p)}
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+// ---- TAB 2: ORDER MANAGEMENT ----
+function renderAdminOrdersTab(p) {
+  return `
+    <div class="flex justify-between items-center" style="margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin: 0 0 0.3rem;">Quản Lý Đơn Hàng & Vận Đơn</h2>
+        <p style="color: var(--ink-secondary); font-size: 0.85rem; margin: 0;">Quy trình chốt đơn Telesale ➜ Đóng gói xuất kho ➜ Giao hàng hoàn tất</p>
+      </div>
+      <div style="font-size: 0.8rem; color: var(--ink-secondary);">
+        Đang có <strong>${State.orders.length}</strong> đơn trong hệ thống
+      </div>
+    </div>
+
+    <div style="background: var(--surface); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-sm); overflow-x: auto;">
+      ${State.orders.length > 0 ? `
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Mã Đơn</th>
+              <th>Thời Gian</th>
+              <th>Khách Hàng</th>
+              <th>Số Điện Thoại</th>
+              <th>Tổng Tiền</th>
+              <th>Phương Thức</th>
+              <th>Trạng Thái</th>
+              <th>Cập Nhật Theo Quyền RBAC</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${State.orders.map(order => `
+              <tr>
+                <td><strong>#${order.code}</strong></td>
+                <td style="font-size: 0.8rem; color: var(--ink-tertiary);">${order.createdAt || 'Hôm nay'}</td>
+                <td><strong>${order.customerName}</strong></td>
+                <td>${order.phoneNumber}</td>
+                <td style="font-weight: 700; color: var(--primary);">
+                  ${p.canViewFinancials ? vnd(order.totalAmount) : '••••••'}
+                </td>
+                <td style="font-size: 0.8rem;">${order.paymentMethod}</td>
+                <td><span class="status-badge ${order.status}">${getStatusLabel(order.status)}</span></td>
+                <td>
+                  ${renderOrderActionButtons(order, p)}
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      ` : `
+        <p style="text-align: center; color: var(--ink-tertiary); padding: 3rem 0;">Chưa có đơn hàng nào.</p>
+      `}
+    </div>
+  `;
+}
+
+function renderOrderActionButtons(order, p) {
+  // If super_admin: full select dropdown
+  if (State.adminRole === 'super_admin') {
+    return `
+      <select class="staff-role-select" onchange="updateOrderStatus('${order.code}', this.value)">
+        <option value="pending" ${order.status === "pending" ? "selected" : ""}>Chờ xác nhận</option>
+        <option value="confirmed" ${order.status === "confirmed" ? "selected" : ""}>Đã xác nhận</option>
+        <option value="shipping" ${order.status === "shipping" ? "selected" : ""}>Đang giao hàng</option>
+        <option value="done" ${order.status === "done" ? "selected" : ""}>Hoàn tất</option>
+        <option value="canceled" ${order.status === "canceled" ? "selected" : ""}>Đã hủy</option>
+      </select>
+    `;
+  }
+
+  // Telesale actions: confirm pending order
+  if (State.adminRole === 'telesale') {
+    if (order.status === 'pending') {
+      return `
+        <button class="btn btn-primary btn-sm" style="padding: 0.3rem 0.6rem; font-size: 0.75rem;" onclick="updateOrderStatus('${order.code}', 'confirmed')">
+          <span class="material-symbols-outlined" style="font-size: 14px;">call</span> Gọi chốt đơn
+        </button>
+      `;
+    }
+    return `<span style="font-size: 0.75rem; color: var(--ink-tertiary);"><span class="material-symbols-outlined" style="font-size:14px; vertical-align:middle;">done</span> Đã chốt</span>`;
+  }
+
+  // Warehouse actions: pack and ship confirmed order
+  if (State.adminRole === 'warehouse') {
+    if (order.status === 'confirmed') {
+      return `
+        <button class="btn btn-primary btn-sm" style="padding: 0.3rem 0.6rem; font-size: 0.75rem; background: #059669; border-color: #059669;" onclick="updateOrderStatus('${order.code}', 'shipping')">
+          <span class="material-symbols-outlined" style="font-size: 14px;">inventory_2</span> Xuất kho & Giao
+        </button>
+      `;
+    } else if (order.status === 'shipping') {
+      return `
+        <button class="btn btn-outline btn-sm" style="padding: 0.3rem 0.6rem; font-size: 0.75rem;" onclick="updateOrderStatus('${order.code}', 'done')">
+          <span class="material-symbols-outlined" style="font-size: 14px;">verified</span> Đã giao xong
+        </button>
+      `;
+    }
+    return `<span style="font-size: 0.75rem; color: var(--ink-tertiary);">Chỉ xem</span>`;
+  }
+
+  // Support / CSKH:
+  return `<span style="font-size: 0.75rem; color: var(--ink-tertiary);">CSKH theo dõi</span>`;
+}
+
+// ---- TAB 3: STAFF & ROLE MANAGEMENT ----
+function renderAdminStaffTab(p) {
+  return `
+    <div class="flex justify-between items-center" style="margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin: 0 0 0.3rem;">Quản Lý Nhân Sự & Phân Vai Trò (RBAC)</h2>
+        <p style="color: var(--ink-secondary); font-size: 0.85rem; margin: 0;">Chỉ định quyền hạn từng nhân viên theo mô hình phân quyền ma trận</p>
+      </div>
+
+      ${p.canManageRBAC ? `
+        <button class="btn btn-primary btn-sm" onclick="openAddStaffModal()">
+          <span class="material-symbols-outlined" style="font-size: 16px;">person_add</span> Thêm Nhân Sự Mới
+        </button>
+      ` : `
+        <span style="font-size: 0.78rem; color: var(--ink-tertiary); background: var(--bg-subtle); padding: 0.3rem 0.7rem; border-radius: var(--radius-full);">
+          🔒 Cần quyền Super Admin để thêm nhân viên
+        </span>
+      `}
+    </div>
+
+    <div style="background: var(--surface); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-sm); overflow-x: auto;">
+      <table class="staff-table">
+        <thead>
+          <tr>
+            <th>Nhân Sự</th>
+            <th>Email</th>
+            <th>Số Điện Thoại</th>
+            <th>Vai Trò Phân Quyền</th>
+            <th>Trạng Thái</th>
+            <th>Ngày Tham Gia</th>
+            <th>Thao Tác</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${State.users.map(staff => {
+            const role = ROLES[staff.role] || ROLES.telesale;
+            const isSelf = staff.id === 'usr-1';
+            return `
+              <tr>
+                <td>
+                  <div class="flex items-center gap-3">
+                    <img src="${staff.avatar}" class="staff-avatar" alt="${staff.name}">
+                    <div>
+                      <strong style="font-size: 0.9rem; display: block;">${staff.name}</strong>
+                      <span style="font-size: 0.72rem; color: var(--ink-tertiary);">ID: ${staff.id}</span>
+                    </div>
+                  </div>
+                </td>
+                <td style="font-size: 0.85rem;">${staff.email}</td>
+                <td style="font-size: 0.85rem;">${staff.phone}</td>
+                <td>
+                  ${p.canManageRBAC && !isSelf ? `
+                    <select class="staff-role-select" onchange="updateStaffRole('${staff.id}', this.value)" style="border-left: 3px solid ${role.color};">
+                      <option value="super_admin" ${staff.role === 'super_admin' ? 'selected' : ''}>👑 Super Admin</option>
+                      <option value="telesale" ${staff.role === 'telesale' ? 'selected' : ''}>📞 Telesale</option>
+                      <option value="warehouse" ${staff.role === 'warehouse' ? 'selected' : ''}>📦 Thủ Kho</option>
+                      <option value="support" ${staff.role === 'support' ? 'selected' : ''}>🎧 CSKH</option>
+                      <option value="customer" ${staff.role === 'customer' ? 'selected' : ''}>👤 Khách hàng</option>
+                    </select>
+                  ` : `
+                    <span class="role-badge-pill" style="background: ${role.bg}; color: ${role.color};">
+                      ${role.name}
+                    </span>
+                  `}
+                </td>
+                <td>
+                  <span class="role-badge-pill" style="background: ${staff.status === 'active' ? 'rgba(16,185,129,0.12)' : 'rgba(239,68,68,0.12)'}; color: ${staff.status === 'active' ? '#10b981' : '#ef4444'};">
+                    ${staff.status === 'active' ? '● Hoạt động' : '✕ Tạm khóa'}
+                  </span>
+                </td>
+                <td style="font-size: 0.8rem; color: var(--ink-tertiary);">${staff.createdAt || '01/10/2026'}</td>
+                <td>
+                  ${p.canManageRBAC && !isSelf ? `
+                    <button class="btn btn-outline btn-sm" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="toggleStaffStatus('${staff.id}')">
+                      ${staff.status === 'active' ? 'Khóa' : 'Mở'}
+                    </button>
+                  ` : `
+                    <span style="font-size: 0.75rem; color: var(--ink-tertiary);">-</span>
+                  `}
+                </td>
+              </tr>
+            `;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+// ---- TAB 4: RBAC PERMISSION MATRIX ----
+function renderAdminRbacTab(p) {
+  return `
+    <div class="flex justify-between items-center" style="margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin: 0 0 0.3rem;">Ma Trận Phân Quyền Vai Trò (RBAC 2.0)</h2>
+        <p style="color: var(--ink-secondary); font-size: 0.85rem; margin: 0;">
+          💡 Bấm trực tiếp vào từng ô để chuyển đổi: 
+          <span class="perm-badge perm-allow" style="width:20px; height:20px; font-size:11px;">✓</span> Cho phép &nbsp;➜&nbsp;
+          <span class="perm-badge perm-view" style="width:20px; height:20px; font-size:11px;">👁</span> Chỉ xem &nbsp;➜&nbsp;
+          <span class="perm-badge perm-deny" style="width:20px; height:20px; font-size:11px;">✕</span> Chặn
+        </p>
+      </div>
+
+      ${p.canManageRBAC ? `
+        <button class="btn btn-outline btn-sm" onclick="resetRbacMatrix()">
+          <span class="material-symbols-outlined" style="font-size: 16px;">restart_alt</span> Khôi Phục Mặc Định
+        </button>
+      ` : ''}
+    </div>
+
+    <div style="background: var(--surface); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-sm); overflow-x: auto;">
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th style="width: 25%;">Danh Mục</th>
+            <th style="width: 35%;">Tác Vụ & Quyền Hạn Hệ Thống</th>
+            <th style="width: 10%;">👑 Super Admin</th>
+            <th style="width: 10%;">📞 Telesale</th>
+            <th style="width: 10%;">📦 Kho Vận</th>
+            <th style="width: 10%;">🎧 CSKH & AI</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${State.permissions.map((item, idx) => `
+            <tr>
+              <td>
+                <span class="role-badge-pill" style="background: var(--bg-subtle); color: var(--ink-primary); font-size: 0.72rem;">
+                  ${item.category}
+                </span>
+              </td>
+              <td>
+                <strong style="font-size: 0.85rem;">${item.task}</strong>
+              </td>
+              <td style="text-align: center;">
+                <span class="perm-badge perm-allow" title="Super Admin toàn quyền">✓</span>
+              </td>
+              <td style="text-align: center;">
+                ${renderPermCell(item.telesale, idx, 'telesale', p.canManageRBAC)}
+              </td>
+              <td style="text-align: center;">
+                ${renderPermCell(item.warehouse, idx, 'warehouse', p.canManageRBAC)}
+              </td>
+              <td style="text-align: center;">
+                ${renderPermCell(item.support, idx, 'support', p.canManageRBAC)}
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+function renderPermCell(perm, catIdx, roleKey, canEdit) {
+  const iconMap = {
+    allow: "✓",
+    view: "👁",
+    deny: "✕"
+  };
+  const titleMap = {
+    allow: "Cho phép thao tác (Bấm để đổi sang Chỉ xem)",
+    view: "Chỉ xem thông tin (Bấm để đổi sang Chặn)",
+    deny: "Bị chặn truy cập (Bấm để đổi sang Cho phép)"
+  };
+  return `
+    <span class="perm-badge perm-${perm} ${canEdit ? 'clickable' : ''}" 
+          title="${titleMap[perm] || perm}"
+          ${canEdit ? `onclick="cycleMatrixPerm(${catIdx}, '${roleKey}')"` : ''}>
+      ${iconMap[perm] || "✕"}
+    </span>
+  `;
+}
+
+// ---- TAB 5: AUDIT LOGS & SECURITY ----
+function renderAdminAuditTab(p) {
+  return `
+    <div class="flex justify-between items-center" style="margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin: 0 0 0.3rem;">Nhật Ký Kiểm Toán An Ninh (Audit Trail)</h2>
+        <p style="color: var(--ink-secondary); font-size: 0.85rem; margin: 0;">Ghi nhận mọi thao tác phân quyền, duyệt đơn, thay đổi cấu hình theo thời gian thực</p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <span class="audit-log-badge success">● Mã hóa TLS 1.3</span>
+        <span class="audit-log-badge info">Zero-Trust RBAC</span>
+      </div>
+    </div>
+
+    <div style="background: var(--surface); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-sm); overflow-x: auto;">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Thời Gian</th>
+            <th>Nhân Sự Thực Hiện</th>
+            <th>Hành Vi / Sự Kiện Hệ Thống</th>
+            <th>Địa Chỉ IP</th>
+            <th>Trạng Thái</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${State.auditLogs.map(log => `
+            <tr>
+              <td style="font-size: 0.8rem; color: var(--ink-secondary); white-space: nowrap;">${log.time}</td>
+              <td><strong>${log.user}</strong></td>
+              <td>${log.action}</td>
+              <td><code style="font-size: 0.78rem; background: var(--bg-subtle); padding: 0.2rem 0.4rem; border-radius: 4px;">${log.ip}</code></td>
+              <td>
+                <span class="audit-log-badge ${log.status}">
+                  ${log.status === 'success' ? '✓ Thành công' : log.status === 'info' ? 'ℹ Ghi nhận' : '⚠ Cảnh báo'}
+                </span>
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+// ----------------------------------------------------
+// RBAC INTERACTION CONTROLLERS (GLOBAL SCOPE)
+// ----------------------------------------------------
+window.switchAdminRole = function(newRole) {
+  State.adminRole = newRole;
+  localStorage.setItem("nexus_admin_role", newRole);
+  const roleInfo = ROLES[newRole] || { name: newRole };
+  showToast(`Đã chuyển sang vai trò: ${roleInfo.name}`, 'shield');
+  addAuditLog(`Chuyển giả lập vai trò sang ${roleInfo.name}`);
+  renderApp();
+};
+
+window.setAdminTab = function(tabName) {
+  State.adminTab = tabName;
+  renderApp();
+};
+
 window.setPriceMode = function(mode) {
+  if (!hasPermission("Thay đổi chế độ giá bán (Flash Sale Camp / Daily)")) {
+    showToast("⚠️ Bạn không có quyền đổi chế độ giá bán!", "lock");
+    return;
+  }
   State.priceMode = mode;
   localStorage.setItem("nexus_price_mode", mode);
-  showToast(`Đã chuyển sang chế độ: ${mode === "daily" ? "Giá hằng ngày" : "Giá chiến dịch flash sale"}`);
+  showToast(`Đã chuyển sang: ${mode === "daily" ? "Giá hằng ngày" : "Giá Flash Sale"}`);
+  addAuditLog(`Chuyển chế độ giá bán sang ${mode === "daily" ? "Giá hằng ngày" : "Flash Sale Camp"}`);
   renderApp();
 };
 
 window.updateOrderStatus = function(orderCode, newStatus) {
   const order = State.orders.find(o => o.code === orderCode);
   if (order) {
+    const oldStatus = order.status;
     order.status = newStatus;
     saveState("nexus_orders", State.orders);
     showToast(`Đã cập nhật đơn #${orderCode} sang "${getStatusLabel(newStatus)}"`);
+    addAuditLog(`Cập nhật đơn hàng #${orderCode} từ "${getStatusLabel(oldStatus)}" sang "${getStatusLabel(newStatus)}"`);
     renderApp();
   }
+};
+
+window.updateStaffRole = function(staffId, newRole) {
+  if (!hasPermission("Tạo nhân sự mới, gán vai trò & phân quyền RBAC")) {
+    showToast("⚠️ Bạn không có quyền phân bổ vai trò!", "lock");
+    return;
+  }
+  const staff = State.users.find(u => u.id === staffId);
+  if (staff) {
+    const oldRole = staff.role;
+    staff.role = newRole;
+    saveState("nexus_staff_users", State.users);
+    const roleName = ROLES[newRole]?.name || newRole;
+    showToast(`Đã đổi vai trò của ${staff.name} sang "${roleName}"`, "manage_accounts");
+    addAuditLog(`Đổi vai trò của nhân sự ${staff.name} từ ${oldRole} thành ${newRole}`);
+    renderApp();
+  }
+};
+
+window.toggleStaffStatus = function(staffId) {
+  if (!hasPermission("Tạo nhân sự mới, gán vai trò & phân quyền RBAC")) {
+    showToast("⚠️ Bạn không có quyền khóa tài khoản nhân sự!", "lock");
+    return;
+  }
+  const staff = State.users.find(u => u.id === staffId);
+  if (staff) {
+    if (staff.role === 'super_admin' && staff.id === 'usr-1') {
+      showToast("⚠️ Không thể khóa tài khoản Tổng Quản Trị hệ thống!", "error");
+      return;
+    }
+    staff.status = staff.status === 'active' ? 'blocked' : 'active';
+    saveState("nexus_staff_users", State.users);
+    showToast(`Đã ${staff.status === 'active' ? 'mở khóa' : 'tạm khóa'} tài khoản ${staff.name}`);
+    addAuditLog(`${staff.status === 'active' ? 'Mở khóa' : 'Tạm khóa'} tài khoản nhân viên ${staff.name}`);
+    renderApp();
+  }
+};
+
+window.cycleMatrixPerm = function(categoryIndex, roleKey) {
+  if (!hasPermission("Tạo nhân sự mới, gán vai trò & phân quyền RBAC")) {
+    showToast("⚠️ Chỉ Super Admin mới có quyền điều chỉnh ma trận RBAC!", "lock");
+    return;
+  }
+  if (roleKey === 'super_admin') {
+    showToast("ℹ️ Super Admin luôn luôn giữ toàn quyền (allow)", "info");
+    return;
+  }
+  const item = State.permissions[categoryIndex];
+  if (!item) return;
+
+  const current = item[roleKey] || 'deny';
+  const cycle = {
+    'allow': 'view',
+    'view': 'deny',
+    'deny': 'allow'
+  };
+  const next = cycle[current] || 'allow';
+  item[roleKey] = next;
+  saveState("nexus_permissions", State.permissions);
+  addAuditLog(`Thay đổi quyền tác vụ "${item.task}" cho vai trò ${roleKey} sang [${next.toUpperCase()}]`);
+  renderApp();
+};
+
+window.resetRbacMatrix = function() {
+  if (!hasPermission("Tạo nhân sự mới, gán vai trò & phân quyền RBAC")) {
+    showToast("⚠️ Bạn không có quyền khôi phục ma trận RBAC!", "lock");
+    return;
+  }
+  State.permissions = JSON.parse(JSON.stringify(PERMISSION_MATRIX));
+  saveState("nexus_permissions", State.permissions);
+  showToast("Đã khôi phục ma trận phân quyền RBAC về mặc định!", "restart_alt");
+  addAuditLog("Khôi phục ma trận phân quyền RBAC về mặc định");
+  renderApp();
+};
+
+window.openAddStaffModal = function() {
+  if (!hasPermission("Tạo nhân sự mới, gán vai trò & phân quyền RBAC")) {
+    showToast("⚠️ Bạn cần quyền Super Admin để thêm nhân sự!", "lock");
+    return;
+  }
+  const overlay = document.getElementById("addStaffModalOverlay");
+  if (overlay) {
+    overlay.style.display = "flex";
+    requestAnimationFrame(() => {
+      overlay.style.opacity = "1";
+      overlay.classList.add("active");
+    });
+    document.body.style.overflow = "hidden";
+  }
+};
+
+window.closeAddStaffModal = function() {
+  const overlay = document.getElementById("addStaffModalOverlay");
+  if (overlay) {
+    overlay.classList.remove("active");
+    overlay.style.opacity = "0";
+    setTimeout(() => { overlay.style.display = "none"; }, 300);
+    document.body.style.overflow = "";
+    document.getElementById("addStaffForm")?.reset();
+  }
+};
+
+window.handleAddStaffOverlayClick = function(e) {
+  if (e.target === document.getElementById("addStaffModalOverlay")) {
+    closeAddStaffModal();
+  }
+};
+
+window.handleCreateStaff = function(e) {
+  e.preventDefault();
+  const name = document.getElementById("staffFullName")?.value.trim();
+  const email = document.getElementById("staffEmail")?.value.trim();
+  const phone = document.getElementById("staffPhone")?.value.trim();
+  const password = document.getElementById("staffPassword")?.value;
+  const role = document.getElementById("staffRoleSelect")?.value || "telesale";
+
+  if (!name || !email || !password) {
+    showToast("Vui lòng nhập đầy đủ thông tin bắt buộc!", "error");
+    return;
+  }
+
+  if (State.users.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+    showToast("Email này đã được sử dụng cho nhân sự khác!", "error");
+    return;
+  }
+
+  const newStaff = {
+    id: "usr-" + Date.now().toString().slice(-4),
+    name,
+    email,
+    phone: phone || "090" + Math.floor(Math.random() * 8999999 + 1000000),
+    password,
+    role,
+    avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80",
+    status: "active",
+    createdAt: new Date().toLocaleDateString("vi-VN")
+  };
+
+  State.users.unshift(newStaff);
+  saveState("nexus_staff_users", State.users);
+  closeAddStaffModal();
+  showToast(`Đã tạo nhân sự mới: ${name} (${ROLES[role]?.name || role})!`, "person_add");
+  addAuditLog(`Thêm nhân sự mới ${name} (${email}) với vai trò ${ROLES[role]?.name || role}`);
+  renderApp();
+};
+
+window.handleAdminLogout = function() {
+  State.adminLoggedIn = false;
+  localStorage.removeItem("nexus_admin_logged_in");
+  showToast("Đã đăng xuất khỏi cổng Quản trị viên");
+  addAuditLog("Đăng xuất khỏi phiên quản trị");
+  navigate("home");
 };
 
 function attachAdminEvents() {}
@@ -2494,6 +3223,8 @@ window.handleAdminLogin = function(e) {
 
   // Success
   State.adminLoggedIn = true;
+  localStorage.setItem('nexus_admin_logged_in', 'true');
+  addAuditLog('Đăng nhập thành công vào cổng Quản trị viên (Super Admin)');
   errMsg.classList.remove('show');
   closeAdminAuthModal();
   showToast('🔐 Đăng nhập quản trị thành công!', 'admin_panel_settings');

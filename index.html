@@ -510,6 +510,63 @@
     </div><!-- /.admin-auth-modal -->
   </div><!-- /.admin-auth-overlay -->
 
+  <!-- Modal Thêm Nhân Sự & Phân Quyền Mới -->
+  <div class="auth-overlay" id="addStaffModalOverlay" style="display:none;" onclick="handleAddStaffOverlayClick(event)">
+    <div class="auth-modal" style="max-width: 480px; padding: 2rem;">
+      <div class="flex justify-between items-center" style="margin-bottom: 1.25rem;">
+        <div class="flex items-center gap-2">
+          <div style="width: 36px; height: 36px; background: rgba(229, 37, 42, 0.1); border-radius: 9999px; display: flex; align-items: center; justify-content: center; color: var(--primary);">
+            <span class="material-symbols-outlined">person_add</span>
+          </div>
+          <div>
+            <h3 style="font-size: 1.15rem; font-weight: 700; margin: 0;">Thêm Nhân Sự & Phân Quyền</h3>
+            <p style="font-size: 0.78rem; color: var(--ink-secondary); margin: 0;">Cấp tài khoản và vai trò trong hệ thống RBAC</p>
+          </div>
+        </div>
+        <button type="button" class="auth-close-btn" onclick="closeAddStaffModal()">&times;</button>
+      </div>
+
+      <form id="addStaffForm" onsubmit="handleCreateStaff(event)">
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label style="font-size: 0.82rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Họ & Tên Nhân Viên *</label>
+          <input type="text" id="staffFullName" class="form-control" placeholder="Ví dụ: Lê Hoàng Long" required>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label style="font-size: 0.82rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Email Công Việc *</label>
+          <input type="email" id="staffEmail" class="form-control" placeholder="long.le@nexus.vn" required>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label style="font-size: 0.82rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Số Điện Thoại</label>
+          <input type="tel" id="staffPhone" class="form-control" placeholder="0909123456">
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label style="font-size: 0.82rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Mật Khẩu Ban Đầu *</label>
+          <input type="password" id="staffPassword" class="form-control" placeholder="Tối thiểu 6 ký tự" minlength="6" required>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <label style="font-size: 0.82rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Phân Bổ Vai Trò (Role) *</label>
+          <select id="staffRoleSelect" class="form-control" style="font-weight: 600;" required>
+            <option value="super_admin">👑 Super Admin — Tổng Quản Trị (Toàn quyền)</option>
+            <option value="telesale" selected>📞 Telesale — Tư Vấn & Chốt Đơn</option>
+            <option value="warehouse">📦 Kho Vận — Đóng Gói & Xuất Kho</option>
+            <option value="support">🎧 CSKH — Bảo Hành & Trợ Lý AI</option>
+          </select>
+        </div>
+
+        <div class="flex gap-2 justify-end">
+          <button type="button" class="btn btn-outline btn-sm" onclick="closeAddStaffModal()">Hủy</button>
+          <button type="submit" class="btn btn-primary btn-sm">
+            <span class="material-symbols-outlined" style="font-size: 16px;">check</span>
+            Tạo & Kích Hoạt Quyền
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <!-- Toast Notification Node -->
   <div id="toastMsg" class="toast-msg"></div>
