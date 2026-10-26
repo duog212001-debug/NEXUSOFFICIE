@@ -3159,9 +3159,14 @@ window.logoutUser = function() {
 };
 
 // ====================================================================
-// ADMIN AUTH MODAL
+// ADMIN AUTH MODAL & CREDENTIALS
 // ====================================================================
-const ADMIN_CREDENTIALS = { username: 'admin', password: 'nexus2026' };
+// Nơi cấu hình tài khoản Quản trị viên tối cao (Super Admin)
+const ADMIN_CREDENTIALS = {
+  email: 'admin@nexus.vn',
+  username: 'admin',
+  password: 'nexus2026'
+};
 
 window.openAdminAuthModal = function() {
   // If already admin logged in, go directly to admin panel
@@ -3198,22 +3203,35 @@ window.handleAdminOverlayClick = function(e) {
 
 window.handleAdminLogin = function(e) {
   e.preventDefault();
-  const username = document.getElementById('adminUsername')?.value.trim();
+  const inputAccount = document.getElementById('adminUsername')?.value.trim();
   const pw = document.getElementById('adminPassword')?.value;
   const errMsg = document.getElementById('adminErrorMsg');
   const errTxt = document.getElementById('adminErrorText');
 
-  if (!username || !pw) {
-    errTxt.textContent = 'Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu.';
+  if (!inputAccount || !pw) {
+    errTxt.textContent = 'Vui lòng nhập đầy đủ email/tên đăng nhập và mật khẩu.';
     errMsg.classList.add('show'); return;
   }
 
   // CAPTCHA check
   if (!verifyCaptcha('admin', 'adminCaptchaInput', 'adminCaptchaError')) return;
 
-  // Credential check
-  if (username !== ADMIN_CREDENTIALS.username || pw !== ADMIN_CREDENTIALS.password) {
-    errTxt.textContent = 'Sai tên đăng nhập hoặc mật khẩu quản trị. Truy cập bị từ chối.';
+  // 1. Kiểm tra tài khoản Tổng Quản Trị tối cao (Master Super Admin)
+  const isMasterAdmin = (
+    inputAccount === ADMIN_CREDENTIALS.username || 
+    inputAccount.toLowerCase() === ADMIN_CREDENTIALS.email.toLowerCase()
+  ) && pw === ADMIN_CREDENTIALS.password;
+
+  // 2. Hoặc kiểm tra trong danh sách nhân sự State.users (nếu được cấp quyền quản trị)
+  const matchedStaff = State.users.find(u => 
+    (u.email.toLowerCase() === inputAccount.toLowerCase() || u.name.toLowerCase() === inputAccount.toLowerCase()) &&
+    u.password === pw &&
+    u.status === 'active' &&
+    ['super_admin', 'telesale', 'warehouse', 'support'].includes(u.role)
+  );
+
+  if (!isMasterAdmin && !matchedStaff) {
+    errTxt.textContent = 'Email hoặc mật khẩu quản trị không đúng. Truy cập bị từ chối.';
     errMsg.classList.add('show');
     errMsg.classList.add('shake');
     setTimeout(() => errMsg?.classList.remove('shake'), 500);
@@ -3224,7 +3242,18 @@ window.handleAdminLogin = function(e) {
   // Success
   State.adminLoggedIn = true;
   localStorage.setItem('nexus_admin_logged_in', 'true');
-  addAuditLog('Đăng nhập thành công vào cổng Quản trị viên (Super Admin)');
+
+  if (matchedStaff) {
+    State.adminRole = matchedStaff.role;
+    localStorage.setItem('nexus_admin_role', matchedStaff.role);
+    const roleTitle = ROLES[matchedStaff.role]?.name || matchedStaff.role;
+    addAuditLog(`Đăng nhập thành công vào cổng Quản trị viên (${matchedStaff.name} - ${roleTitle})`);
+  } else {
+    State.adminRole = 'super_admin';
+    localStorage.setItem('nexus_admin_role', 'super_admin');
+    addAuditLog('Đăng nhập thành công vào cổng Quản trị viên (Super Admin)');
+  }
+
   errMsg.classList.remove('show');
   closeAdminAuthModal();
   showToast('🔐 Đăng nhập quản trị thành công!', 'admin_panel_settings');
