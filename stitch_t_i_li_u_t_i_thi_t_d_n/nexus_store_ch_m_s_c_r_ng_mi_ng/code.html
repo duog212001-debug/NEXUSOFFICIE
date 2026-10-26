@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Magic Nexus - Chăm Sóc Răng Miệng Chuẩn Nha Khoa</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Inter Google Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN with Forms and Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Configuration Verbatim -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-glass-tint": "rgba(245, 245, 247, 0.8)",
+            "on-primary-fixed": "#410003",
+            "surface-bright": "#faf8fe",
+            "on-secondary-fixed": "#1b1b1d",
+            "inverse-surface": "#2f3034",
+            "ink-primary": "#1D1D1F",
+            "surface-dim": "#dad9df",
+            "surface-container": "#eeedf3",
+            "secondary-fixed": "#e4e2e4",
+            "on-secondary-fixed-variant": "#474649",
+            "on-primary-container": "#ffffff",
+            "on-tertiary": "#ffffff",
+            "primary-fixed": "#ffdad6",
+            "ink-tertiary": "#86868B",
+            "primary-container": "#e5252a",
+            "on-primary-fixed-variant": "#93000f",
+            "inverse-primary": "#ffb4ac",
+            "secondary-fixed-dim": "#c8c6c8",
+            "status-warning": "#FF9500",
+            "on-surface": "#1a1b1f",
+            "surface-variant": "#e3e2e7",
+            "on-secondary-container": "#636264",
+            "on-secondary": "#ffffff",
+            "secondary-container": "#e2dfe1",
+            "surface-canvas": "#FFFFFF",
+            "on-primary": "#ffffff",
+            "primary": "#be0017",
+            "on-tertiary-container": "#ffffff",
+            "nexus-glow": "rgba(229, 37, 42, 0.28)",
+            "surface-glass": "rgba(255, 255, 255, 0.72)",
+            "surface-container-low": "#f4f3f8",
+            "on-surface-variant": "#5d3f3c",
+            "tertiary-fixed": "#ffdad9",
+            "error-container": "#ffdad6",
+            "outline": "#926f6b",
+            "on-error-container": "#93000a",
+            "on-error": "#ffffff",
+            "background": "#faf8fe",
+            "status-success": "#34C759",
+            "on-background": "#1a1b1f",
+            "tertiary": "#be002b",
+            "primary-fixed-dim": "#ffb4ac",
+            "ink-secondary": "#6E6E73",
+            "on-tertiary-fixed": "#410008",
+            "ink-inverse": "#FFFFFF",
+            "secondary": "#5f5e60",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-highest": "#e3e2e7",
+            "tertiary-fixed-dim": "#ffb3b2",
+            "surface-container-high": "#e9e7ed",
+            "surface-tint": "#c00017",
+            "on-tertiary-fixed-variant": "#92001f",
+            "tertiary-container": "#e71d3d",
+            "surface": "#faf8fe",
+            "inverse-on-surface": "#f1f0f5",
+            "glass-border-dark": "rgba(0, 0, 0, 0.08)",
+            "glass-border": "rgba(255, 255, 255, 0.6)",
+            "surface-subtle": "#F5F5F7",
+            "outline-variant": "#e6bdb8",
+            "error": "#ba1a1a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin": "2rem",
+            "space-md": "1rem",
+            "gutter": "1.5rem",
+            "gutter-mobile": "0.75rem",
+            "space-xs": "0.25rem",
+            "space-xl": "2.5rem",
+            "space-lg": "1.5rem",
+            "margin-mobile": "1rem",
+            "space-2xl": "4rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "body-lg": ["Inter"],
+            "body-sm": ["Inter"],
+            "display-hero-mobile": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "label-lg": ["Inter"],
+            "label-caps": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-xl": ["Inter"],
+            "headline-lg": ["Inter"],
+            "price-card": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-md": ["Inter"],
+            "price-hero": ["Inter"],
+            "display-hero": ["Inter"],
+            "headline-sm": ["Inter"],
+            "headline-xl-mobile": ["Inter"]
+          },
+          "fontSize": {
+            "body-lg": ["17px", {"lineHeight": "25px", "letterSpacing": "-0.005em", "fontWeight": "400"}],
+            "body-sm": ["13px", {"lineHeight": "18px", "letterSpacing": "0.005em", "fontWeight": "400"}],
+            "display-hero-mobile": ["36px", {"lineHeight": "42px", "letterSpacing": "-0.025em", "fontWeight": "700"}],
+            "headline-lg-mobile": ["24px", {"lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+            "label-lg": ["14px", {"lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+            "label-caps": ["11px", {"lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "700"}],
+            "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+            "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.025em", "fontWeight": "600"}],
+            "headline-lg": ["32px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+            "price-card": ["20px", {"lineHeight": "24px", "letterSpacing": "-0.015em", "fontWeight": "700"}],
+            "body-md": ["15px", {"lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400"}],
+            "headline-md": ["24px", {"lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+            "price-hero": ["32px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "display-hero": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+            "headline-sm": ["20px", {"lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "headline-xl-mobile": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .glass-refraction {
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04), 0 2px 6px -1px rgba(0, 0, 0, 0.02), inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+    }
+    .red-glow {
+      box-shadow: 0 8px 24px -4px rgba(229, 37, 42, 0.35);
+    }
+  </style>
+</head>
+<body class="bg-surface-subtle text-ink-primary font-body-md antialiased selection:bg-primary-fixed selection:text-primary">
+<!-- ================= TOP NAV BAR (Shared Component Exact Replication) ================= -->
+<header class="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-7xl rounded-full bg-surface-glass dark:bg-inverse-surface/80 backdrop-blur-xl border border-glass-border dark:border-glass-border-dark shadow-[0_10px_30px_-5px_rgba(0,0,0,0.06)] flex items-center justify-between px-6 py-3 z-50">
+<!-- Brand Identity Logo with Injected Image -->
+<a class="flex items-center gap-2.5 active:scale-95 transition-transform duration-150 ease-out" href="#">
+<img alt="Magic Nexus Logo" class="w-8 h-8 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTGh875mPiBY3BZOJrQk3fWMTQzV1YgscmaNibbxrj4374l3dsoCsTv6I7xaSbZLjRkWHK-bAvZHjmTgbmf8gh6eUQrsy6ZAJtlTiFaTRUVIVqADNMej6Hp_CmHzSECSDxwUKRCRnP_jJ_G6nvuGMJU9I50F-Eblf3b-sN7PnCIO5xGwbvbFespbTbnxGuxHWrqBdGER_yGz36qWZuqngiBeksz-IrNMUaWPAcHFa3nB655LOC5ECG9MClQUAcJnIjXjY"/>
+<span class="text-headline-md font-headline-md font-bold tracking-tight text-ink-primary dark:text-ink-inverse">Magic Nexus</span>
+</a>
+<!-- Navigation Links: "Răng miệng" Active State logic per context mapping -->
+<nav class="hidden lg:flex items-center gap-6">
+<!-- Active Item: Răng miệng -->
+<a class="text-primary dark:text-inverse-primary font-label-lg font-semibold border-b-2 border-primary pb-1 active:scale-95 transition-transform duration-150 ease-out" href="#">
+        Răng miệng
+      </a>
+<a class="text-ink-secondary dark:text-ink-tertiary font-label-lg transition-colors hover:text-ink-primary dark:hover:text-ink-inverse hover:text-primary dark:hover:text-inverse-primary hover:bg-surface-subtle/50 px-2 py-1 rounded-full active:scale-95 transition-transform duration-150 ease-out" href="#">
+        Bình giữ nhiệt
+      </a>
+<a class="text-ink-secondary dark:text-ink-tertiary font-label-lg transition-colors hover:text-ink-primary dark:hover:text-ink-inverse hover:text-primary dark:hover:text-inverse-primary hover:bg-surface-subtle/50 px-2 py-1 rounded-full active:scale-95 transition-transform duration-150 ease-out" href="#">
+        Quạt mini
+      </a>
+<a class="text-ink-secondary dark:text-ink-tertiary font-label-lg transition-colors hover:text-ink-primary dark:hover:text-ink-inverse hover:text-primary dark:hover:text-inverse-primary hover:bg-surface-subtle/50 px-2 py-1 rounded-full active:scale-95 transition-transform duration-150 ease-out" href="#">
+        So sánh
+      </a>
+<a class="text-ink-secondary dark:text-ink-tertiary font-label-lg transition-colors hover:text-ink-primary dark:hover:text-ink-inverse hover:text-primary dark:hover:text-inverse-primary hover:bg-surface-subtle/50 px-2 py-1 rounded-full active:scale-95 transition-transform duration-150 ease-out" href="#">
+        Giỏ hàng
+      </a>
+<a class="text-ink-secondary dark:text-ink-tertiary font-label-lg transition-colors hover:text-ink-primary dark:hover:text-ink-inverse hover:text-primary dark:hover:text-inverse-primary hover:bg-surface-subtle/50 px-2 py-1 rounded-full active:scale-95 transition-transform duration-150 ease-out" href="#">
+        Thanh toán
+      </a>
+</nav>
+<!-- Right Actions & Search Bar on Right -->
+<div class="flex items-center gap-3">
+<!-- Search Input Mini Glass -->
+<div class="relative hidden sm:block">
+<input class="bg-surface-glass-tint text-body-sm font-body-sm pl-9 pr-4 py-1.5 rounded-full border border-glass-border-dark focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all w-44 focus:w-56 text-ink-primary placeholder:text-ink-tertiary" placeholder="Tìm sản phẩm..." type="text"/>
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-ink-tertiary text-body-md" data-icon="search">search</span>
+</div>
+<!-- Trailing Icon Actions -->
+<button class="sm:hidden p-2 text-ink-secondary hover:text-primary active:scale-95 transition-transform" title="Tìm kiếm">
+<span class="material-symbols-outlined text-headline-sm" data-icon="search">search</span>
+</button>
+<button class="relative p-2 text-ink-secondary hover:text-primary active:scale-95 transition-transform" title="Giỏ hàng">
+<span class="material-symbols-outlined text-headline-sm" data-icon="shopping_bag">shopping_bag</span>
+<span class="absolute top-1 right-1 w-4 h-4 bg-primary text-on-primary font-label-caps text-label-caps rounded-full flex items-center justify-center">2</span>
+</button>
+<button class="p-2 text-ink-secondary hover:text-primary active:scale-95 transition-transform" title="Tài khoản">
+<span class="material-symbols-outlined text-headline-sm" data-icon="person">person</span>
+</button>
+<!-- Trailing Primary Action -->
+<a class="hidden md:inline-flex items-center gap-1.5 bg-gradient-to-r from-[#FF334B] to-primary text-on-primary font-label-lg text-label-lg px-4 py-2 rounded-full shadow-[0_4px_14px_rgba(229,37,42,0.35)] hover:shadow-[0_6px_20px_rgba(229,37,42,0.45)] hover:opacity-95 active:scale-95 transition-all" href="#f5nexus-consult">
+<span class="material-symbols-outlined text-body-md" data-icon="smart_toy">smart_toy</span>
+<span>Tư vấn F5Nexus</span>
+</a>
+</div>
+</header>
+<!-- ================= MAIN CONTENT CANVAS ================= -->
+<main class="pt-28 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+<!-- ================= HERO BENTO BANNER ================= -->
+<section class="glass-refraction rounded-3xl p-6 md:p-12 relative overflow-hidden">
+<!-- Ambient Glow Behind Products -->
+<div class="absolute -right-20 -top-20 w-96 h-96 bg-primary-fixed rounded-full blur-3xl opacity-40 pointer-events-none"></div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+<!-- Hero Text Editorial -->
+<div class="lg:col-span-7 space-y-5">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary font-label-caps text-label-caps tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+            CHĂM SÓC RĂNG MIỆNG CHUẨN NHA KHOA MAGIC
+          </div>
+<h1 class="text-headline-xl font-headline-xl text-ink-primary tracking-tight md:text-display-hero md:font-display-hero">
+            Đột phá tia nước kép. <br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-[#FF334B]">Chuẩn xác từng kẽ răng.</span>
+</h1>
+<p class="text-body-lg font-body-lg text-ink-secondary max-w-xl">
+            Bộ đôi giải pháp công nghệ sóng âm Sonic B-26 và tia nước siêu âm vi bọt khí B-02PRO bảo vệ men răng tối đa, đánh bay 99.9% mảng bám với chuẩn kháng nước IPX7.
+          </p>
+<div class="flex flex-wrap items-center gap-4 pt-2">
+<a class="inline-flex items-center justify-center h-11 px-8 rounded-full bg-gradient-to-r from-[#FF334B] to-primary text-on-primary font-label-lg text-label-lg shadow-[0_4px_14px_rgba(229,37,42,0.35)] hover:shadow-[0_6px_20px_rgba(229,37,42,0.45)] hover:-translate-y-0.5 transition-all" href="#featured-grid">
+              Khám phá sản phẩm
+            </a>
+<a class="inline-flex items-center justify-center h-11 px-6 rounded-full bg-surface-canvas/80 backdrop-blur-md border border-glass-border-dark text-ink-primary font-label-lg text-label-lg hover:bg-surface-subtle transition-all gap-2" href="#f5nexus-consult">
+<span class="material-symbols-outlined text-primary text-body-md" data-icon="auto_awesome">auto_awesome</span>
+              Trợ lý so sánh AI
+            </a>
+</div>
+<!-- Trust Mini Strip -->
+<div class="grid grid-cols-3 gap-4 pt-6 border-t border-glass-border-dark">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-status-success text-body-lg" data-icon="verified">verified</span>
+<span class="text-body-sm font-body-sm text-ink-secondary font-medium">Bảo hành 24 tháng</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-body-lg" data-icon="local_shipping">local_shipping</span>
+<span class="text-body-sm font-body-sm text-ink-secondary font-medium">Freeship toàn quốc</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-status-warning text-body-lg" data-icon="autorenew">autorenew</span>
+<span class="text-body-sm font-body-sm text-ink-secondary font-medium">Lỗi 1 đổi 1 trong 30 ngày</span>
+</div>
+</div>
+</div>
+<!-- Hero Visual Showcase -->
+<div class="lg:col-span-5 relative flex justify-center items-center">
+<div class="relative w-full max-w-md aspect-square rounded-2xl p-4 bg-gradient-to-b from-white/90 to-surface-container-low/60 border border-glass-border shadow-xl flex items-center justify-center">
+<img class="w-full h-full object-contain drop-shadow-2xl" data-alt="A sleek minimalist studio product photograph of a modern white ultrasonic oral irrigator water flosser and a sonic electric toothbrush standing side by side. The appliances feature precision chrome accents and micro LED indicator lights against an ultra clean light gray backdrop. Pristine soft diffused gallery lighting accentuates the frosted polycarbonate texture and metallic trim with vibrant deep red subtle brand details." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnbhrOssO5My0DrzbVucypXmOGYIVQYLfkOP_R98qltgWVEiAO8WJ4kflI3iaDnsF0s2Xs0dJqDx8aI3p0DSNTKU8io7-ynv8N0xGqqNxJAlmBxNvRvWEAD80Sm8EGg23ndNM55ai6PKkku7D6r5mqSl_2Fz0rcR25bJtU4YK65B9fx9g6CyRbbAUGaWqR6sg55D4HxjYn1I24ZncFDlo0n812pwgS3EXRV5dh6pNlrrGutYAeaEkLXg"/>
+<!-- Floating Feature Pills -->
+<div class="absolute top-6 left-4 bg-surface-canvas/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-glass-border shadow-md flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-body-sm" data-icon="waves">waves</span>
+<span class="text-label-caps font-label-caps text-ink-primary">1.400 XUNG/PHÚT</span>
+</div>
+<div class="absolute bottom-6 right-4 bg-surface-canvas/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-glass-border shadow-md flex items-center gap-2">
+<span class="material-symbols-outlined text-status-success text-body-sm" data-icon="water_drop">water_drop</span>
+<span class="text-label-caps font-label-caps text-ink-primary">KHÁNG NƯỚC IPX7</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ================= FILTER & CLASSIFICATION BAR ================= -->
+<section class="glass-refraction rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-4">
+<!-- Category Tabs (Pills) -->
+<div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none">
+<button class="px-5 py-2 rounded-full text-label-md font-label-md bg-ink-primary text-ink-inverse shadow-sm transition-all whitespace-nowrap">
+          Tất cả (8)
+        </button>
+<button class="px-5 py-2 rounded-full text-label-md font-label-md bg-black/5 hover:bg-black/10 text-ink-secondary hover:text-ink-primary transition-all whitespace-nowrap">
+          Tăm nước B-02PRO
+        </button>
+<button class="px-5 py-2 rounded-full text-label-md font-label-md bg-black/5 hover:bg-black/10 text-ink-secondary hover:text-ink-primary transition-all whitespace-nowrap">
+          Bàn chải điện Sonic B-26
+        </button>
+<button class="px-5 py-2 rounded-full text-label-md font-label-md bg-black/5 hover:bg-black/10 text-ink-secondary hover:text-ink-primary transition-all whitespace-nowrap">
+          Đầu tăm &amp; Phụ kiện
+        </button>
+<button class="px-5 py-2 rounded-full text-label-md font-label-md bg-black/5 hover:bg-black/10 text-ink-secondary hover:text-ink-primary transition-all whitespace-nowrap">
+          Combo tiết kiệm
+        </button>
+</div>
+<!-- Quick Sorting Dropdown & Status -->
+<div class="flex items-center gap-3 w-full md:w-auto justify-end border-t md:border-t-0 pt-3 md:pt-0 border-glass-border-dark">
+<span class="text-label-md font-label-md text-ink-tertiary whitespace-nowrap">Sắp xếp:</span>
+<div class="relative">
+<select class="appearance-none bg-surface-canvas/90 text-label-md font-label-md text-ink-primary pl-4 pr-9 py-2 rounded-full border border-glass-border-dark focus:border-primary focus:ring-1 focus:ring-primary outline-none cursor-pointer">
+<option>Bán chạy nhất (F5 Choice)</option>
+<option>Giá: Từ thấp đến cao</option>
+<option>Giá: Từ cao đến thấp</option>
+<option>Ưu đãi sâu nhất (-63%)</option>
+</select>
+<span class="material-symbols-outlined pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-body-md text-ink-tertiary" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</section>
+<!-- ================= PRODUCT SHOWCASE BENTO GRID ================= -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6" id="featured-grid">
+<!-- ITEM 1: Tăm nước Magic B-02PRO (Hero Large Card - Spans 7 Cols) -->
+<div class="lg:col-span-7 glass-refraction rounded-2xl p-6 md:p-8 flex flex-col justify-between group hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+<div class="absolute top-4 left-4 z-20 flex items-center gap-2">
+<span class="bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-full text-label-caps font-label-caps">
+            MAGIC OFFICIAL
+          </span>
+<span class="bg-primary text-on-primary px-2.5 py-0.5 rounded-full text-label-caps font-label-caps">
+            -63%
+          </span>
+</div>
+<!-- Product Image Stage with Reflection -->
+<div class="w-full h-64 md:h-72 rounded-xl bg-gradient-to-b from-surface-subtle to-white/80 p-4 flex items-center justify-center relative mb-6">
+<img class="h-full object-contain group-hover:scale-105 transition-transform duration-300" data-alt="A clean industrial commercial studio shot of the Magic B-02PRO cordless oral flosser in snow white finish. The water tank shows clean crystal water with ultra-fine bubbles suspended inside. The device has a slim ergonomic grip, chrome nozzle ring, and three luminous LED indicators against a sleek high-tech pristine white showroom background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDm4C2m9SYR1lVhQJDXgYeiqjbuhxi453PlcIfthYfQWd02sTQAMW_G8eASeT3pU9K8LTiTSYKJv1OZ3uN0Wr2-RO2__Ip95y42ZpPE7ZhO7b5kB15zTBopjf4jKmA16flvxe_XO5ut1hbLQpKUDrlz_FBjFcD_-h4cNU-AKP_Ruy_WbD32qx7uqH6Sg5anYpLZYC15fHtQmx1L1S3Cw0brAxznaofJhM3Mwo8mI31I4hCxB-SGN6Qlvg"/>
+<div class="absolute bottom-2 right-3 text-label-caps font-label-caps text-ink-tertiary flex items-center gap-1 bg-surface-canvas/80 px-2 py-1 rounded-md border border-glass-border">
+<span class="material-symbols-outlined text-status-success text-body-sm" data-icon="verified_user">verified_user</span>
+            Bảo hành 24 tháng
+          </div>
+</div>
+<!-- Content & Specs Matrix -->
+<div class="space-y-4">
+<div class="flex items-start justify-between gap-4">
+<div>
+<div class="flex items-center gap-1 text-status-warning text-body-sm mb-1">
+<span class="material-symbols-outlined text-body-md" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-body-md" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-body-md" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-body-md" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-body-md" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-ink-secondary text-label-md font-label-md ml-1.5">(1.428 đánh giá)</span>
+</div>
+<h2 class="text-headline-sm font-headline-sm text-ink-primary">Máy Tăm Nước Cầm Tay Magic B-02PRO</h2>
+<p class="text-body-sm font-body-sm text-ink-secondary">Tia nước vi bọt khí đánh tan mảng bám, bình chứa 220ml thoải mái dùng 1 lần đổ.</p>
+</div>
+<!-- Live Pricing -->
+<div class="text-right whitespace-nowrap">
+<div class="text-price-hero font-price-hero text-primary">369.000₫</div>
+<div class="text-body-sm font-body-sm text-ink-tertiary line-through">990.000₫</div>
+</div>
+</div>
+<!-- Feature Tag Badges -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-glass-border-dark">
+<div class="bg-surface-subtle p-2 rounded-lg text-center">
+<div class="text-label-caps font-label-caps text-ink-tertiary">CHẾ ĐỘ</div>
+<div class="text-label-md font-label-md text-ink-primary">3 mức làm sạch</div>
+</div>
+<div class="bg-surface-subtle p-2 rounded-lg text-center">
+<div class="text-label-caps font-label-caps text-ink-tertiary">ĐẦU TĂM</div>
+<div class="text-label-md font-label-md text-ink-primary">4 đầu xoay 360°</div>
+</div>
+<div class="bg-surface-subtle p-2 rounded-lg text-center">
+<div class="text-label-caps font-label-caps text-ink-tertiary">CHỐNG NƯỚC</div>
+<div class="text-label-md font-label-md text-ink-primary">Chuẩn IPX7</div>
+</div>
+<div class="bg-surface-subtle p-2 rounded-lg text-center">
+<div class="text-label-caps font-label-caps text-ink-tertiary">THỜI LƯỢNG PIN</div>
+<div class="text-label-md font-label-md text-ink-primary">20 ngày liên tục</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-3 pt-3">
+<button class="flex-1 h-11 rounded-full bg-gradient-to-r from-[#FF334B] to-primary text-on-primary font-label-lg text-label-lg shadow-[0_4px_14px_rgba(229,37,42,0.35)] hover:shadow-[0_6px_20px_rgba(229,37,42,0.45)] active:scale-95 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-body-md" data-icon="bolt">bolt</span>
+              Mua Ngay
+            </button>
+<button class="h-11 px-5 rounded-full bg-surface-canvas border border-glass-border-dark text-ink-primary hover:bg-surface-subtle active:scale-95 transition-all flex items-center justify-center gap-1.5" title="Thêm vào giỏ">
+<span class="material-symbols-outlined text-body-md text-primary" data-icon="add_shopping_cart">add_shopping_cart</span>
+<span class="hidden sm:inline text-label-md font-label-md">Thêm giỏ</span>
+</button>
+</div>
+</div>
+</div>
+<!-- ITEM 2: Bàn chải điện Sonic B-26 (Bento Card - Spans 5 Cols) -->
+<div class="lg:col-span-5 glass-refraction rounded-2xl p-6 md:p-8 flex flex-col justify-between group hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+<div class="absolute top-4 left-4 z-20 flex items-center gap-2">
+<span class="bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-full text-label-caps font-label-caps">
+            TOP SELLER
+          </span>
+<span class="bg-primary text-on-primary px-2.5 py-0.5 rounded-full text-label-caps font-label-caps">
+            -54%
+          </span>
+</div>
+<!-- Product Image Stage with Color Options -->
+<div class="w-full h-64 md:h-72 rounded-xl bg-gradient-to-b from-surface-subtle to-white/80 p-4 flex flex-col items-center justify-center relative mb-6">
+<img class="h-52 object-contain group-hover:scale-105 transition-transform duration-300" data-alt="A modern electronic sonic toothbrush standing vertically in soft lilac pastel color with fine DuPont bristles. It is flanked by two alternative versions in pure white and baby blue. The brush features a minimal brushed aluminum power button and five glowing LED status icons on an Apple style frosted acrylic platform with bright, diffused showroom studio lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBINXpWuu4zbks1jVohNfQjXdIg-iA9aHRsiUeTB1LaWHVYOrRZc0jbXr5yk81RZav7thOAkbSNRrmVujuJ7PcQVA6OIOglnRqQw8pFF6APSdHOL7ucZE19wmYQsFPm5QX7AonVxLW7IXeFzVdRBU7T6mivZoUsm229GzIEpDmcZAeN-7AHQbLBql2HsI9gnQQaLs3UPGIzSmiY_9sMH6mY0z-SponelT1-vekt0v_Gumx8_iJavuOf6w"/>
+<!-- Color Swatches -->
+<div class="flex items-center gap-2 mt-2 bg-surface-canvas/90 px-3 py-1.5 rounded-full border border-glass-border shadow-sm">
+<span class="text-label-caps font-label-caps text-ink-tertiary mr-1">MÀU:</span>
+<button class="w-4 h-4 rounded-full bg-purple-300 ring-2 ring-primary ring-offset-1 focus:outline-none" title="Tím Pastel"></button>
+<button class="w-4 h-4 rounded-full bg-white border border-gray-300 focus:outline-none" title="Trắng Sứ"></button>
+<button class="w-4 h-4 rounded-full bg-sky-200 focus:outline-none" title="Xanh Mint"></button>
+</div>
+</div>
+<!-- Content -->
+<div class="space-y-4">
+<div class="flex items-start justify-between gap-4">
+<div>
+<div class="flex items-center gap-1 text-status-warning text-body-sm mb-1">
+<span class="material-symbols-outlined text-body-md" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-body-md" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-body-md" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-body-md" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-body-md" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-ink-secondary text-label-md font-label-md ml-1.5">(860)</span>
+</div>
+<h2 class="text-headline-sm font-headline-sm text-ink-primary">Bàn Chải Điện Sonic Magic B-26</h2>
+<p class="text-body-sm font-body-sm text-ink-secondary">40.000 nhịp/phút, bảo vệ nướu, nhắc nhở chuyển vùng mỗi 30 giây.</p>
+</div>
+<div class="text-right whitespace-nowrap">
+<div class="text-price-hero font-price-hero text-primary">459.000₫</div>
+<div class="text-body-sm font-body-sm text-ink-tertiary line-through">990.000₫</div>
+</div>
+</div>
+<!-- Feature Mini Matrix -->
+<div class="grid grid-cols-3 gap-2 pt-2 border-t border-glass-border-dark text-center">
+<div class="bg-surface-subtle p-2 rounded-lg">
+<div class="text-label-caps font-label-caps text-ink-tertiary">TẦN SỐ RUNG</div>
+<div class="text-label-md font-label-md text-ink-primary">40.000 nhịp</div>
+</div>
+<div class="bg-surface-subtle p-2 rounded-lg">
+<div class="text-label-caps font-label-caps text-ink-tertiary">CHẾ ĐỘ</div>
+<div class="text-label-md font-label-md text-ink-primary">5 tùy chỉnh</div>
+</div>
+<div class="bg-surface-subtle p-2 rounded-lg">
+<div class="text-label-caps font-label-caps text-ink-tertiary">SMART TIMER</div>
+<div class="text-label-md font-label-md text-ink-primary">2 Phút tự tắt</div>
+</div>
+</div>
+<!-- Action Button -->
+<div class="flex items-center gap-3 pt-3">
+<button class="flex-1 h-11 rounded-full bg-gradient-to-r from-[#FF334B] to-primary text-on-primary font-label-lg text-label-lg shadow-[0_4px_14px_rgba(229,37,42,0.35)] hover:shadow-[0_6px_20px_rgba(229,37,42,0.45)] active:scale-95 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-body-md" data-icon="bolt">bolt</span>
+              Mua Ngay
+            </button>
+<button class="h-11 px-5 rounded-full bg-surface-canvas border border-glass-border-dark text-ink-primary hover:bg-surface-subtle active:scale-95 transition-all flex items-center justify-center" title="Thêm vào giỏ">
+<span class="material-symbols-outlined text-body-md text-primary" data-icon="add_shopping_cart">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- ITEM 3: Bộ 4 đầu tăm thay thế chuyên dụng Magic (Spans 4 Cols) -->
+<div class="lg:col-span-4 glass-refraction rounded-2xl p-6 flex flex-col justify-between group hover:shadow-xl transition-all duration-300">
+<div class="space-y-4">
+<div class="w-full h-44 rounded-xl bg-surface-subtle p-3 flex items-center justify-center relative">
+<span class="absolute top-2 left-2 bg-ink-primary text-ink-inverse text-label-caps font-label-caps px-2 py-0.5 rounded-full">PHỤ KIỆN</span>
+<img class="h-36 object-contain group-hover:scale-105 transition-transform duration-300" data-alt="A clean studio photo of four clear transparent dental flosser replacement nozzles neatly aligned in a protective travel capsule case. Each nozzle features a distinct colored silicone identification collar. Crystal clear optics, soft pure white background, ultra-sharp precision macro details." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBX-YZIYIPeV6zKMY6hw5Gjz3vweZbGCeASIMuPrdood1_NVpHYizuHyDGbRtqUf3TonlB7fsVpG063nOvpbBdi7Nqs07oEnTZxFGZlad2KXnnuSR4nkCjJehE3cN1ofX1FL5dU3IZb84O5qEikw3UfZOnjuy17ZqWbjSMlhVl6MO6x0vLn_KdkvEivN9WlS8rQw1loCdT-LwMAhhxQneJ63JNGEHFxTkj-fUuMhmjMfPZOwwc5qaw5xQ"/>
+</div>
+<div>
+<h3 class="text-headline-sm font-headline-sm text-ink-primary">Bộ 4 Đầu Tăm Chuyên Dụng Magic</h3>
+<p class="text-body-sm font-body-sm text-ink-secondary mt-1">Gồm 2 đầu tiêu chuẩn, 1 đầu chỉnh nha cho người niềng răng và 1 đầu cạo lưỡi.</p>
+</div>
+</div>
+<div class="pt-4 border-t border-glass-border-dark flex items-center justify-between mt-4">
+<div>
+<span class="text-price-card font-price-card text-ink-primary">129.000₫</span>
+<span class="text-body-sm font-body-sm text-ink-tertiary line-through block">250.000₫</span>
+</div>
+<button class="h-9 px-4 rounded-full bg-ink-primary text-ink-inverse font-label-md text-label-md hover:bg-black active:scale-95 transition-all flex items-center gap-1">
+<span class="material-symbols-outlined text-body-md" data-icon="shopping_bag">shopping_bag</span>
+            Thêm
+          </button>
+</div>
+</div>
+<!-- ITEM 4: COMBO TOÀN DIỆN (Spans 8 Cols Bento Spotlight) -->
+<div class="lg:col-span-8 glass-refraction rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 group hover:shadow-xl transition-all duration-300 relative border-2 border-primary/20">
+<div class="absolute top-3 right-4 bg-primary text-on-primary font-label-caps text-label-caps px-3 py-1 rounded-full shadow-md">
+          TIẾT KIỆM THÊM 120.000₫
+        </div>
+<div class="w-full md:w-5/12 h-56 rounded-xl bg-gradient-to-r from-red-50/50 to-white/70 p-4 flex items-center justify-center relative">
+<img class="h-full object-contain group-hover:scale-105 transition-transform duration-300" data-alt="An elegant luxury bundle product showcase of a white oral irrigator water flosser paired alongside a sleek sonic electric toothbrush and two replacement brush heads resting together on a minimalist acrylic frosted vanity tray. Ultra bright modern high-key lighting with gentle red light refractions." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAG1WcUJHDtJ0tGH1AdU1ByR5ykSqAPcN52_JApsW0U8H4aqoAm21pDZLhcZKkdFps-mpeRTfPEIFL4iqHBTpmUeUjK7q52_vyQOJnzzDxFUcxsuc6-f6lEGKv7O8y9WG772Gj7iRy_xUYN23-KKhrc2vUSYwNwM6MYYbh4IkCAXJtiWXWlMT_2ifO4YiRvgtvGgsg8tVv5gCSv9S6vlNsPfyILlS5DiKbt2mCQvRksQHsX6vsJBez0Cw"/>
+</div>
+<div class="w-full md:w-7/12 space-y-4">
+<div class="inline-flex items-center gap-1.5 text-primary text-label-caps font-label-caps">
+<span class="material-symbols-outlined text-body-md" data-icon="workspace_premium">workspace_premium</span>
+            COMBO NHA KHOA TẠI GIA
+          </div>
+<h2 class="text-headline-md font-headline-md text-ink-primary">Combo Chăm Sóc Toàn Diện (B-02PRO + B-26)</h2>
+<p class="text-body-sm font-body-sm text-ink-secondary">
+            Trang bị đầy đủ giải pháp làm sạch chuẩn nha sĩ: Máy tăm nước B-02PRO + Bàn chải Sonic B-26 + Tặng kèm hộp đựng du lịch kháng khuẩn cao cấp.
+          </p>
+<div class="flex items-baseline gap-3 pt-2">
+<span class="text-price-hero font-price-hero text-primary">749.000₫</span>
+<span class="text-body-md font-body-md text-ink-tertiary line-through">1.980.000₫</span>
+<span class="text-label-caps font-label-caps text-status-success bg-status-success/10 px-2 py-0.5 rounded">Freeship Hoả Tốc</span>
+</div>
+<div class="flex items-center gap-3 pt-2">
+<button class="flex-1 h-11 rounded-full bg-gradient-to-r from-[#FF334B] to-primary text-on-primary font-label-lg text-label-lg shadow-[0_4px_14px_rgba(229,37,42,0.35)] hover:shadow-[0_6px_20px_rgba(229,37,42,0.45)] active:scale-95 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-body-md" data-icon="shopping_cart_checkout">shopping_cart_checkout</span>
+              Sở Hữu Trọn Bộ Ngay
+            </button>
+<button class="h-11 px-5 rounded-full bg-surface-canvas border border-glass-border-dark text-ink-primary hover:bg-surface-subtle active:scale-95 transition-all text-label-md font-label-md">
+              Chi tiết gói
+            </button>
+</div>
+</div>
+</div>
+</section>
+<!-- ================= SPECIFICATION COMPARISON MATRIX ================= -->
+<section class="glass-refraction rounded-3xl p-6 md:p-10 space-y-6">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<span class="text-label-caps font-label-caps text-primary tracking-wider">THÔNG SỐ CHUẨN XÁC</span>
+<h2 class="text-headline-lg font-headline-lg text-ink-primary">Bảng So Sánh Kỹ Thuật Chi Tiết</h2>
+</div>
+<p class="text-body-sm font-body-sm text-ink-secondary max-w-md">
+          Được kiểm nghiệm lâm sàng bởi viện công nghệ chăm sóc nướu Magic Living Lab 2024.
+        </p>
+</div>
+<!-- Specification Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-glass-border-dark text-label-lg font-label-lg text-ink-primary">
+<th class="py-4 px-4 font-semibold w-1/3">Tính năng &amp; Tiêu chuẩn</th>
+<th class="py-4 px-4 font-semibold text-primary">Tăm nước Magic B-02PRO</th>
+<th class="py-4 px-4 font-semibold text-ink-primary">Bàn chải Sonic Magic B-26</th>
+</tr>
+</thead>
+<tbody class="text-body-md font-body-md divide-y divide-glass-border-dark">
+<tr class="hover:bg-white/40 transition-colors">
+<td class="py-3.5 px-4 text-ink-secondary font-medium">Công nghệ làm sạch</td>
+<td class="py-3.5 px-4 font-semibold text-ink-primary">Tia nước xung tần 1.400 lần/phút</td>
+<td class="py-3.5 px-4 font-semibold text-ink-primary">Sóng âm Sonic Maglev 40.000 VPM</td>
+</tr>
+<tr class="hover:bg-white/40 transition-colors">
+<td class="py-3.5 px-4 text-ink-secondary font-medium">Áp lực nước / Cường độ</td>
+<td class="py-3.5 px-4">40 - 120 PSI (3 mức Soft/Normal/Pulse)</td>
+<td class="py-3.5 px-4">5 cấp độ (Clean, White, Polish, Gum, Sensitive)</td>
+</tr>
+<tr class="hover:bg-white/40 transition-colors">
+<td class="py-3.5 px-4 text-ink-secondary font-medium">Chỉ số chống nước</td>
+<td class="py-3.5 px-4 flex items-center gap-1.5 text-status-success font-medium">
+<span class="material-symbols-outlined text-body-md" data-icon="check_circle">check_circle</span> IPX7 ngâm nước toàn thân
+              </td>
+<td class="py-3.5 px-4 font-medium text-status-success flex items-center gap-1.5">
+<span class="material-symbols-outlined text-body-md" data-icon="check_circle">check_circle</span> IPX7 kháng nước tuyệt đối
+              </td>
+</tr>
+<tr class="hover:bg-white/40 transition-colors">
+<td class="py-3.5 px-4 text-ink-secondary font-medium">Cổng sạc &amp; Thời lượng</td>
+<td class="py-3.5 px-4">Type-C Fast Charge (Dùng 20 ngày)</td>
+<td class="py-3.5 px-4">Sạc từ không dây (Dùng 35 - 45 ngày)</td>
+</tr>
+<tr class="hover:bg-white/40 transition-colors">
+<td class="py-3.5 px-4 text-ink-secondary font-medium">Phụ kiện kèm theo</td>
+<td class="py-3.5 px-4">4 vòi phun xoay + Cáp Type-C</td>
+<td class="py-3.5 px-4">2 đầu lông DuPont mềm + Đế sạc từ</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- ================= F5NEXUS AI ASSISTANT SECTION ================= -->
+<section class="glass-refraction rounded-3xl p-6 md:p-10 relative overflow-hidden bg-gradient-to-br from-white/95 to-surface-bright/80 border border-glass-border" id="f5nexus-consult">
+<div class="max-w-3xl mx-auto space-y-6 text-center">
+<div class="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-tr from-primary to-[#FF334B] flex items-center justify-center text-on-primary shadow-lg shadow-primary/30">
+<span class="material-symbols-outlined text-headline-md" data-icon="smart_toy">smart_toy</span>
+</div>
+<div class="space-y-2">
+<h2 class="text-headline-lg font-headline-lg text-ink-primary">Tư Vấn Tình Trạng Răng Miệng Với F5Nexus AI</h2>
+<p class="text-body-md font-body-md text-ink-secondary">
+            Bạn đang niềng răng, nướu nhạy cảm hay cần làm sáng men răng? Hãy để trợ lý nha khoa thông minh đề xuất chế độ làm sạch tối ưu nhất cho bạn.
+          </p>
+</div>
+<!-- Chat Input Mockup -->
+<div class="glass-refraction rounded-2xl p-2.5 flex items-center gap-2 shadow-inner max-w-xl mx-auto border border-black/10">
+<input class="flex-1 bg-transparent border-none text-body-md font-body-md px-4 py-2 focus:ring-0 outline-none text-ink-primary placeholder:text-ink-tertiary" placeholder="Ví dụ: Răng tôi bị tụt lợi và đang niềng thì nên dùng máy nào?" type="text"/>
+<button class="h-10 px-6 rounded-full bg-primary hover:bg-tertiary text-on-primary font-label-md text-label-md active:scale-95 transition-all flex items-center gap-1.5">
+<span>Hỏi ngay</span>
+<span class="material-symbols-outlined text-body-md" data-icon="send">send</span>
+</button>
+</div>
+<div class="flex flex-wrap items-center justify-center gap-2 pt-2">
+<span class="text-label-caps font-label-caps text-ink-tertiary">GỢI Ý NHANH:</span>
+<button class="text-label-caps font-label-caps px-3 py-1 rounded-full bg-surface-subtle hover:bg-white text-ink-secondary border border-glass-border-dark transition-all">Người đang niềng răng mắc cài</button>
+<button class="text-label-caps font-label-caps px-3 py-1 rounded-full bg-surface-subtle hover:bg-white text-ink-secondary border border-glass-border-dark transition-all">Nướu dễ chảy máu</button>
+<button class="text-label-caps font-label-caps px-3 py-1 rounded-full bg-surface-subtle hover:bg-white text-ink-secondary border border-glass-border-dark transition-all">Hút thuốc &amp; cà phê thường xuyên</button>
+</div>
+</div>
+</section>
+</main>
+<!-- ================= FOOTER (Shared Component Exact Replication) ================= -->
+<footer class="w-full rounded-t-3xl bg-surface-subtle dark:bg-inverse-surface border-t border-glass-border-dark dark:border-glass-border">
+<div class="w-full max-w-7xl mx-auto px-8 py-12 flex flex-col md:flex-row justify-between items-center gap-6">
+<!-- Brand & Copyright -->
+<div class="space-y-2 text-center md:text-left">
+<div class="text-headline-sm font-headline-sm font-bold text-ink-primary dark:text-ink-inverse">
+          Magic Nexus
+        </div>
+<p class="text-body-sm font-body-sm text-ink-tertiary dark:text-secondary-fixed-dim">
+          © 2025 Magic Vietnam. Bảo hành chính hãng 24 tháng. Hotline 24/7: 1800 6868.
+        </p>
+</div>
+<!-- Footer Navigation Links -->
+<nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+<a class="text-label-md font-label-md text-ink-tertiary dark:text-secondary-fixed-dim hover:text-ink-primary dark:hover:text-ink-inverse hover:text-primary dark:hover:text-inverse-primary transition-colors duration-150 active:opacity-80" href="#">
+          Chính sách bảo hành
+        </a>
+<a class="text-label-md font-label-md text-ink-tertiary dark:text-secondary-fixed-dim hover:text-ink-primary dark:hover:text-ink-inverse hover:text-primary dark:hover:text-inverse-primary transition-colors duration-150 active:opacity-80" href="#">
+          Cam kết chính hãng
+        </a>
+<a class="text-label-md font-label-md text-ink-tertiary dark:text-secondary-fixed-dim hover:text-ink-primary dark:hover:text-ink-inverse hover:text-primary dark:hover:text-inverse-primary transition-colors duration-150 active:opacity-80" href="#">
+          Hệ thống trạm dịch vụ
+        </a>
+<a class="text-label-md font-label-md text-ink-tertiary dark:text-secondary-fixed-dim hover:text-ink-primary dark:hover:text-ink-inverse hover:text-primary dark:hover:text-inverse-primary transition-colors duration-150 active:opacity-80" href="#">
+          Zalo Official Hotline
+        </a>
+<a class="text-label-md font-label-md text-ink-tertiary dark:text-secondary-fixed-dim hover:text-ink-primary dark:hover:text-ink-inverse hover:text-primary dark:hover:text-inverse-primary transition-colors duration-150 active:opacity-80" href="#">
+          Điều khoản mua hàng
+        </a>
+<a class="text-label-md font-label-md text-ink-tertiary dark:text-secondary-fixed-dim hover:text-ink-primary dark:hover:text-ink-inverse hover:text-primary dark:hover:text-inverse-primary transition-colors duration-150 active:opacity-80" href="#">
+          Bảo mật thông tin
+        </a>
+</nav>
+</div>
+</footer>
+</body></html>

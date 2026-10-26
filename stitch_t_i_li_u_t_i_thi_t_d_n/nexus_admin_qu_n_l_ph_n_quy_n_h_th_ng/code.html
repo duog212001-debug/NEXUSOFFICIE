@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nexus Admin Portal - Quản Lý &amp; Phân Quyền Hệ Thống | Magic Nexus Vietnam</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Inter Google Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "ink-primary": "#1D1D1F",
+            "outline-variant": "#e6bdb8",
+            "on-tertiary-fixed-variant": "#92001f",
+            "on-tertiary-fixed": "#410008",
+            "secondary-fixed": "#e4e2e4",
+            "secondary": "#5f5e60",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f4f3f8",
+            "on-secondary-container": "#636264",
+            "on-secondary": "#ffffff",
+            "surface-container-highest": "#e3e2e7",
+            "error": "#ba1a1a",
+            "error-container": "#ffdad6",
+            "surface-glass-tint": "rgba(245, 245, 247, 0.8)",
+            "tertiary-fixed-dim": "#ffb3b2",
+            "on-background": "#1a1b1f",
+            "background": "#faf8fe",
+            "surface-tint": "#c00017",
+            "surface": "#faf8fe",
+            "primary": "#be0017",
+            "secondary-fixed-dim": "#c8c6c8",
+            "primary-fixed-dim": "#ffb4ac",
+            "nexus-glow": "rgba(229, 37, 42, 0.28)",
+            "primary-container": "#e5252a",
+            "on-secondary-fixed-variant": "#474649",
+            "glass-border-dark": "rgba(0, 0, 0, 0.08)",
+            "on-primary-fixed-variant": "#93000f",
+            "surface-canvas": "#FFFFFF",
+            "surface-glass": "rgba(255, 255, 255, 0.72)",
+            "on-surface-variant": "#5d3f3c",
+            "on-tertiary-container": "#ffffff",
+            "ink-inverse": "#FFFFFF",
+            "on-error-container": "#93000a",
+            "on-primary": "#ffffff",
+            "on-primary-container": "#ffffff",
+            "tertiary-fixed": "#ffdad9",
+            "ink-tertiary": "#86868B",
+            "status-success": "#34C759",
+            "inverse-on-surface": "#f1f0f5",
+            "surface-variant": "#e3e2e7",
+            "surface-subtle": "#F5F5F7",
+            "on-tertiary": "#ffffff",
+            "on-primary-fixed": "#410003",
+            "status-warning": "#FF9500",
+            "inverse-primary": "#ffb4ac",
+            "outline": "#926f6b",
+            "surface-container": "#eeedf3",
+            "surface-dim": "#dad9df",
+            "glass-border": "rgba(255, 255, 255, 0.6)",
+            "on-secondary-fixed": "#1b1b1d",
+            "secondary-container": "#e2dfe1",
+            "ink-secondary": "#6E6E73",
+            "on-surface": "#1a1b1f",
+            "tertiary-container": "#e71d3d",
+            "tertiary": "#be002b",
+            "primary-fixed": "#ffdad6",
+            "on-error": "#ffffff",
+            "surface-container-high": "#e9e7ed",
+            "surface-bright": "#faf8fe",
+            "inverse-surface": "#2f3034"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-2xl": "4rem",
+            "margin": "2rem",
+            "space-sm": "0.5rem",
+            "space-xl": "2.5rem",
+            "margin-mobile": "1rem",
+            "space-md": "1rem",
+            "gutter": "1.5rem",
+            "space-lg": "1.5rem",
+            "gutter-mobile": "0.75rem",
+            "space-xs": "0.25rem"
+          },
+          "fontFamily": {
+            "price-card": ["Inter"],
+            "display-hero": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "label-lg": ["Inter"],
+            "headline-sm": ["Inter"],
+            "headline-md": ["Inter"],
+            "label-caps": ["Inter"],
+            "headline-xl-mobile": ["Inter"],
+            "label-md": ["Inter"],
+            "body-lg": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-xl": ["Inter"],
+            "headline-lg": ["Inter"],
+            "body-sm": ["Inter"],
+            "display-hero-mobile": ["Inter"],
+            "price-hero": ["Inter"]
+          },
+          "fontSize": {
+            "price-card": ["20px", { "lineHeight": "24px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+            "display-hero": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-sm": ["20px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-md": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "label-caps": ["11px", { "lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "700" }],
+            "headline-xl-mobile": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "body-lg": ["17px", { "lineHeight": "25px", "letterSpacing": "-0.005em", "fontWeight": "400" }],
+            "body-md": ["15px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.025em", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.005em", "fontWeight": "400" }],
+            "display-hero-mobile": ["36px", { "lineHeight": "42px", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+            "price-hero": ["32px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      text-transform: none;
+      letter-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      direction: ltr;
+      vertical-align: middle;
+    }
+    .frosted-glass {
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+    }
+    .custom-scroll::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.12);
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="bg-surface text-ink-primary font-body-md antialiased min-h-screen flex flex-col selection:bg-primary selection:text-white">
+<!-- Top Global Header Bar -->
+<header class="sticky top-0 z-40 w-full frosted-glass border-b border-glass-border-dark px-6 py-3.5 flex items-center justify-between shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)]">
+<!-- Brand / System Title -->
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-3">
+<img alt="Nexus Logo" class="w-9 h-9 object-contain drop-shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe20Kmy4to8FJegX-vSXH2FymRErFdNM1Ql1EWSVpaT0lMi9QML-bXHqylRJagWjNqhJFSCzfjSjYrPwznU2F1Ib8cpUz89kz3R-EonJo4niyk48scuPvEosRLabQpkOI7FBH2-XO0HrDCUDyhUmWG7-4WXnVqPG1cIM1FDbz2Kr3mPIxDbdOLfV-Gk9rdzroTohYEDSisA4Fg-JOA9DNzQZ3GIilCe3uYcx9FQomkaaUqf77GV9WXEYGtERtax7FRwuw"/>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-bold text-ink-primary tracking-tight">Magic Nexus</span>
+<span class="px-2 py-0.5 rounded-full text-label-caps font-label-caps bg-primary/10 text-primary border border-primary/20">PRO CONSOLE</span>
+</div>
+<span class="text-body-sm font-body-sm text-ink-tertiary">Nexus Admin Console - Vận Hành &amp; Quản Trị</span>
+</div>
+</div>
+<div class="hidden xl:flex items-center gap-2 pl-4 border-l border-glass-border-dark">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-success/10 text-status-success text-label-md font-label-md">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success animate-pulse"></span>
+          Đồng bộ Realtime Node-VN: 99.98%
+        </span>
+</div>
+</div>
+<!-- Center Search & Global Context -->
+<div class="hidden md:flex items-center flex-1 max-w-md mx-8">
+<div class="w-full relative">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-tertiary text-lg">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-white/80 border border-glass-border-dark rounded-full text-body-sm font-body-sm text-ink-primary placeholder:text-ink-tertiary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Tìm thành viên, đơn hàng, mã sản phẩm hoặc vai trò..." type="text"/>
+<kbd class="hidden sm:inline-block absolute right-3 top-1/2 -translate-y-1/2 px-1.5 py-0.5 text-[10px] font-semibold text-ink-tertiary bg-surface-subtle border border-glass-border-dark rounded">⌘K</kbd>
+</div>
+</div>
+<!-- Right Controls & Super Admin Identity -->
+<div class="flex items-center gap-3">
+<!-- Quick View As Customer / Store Preview -->
+<button class="hidden lg:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-glass-border-dark bg-white hover:bg-surface-subtle text-ink-secondary text-label-md font-label-md transition-all active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-base">visibility</span>
+<span>Xem Store Khách</span>
+</button>
+<!-- Notification bell -->
+<button class="relative p-2 rounded-full border border-glass-border-dark bg-white hover:bg-surface-subtle text-ink-secondary transition-all">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary ring-2 ring-white"></span>
+</button>
+<!-- Super Admin Profile Card -->
+<div class="flex items-center gap-3 pl-2 py-1 pr-1 border border-glass-border-dark rounded-full bg-white/90 shadow-sm">
+<div class="relative">
+<img class="w-8 h-8 rounded-full object-cover ring-1 ring-primary/30" data-alt="Close up professional portrait of Nguyen Minh Huy, an Asian male senior executive tech operations manager in sharp dark minimalist blazer, confident subtle smile, illuminated by crisp studio softbox lighting, modern high-key white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABpkPstd6VW4S-bkxjD-LXa9_KWFSaPHTRIKVrtatfgQZ4SCSeuGJ269SOZ6ms817gMOOSbHPtDfU-EB-dENJWjQfvQ3JH_eeRjts19nIqDB_PqUt186Pxl37QsbJ5Z1Z8DRzL08LfcD_kkjKiboPpuODHcbcVC44X-lrE-8zwuUKh1Dp2CssnJKVgXXG1YWe4rbT4_Y7hbaeFS2RZqgQDtw9P17oyDgs11NbmAFHyJCYoW71RHUpfJQ"/>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-status-success ring-1 ring-white"></span>
+</div>
+<div class="hidden sm:flex flex-col text-left pr-2">
+<span class="text-label-md font-label-md text-ink-primary leading-tight font-bold">Nguyễn Minh Huy</span>
+<span class="text-[11px] font-medium text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">shield_person</span>
+            Super Admin
+          </span>
+</div>
+<button class="text-ink-tertiary hover:text-ink-primary p-1 transition-colors">
+<span class="material-symbols-outlined text-base">expand_more</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Body Wrapper with Left SideNav + Dashboard Canvas -->
+<div class="flex-1 flex w-full max-w-[1600px] mx-auto overflow-hidden">
+<!-- Sidebar Dashboard Navigation -->
+<aside class="w-64 hidden lg:flex flex-col border-r border-glass-border-dark bg-surface-subtle/50 p-4 shrink-0 space-y-6">
+<!-- Section: Vận hành cốt lõi -->
+<div>
+<p class="px-3 pb-2 text-[11px] font-bold text-ink-tertiary uppercase tracking-wider">Hệ Thống Vận Hành</p>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-label-md font-label-md text-ink-secondary hover:text-ink-primary hover:bg-white/80 transition-all" href="#">
+<span class="material-symbols-outlined text-lg">dashboard</span>
+<span>Tổng quan (Dashboard)</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-label-md font-label-md text-ink-secondary hover:text-ink-primary hover:bg-white/80 transition-all" href="#">
+<span class="material-symbols-outlined text-lg">local_shipping</span>
+<span>Quản lý đơn hàng (Orders)</span>
+<span class="ml-auto px-1.5 py-0.5 rounded-full text-[10px] bg-primary/10 text-primary font-bold">14</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-label-md font-label-md text-ink-secondary hover:text-ink-primary hover:bg-white/80 transition-all" href="#">
+<span class="material-symbols-outlined text-lg">inventory_2</span>
+<span>Quản lý sản phẩm (Stock)</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-label-md font-label-md text-ink-secondary hover:text-ink-primary hover:bg-white/80 transition-all" href="#">
+<span class="material-symbols-outlined text-lg">reviews</span>
+<span>Đánh giá &amp; Reviews</span>
+<span class="ml-auto w-2 h-2 rounded-full bg-status-warning"></span>
+</a>
+</nav>
+</div>
+<!-- Section: Quản trị & Phân quyền (Active) -->
+<div>
+<p class="px-3 pb-2 text-[11px] font-bold text-ink-tertiary uppercase tracking-wider">Phân Quyền &amp; Bảo Mật</p>
+<nav class="space-y-1">
+<!-- Active Tab: RBAC -->
+<a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-label-md font-label-md bg-white border border-glass-border-dark text-primary shadow-sm font-semibold transition-all" href="#">
+<span class="material-symbols-outlined text-lg text-primary" style="font-variation-settings: 'FILL' 1;">admin_panel_settings</span>
+<span>Phân quyền &amp; Nhân sự (RBAC)</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-label-md font-label-md text-ink-secondary hover:text-ink-primary hover:bg-white/80 transition-all" href="#">
+<span class="material-symbols-outlined text-lg">smart_toy</span>
+<span>F5Nexus AI Engine Hub</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-label-md font-label-md text-ink-secondary hover:text-ink-primary hover:bg-white/80 transition-all" href="#">
+<span class="material-symbols-outlined text-lg">history_edu</span>
+<span>Nhật ký kiểm toán (Logs)</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-label-md font-label-md text-ink-secondary hover:text-ink-primary hover:bg-white/80 transition-all" href="#">
+<span class="material-symbols-outlined text-lg">settings</span>
+<span>Cấu hình hệ thống</span>
+</a>
+</nav>
+</div>
+<!-- System Quick Health Indicator Box -->
+<div class="mt-auto p-4 rounded-2xl bg-white border border-glass-border-dark shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<span class="text-label-caps font-label-caps text-ink-tertiary uppercase">Bảo Mật 2FA / SSO</span>
+<span class="text-status-success text-xs font-bold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-sm">verified_user</span> Bật
+          </span>
+</div>
+<p class="text-body-sm font-body-sm text-ink-secondary leading-snug">Chính sách mật khẩu &amp; phiên làm việc 8 giờ đang áp dụng toàn bộ 17 nhân sự.</p>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 min-w-0 p-4 sm:p-6 lg:p-8 space-y-6 overflow-y-auto">
+<!-- Breadcrumb & Top Page Heading -->
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 text-body-sm font-body-sm text-ink-tertiary mb-1">
+<span>Quản Trị</span>
+<span>/</span>
+<span class="text-ink-primary font-medium">Phân Quyền &amp; Quản Lý Thành Viên (RBAC)</span>
+</div>
+<h1 class="text-headline-lg font-headline-lg text-ink-primary tracking-tight font-bold">
+            Phân Quyền &amp; Quản Lý Thành Viên
+          </h1>
+<p class="text-body-md font-body-md text-ink-secondary mt-1">
+            Kiểm soát quyền truy cập chi tiết, phân nhóm vai trò tác vụ và điều phối đội ngũ vận hành chuỗi Nexus Magic Vietnam.
+          </p>
+</div>
+<!-- Header Action CTAs -->
+<div class="flex items-center gap-3">
+<button class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-glass-border-dark bg-white hover:bg-surface-subtle text-ink-primary font-label-lg text-label-lg shadow-sm transition-all active:scale-95">
+<span class="material-symbols-outlined text-primary text-lg">badge</span>
+<span>Tạo Vai Trò Mới</span>
+</button>
+<button class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#FF334B] to-primary-container text-white font-label-lg text-label-lg shadow-[0_4px_14px_rgba(229,37,42,0.35)] hover:shadow-[0_6px_20px_rgba(229,37,42,0.45)] transition-all active:scale-95">
+<span class="material-symbols-outlined text-white text-lg">person_add</span>
+<span>+ Thêm Thành Viên Mới</span>
+</button>
+</div>
+</div>
+<!-- Role KPI Badges (4 Bento Summary Tiles) -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Card 1: Super Admin -->
+<div class="p-5 rounded-2xl bg-white border border-glass-border-dark shadow-[0_4px_20px_-2px_rgba(0,0,0,0.04)] relative overflow-hidden group hover:border-primary/40 transition-all">
+<div class="absolute -right-4 -bottom-4 w-20 h-20 bg-primary/5 rounded-full blur-xl group-hover:bg-primary/10 transition-all"></div>
+<div class="flex items-center justify-between mb-3">
+<div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shield_person</span>
+</div>
+<span class="text-label-caps font-label-caps px-2 py-0.5 rounded-full bg-primary/10 text-primary font-bold">Toàn quyền</span>
+</div>
+<h2 class="text-headline-sm font-headline-sm text-ink-primary font-bold mb-1">Super Admin</h2>
+<p class="text-body-sm font-body-sm text-ink-secondary line-clamp-1">Chủ cửa hàng, giám đốc kỹ thuật &amp; tài chính</p>
+<div class="mt-4 pt-3 border-t border-glass-border-dark flex items-center justify-between">
+<span class="text-price-card font-price-card text-ink-primary">2 <span class="text-body-sm font-body-sm text-ink-tertiary">thành viên</span></span>
+<span class="text-label-md font-label-md text-primary font-medium hover:underline cursor-pointer">Xem quyền</span>
+</div>
+</div>
+<!-- Card 2: Quản Lý Bán Hàng & Telesale -->
+<div class="p-5 rounded-2xl bg-white border border-glass-border-dark shadow-[0_4px_20px_-2px_rgba(0,0,0,0.04)] relative overflow-hidden group hover:border-primary/40 transition-all">
+<div class="flex items-center justify-between mb-3">
+<div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 flex items-center justify-center">
+<span class="material-symbols-outlined">support_agent</span>
+</div>
+<span class="text-label-caps font-label-caps px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-700 font-bold">Xác nhận COD</span>
+</div>
+<h2 class="text-headline-sm font-headline-sm text-ink-primary font-bold mb-1">Telesale &amp; Bán Hàng</h2>
+<p class="text-body-sm font-body-sm text-ink-secondary line-clamp-1">Gọi khách, xác nhận đơn &amp; duyệt ưu đãi</p>
+<div class="mt-4 pt-3 border-t border-glass-border-dark flex items-center justify-between">
+<span class="text-price-card font-price-card text-ink-primary">5 <span class="text-body-sm font-body-sm text-ink-tertiary">thành viên</span></span>
+<span class="text-label-md font-label-md text-ink-secondary hover:text-ink-primary font-medium cursor-pointer">Xem quyền</span>
+</div>
+</div>
+<!-- Card 3: Kho & Vận Đơn -->
+<div class="p-5 rounded-2xl bg-white border border-glass-border-dark shadow-[0_4px_20px_-2px_rgba(0,0,0,0.04)] relative overflow-hidden group hover:border-primary/40 transition-all">
+<div class="flex items-center justify-between mb-3">
+<div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center">
+<span class="material-symbols-outlined">pallet</span>
+</div>
+<span class="text-label-caps font-label-caps px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-700 font-bold">Tracking ĐVVC</span>
+</div>
+<h2 class="text-headline-sm font-headline-sm text-ink-primary font-bold mb-1">Kho &amp; Vận Đơn</h2>
+<p class="text-body-sm font-body-sm text-ink-secondary line-clamp-1">Đóng gói, in vận đơn GHN / Viettel Post</p>
+<div class="mt-4 pt-3 border-t border-glass-border-dark flex items-center justify-between">
+<span class="text-price-card font-price-card text-ink-primary">4 <span class="text-body-sm font-body-sm text-ink-tertiary">thành viên</span></span>
+<span class="text-label-md font-label-md text-ink-secondary hover:text-ink-primary font-medium cursor-pointer">Xem quyền</span>
+</div>
+</div>
+<!-- Card 4: CSKH & Bảo Hành -->
+<div class="p-5 rounded-2xl bg-white border border-glass-border-dark shadow-[0_4px_20px_-2px_rgba(0,0,0,0.04)] relative overflow-hidden group hover:border-primary/40 transition-all">
+<div class="flex items-center justify-between mb-3">
+<div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center">
+<span class="material-symbols-outlined">build_circle</span>
+</div>
+<span class="text-label-caps font-label-caps px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 font-bold">1 Đổi 1 / AI Hub</span>
+</div>
+<h2 class="text-headline-sm font-headline-sm text-ink-primary font-bold mb-1">CSKH &amp; Bảo Hành</h2>
+<p class="text-body-sm font-body-sm text-ink-secondary line-clamp-1">Duyệt reviews, kích hoạt bảo hành, F5Nexus</p>
+<div class="mt-4 pt-3 border-t border-glass-border-dark flex items-center justify-between">
+<span class="text-price-card font-price-card text-ink-primary">6 <span class="text-body-sm font-body-sm text-ink-tertiary">thành viên</span></span>
+<span class="text-label-md font-label-md text-ink-secondary hover:text-ink-primary font-medium cursor-pointer">Xem quyền</span>
+</div>
+</div>
+</section>
+<!-- Section: Visual Permission Matrix Table (Ma Trận Phân Quyền Trực Quan) -->
+<section class="rounded-2xl bg-white border border-glass-border-dark shadow-[0_4px_20px_-2px_rgba(0,0,0,0.04)] overflow-hidden">
+<div class="px-6 py-4 border-b border-glass-border-dark flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-surface-subtle/30">
+<div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">grid_view</span>
+<h2 class="text-headline-sm font-headline-sm font-bold text-ink-primary">Ma Trận Phân Quyền Chi Tiết (Role-Permission Matrix)</h2>
+</div>
+<p class="text-body-sm font-body-sm text-ink-secondary mt-0.5">Quy định thẩm quyền cụ thể theo từng nhóm tính năng tác vụ hệ thống</p>
+</div>
+<!-- Legend -->
+<div class="flex items-center gap-4 text-body-sm font-body-sm">
+<span class="flex items-center gap-1.5 text-ink-secondary">
+<span class="w-5 h-5 rounded-md bg-primary flex items-center justify-center text-white text-xs">
+<span class="material-symbols-outlined text-sm">check</span>
+</span>
+              Được phép
+            </span>
+<span class="flex items-center gap-1.5 text-ink-secondary">
+<span class="w-5 h-5 rounded-md bg-secondary-fixed flex items-center justify-center text-ink-secondary text-xs">
+<span class="material-symbols-outlined text-sm">visibility</span>
+</span>
+              Chỉ xem
+            </span>
+<span class="flex items-center gap-1.5 text-ink-secondary">
+<span class="w-5 h-5 rounded-md bg-surface-subtle border border-glass-border-dark flex items-center justify-center text-ink-tertiary text-xs">
+<span class="material-symbols-outlined text-sm">block</span>
+</span>
+              Bị chặn
+            </span>
+</div>
+</div>
+<div class="overflow-x-auto custom-scroll">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-glass-border-dark bg-surface-subtle/60 text-label-md font-label-md text-ink-secondary">
+<th class="py-3.5 px-6 font-semibold w-2/5">Tác Vụ &amp; Chức Năng Hệ Thống</th>
+<th class="py-3.5 px-4 font-semibold text-center w-[15%]">Super Admin</th>
+<th class="py-3.5 px-4 font-semibold text-center w-[15%]">Telesale &amp; Bán Hàng</th>
+<th class="py-3.5 px-4 font-semibold text-center w-[15%]">Kho &amp; Vận Đơn</th>
+<th class="py-3.5 px-4 font-semibold text-center w-[15%]">CSKH &amp; Bảo Hành</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-glass-border-dark text-body-sm font-body-sm">
+<!-- Category 1: Quản lý Đơn Hàng -->
+<tr class="bg-surface-subtle/20">
+<td class="py-2 px-6 font-bold text-label-caps font-label-caps text-ink-primary tracking-wider uppercase" colspan="5">
+                  1. Quản Trị Đơn Hàng &amp; Vận Hành Bán Lẻ
+                </td>
+</tr>
+<tr class="hover:bg-surface-subtle/40 transition-colors">
+<td class="py-3 px-6">
+<div class="font-medium text-ink-primary">Xem toàn bộ danh sách đơn hàng &amp; doanh thu</div>
+<div class="text-xs text-ink-tertiary">Truy cập dữ liệu tổng hợp đơn COD, chuyển khoản, thẻ tín dụng</div>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-primary text-white items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-base">check</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-primary text-white items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-base">check</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-secondary-fixed text-ink-secondary items-center justify-center">
+<span class="material-symbols-outlined text-base">visibility</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-primary text-white items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-base">check</span>
+</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-subtle/40 transition-colors">
+<td class="py-3 px-6">
+<div class="font-medium text-ink-primary">Xác nhận gọi điện &amp; Duyệt đơn COD hợp lệ</div>
+<div class="text-xs text-ink-tertiary">Chuyển trạng thái đơn sang 'Đã xác nhận' để đẩy sang kho đóng gói</div>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-primary text-white items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-base">check</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-primary text-white items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-base">check</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-surface-subtle text-ink-tertiary items-center justify-center border border-glass-border-dark">
+<span class="material-symbols-outlined text-base">block</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-secondary-fixed text-ink-secondary items-center justify-center">
+<span class="material-symbols-outlined text-base">visibility</span>
+</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-subtle/40 transition-colors">
+<td class="py-3 px-6">
+<div class="font-medium text-ink-primary">Xuất kho, in phiếu đóng gói &amp; tạo mã vận đơn ĐVVC</div>
+<div class="text-xs text-ink-tertiary">Liên kết API GHN, GHTK, Viettel Post và đối soát kiện hàng</div>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-primary text-white items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-base">check</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-secondary-fixed text-ink-secondary items-center justify-center">
+<span class="material-symbols-outlined text-base">visibility</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-primary text-white items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-base">check</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-surface-subtle text-ink-tertiary items-center justify-center border border-glass-border-dark">
+<span class="material-symbols-outlined text-base">block</span>
+</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-subtle/40 transition-colors">
+<td class="py-3 px-6">
+<div class="font-medium text-ink-primary">Hủy đơn &amp; Kích hoạt quy trình hoàn tiền (Refund)</div>
+<div class="text-xs text-ink-tertiary">Can thiệp dòng tiền cổng thanh toán VNPay / MoMo</div>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-primary text-white items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-base">check</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-surface-subtle text-ink-tertiary items-center justify-center border border-glass-border-dark">
+<span class="material-symbols-outlined text-base">block</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-surface-subtle text-ink-tertiary items-center justify-center border border-glass-border-dark">
+<span class="material-symbols-outlined text-base">block</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-secondary-fixed text-ink-secondary items-center justify-center">
+<span class="material-symbols-outlined text-base">visibility</span>
+</span>
+</td>
+</tr>
+<!-- Category 2: Danh Mục Sản Phẩm & Giá Bán -->
+<tr class="bg-surface-subtle/20">
+<td class="py-2 px-6 font-bold text-label-caps font-label-caps text-ink-primary tracking-wider uppercase" colspan="5">
+                  2. Danh Mục Sản Phẩm, Giá Bán &amp; Chiến Dịch Sale
+                </td>
+</tr>
+<tr class="hover:bg-surface-subtle/40 transition-colors">
+<td class="py-3 px-6">
+<div class="font-medium text-ink-primary">Chỉnh sửa giá niêm yết &amp; cấu hình Flash Sale Camp</div>
+<div class="text-xs text-ink-tertiary">Tác động trực tiếp giá bình giữ nhiệt, máy tăm nước, quạt mini</div>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-primary text-white items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-base">check</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-secondary-fixed text-ink-secondary items-center justify-center">
+<span class="material-symbols-outlined text-base">visibility</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-surface-subtle text-ink-tertiary items-center justify-center border border-glass-border-dark">
+<span class="material-symbols-outlined text-base">block</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-surface-subtle text-ink-tertiary items-center justify-center border border-glass-border-dark">
+<span class="material-symbols-outlined text-base">block</span>
+</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-subtle/40 transition-colors">
+<td class="py-3 px-6">
+<div class="font-medium text-ink-primary">Cập nhật thông số kỹ thuật (Inox 316, Dung lượng Pin, Động cơ)</div>
+<div class="text-xs text-ink-tertiary">Chỉnh sửa content Bento Showcase trên trang sản phẩm</div>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-primary text-white items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-base">check</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-secondary-fixed text-ink-secondary items-center justify-center">
+<span class="material-symbols-outlined text-base">visibility</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-secondary-fixed text-ink-secondary items-center justify-center">
+<span class="material-symbols-outlined text-base">visibility</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-primary text-white items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-base">check</span>
+</span>
+</td>
+</tr>
+<!-- Category 3: Đánh giá & Hỗ Trợ Khách Hàng -->
+<tr class="bg-surface-subtle/20">
+<td class="py-2 px-6 font-bold text-label-caps font-label-caps text-ink-primary tracking-wider uppercase" colspan="5">
+                  3. Quản Trị Đánh Giá &amp; Dịch Vụ Hậu Mãi
+                </td>
+</tr>
+<tr class="hover:bg-surface-subtle/40 transition-colors">
+<td class="py-3 px-6">
+<div class="font-medium text-ink-primary">Duyệt đánh giá, xóa spam &amp; gán badge 'Đã Mua Tại Nexus'</div>
+<div class="text-xs text-ink-tertiary">Kiểm duyệt hình ảnh feedback khách hàng và chấm sao uy tín</div>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-primary text-white items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-base">check</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-secondary-fixed text-ink-secondary items-center justify-center">
+<span class="material-symbols-outlined text-base">visibility</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-surface-subtle text-ink-tertiary items-center justify-center border border-glass-border-dark">
+<span class="material-symbols-outlined text-base">block</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-primary text-white items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-base">check</span>
+</span>
+</td>
+</tr>
+<!-- Category 4: AI & Trợ Lý F5Nexus -->
+<tr class="bg-surface-subtle/20">
+<td class="py-2 px-6 font-bold text-label-caps font-label-caps text-ink-primary tracking-wider uppercase" colspan="5">
+                  4. Trí Tuệ Nhân Tạo &amp; Trợ Lý Mua Sắm F5Nexus AI
+                </td>
+</tr>
+<tr class="hover:bg-surface-subtle/40 transition-colors">
+<td class="py-3 px-6">
+<div class="font-medium text-ink-primary">Xem log hội thoại &amp; Giám sát tỷ lệ chuyển đổi bot</div>
+<div class="text-xs text-ink-tertiary">Theo dõi các kịch bản tư vấn quà tặng và so sánh công suất</div>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-primary text-white items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-base">check</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-secondary-fixed text-ink-secondary items-center justify-center">
+<span class="material-symbols-outlined text-base">visibility</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-surface-subtle text-ink-tertiary items-center justify-center border border-glass-border-dark">
+<span class="material-symbols-outlined text-base">block</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-primary text-white items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-base">check</span>
+</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-subtle/40 transition-colors">
+<td class="py-3 px-6">
+<div class="font-medium text-ink-primary">Tinh chỉnh Prompt, Knowledge Base &amp; Ngữ Cảnh Sản Phẩm</div>
+<div class="text-xs text-ink-tertiary">Nạp dữ liệu bảo hành 24 tháng, chính sách 1 đổi 1 vào mô hình LLM</div>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-primary text-white items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-base">check</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-surface-subtle text-ink-tertiary items-center justify-center border border-glass-border-dark">
+<span class="material-symbols-outlined text-base">block</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-surface-subtle text-ink-tertiary items-center justify-center border border-glass-border-dark">
+<span class="material-symbols-outlined text-base">block</span>
+</span>
+</td>
+<td class="text-center py-3 px-4">
+<span class="inline-flex w-7 h-7 rounded-lg bg-surface-subtle text-ink-tertiary items-center justify-center border border-glass-border-dark">
+<span class="material-symbols-outlined text-base">block</span>
+</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Section: Danh Sách Thành Viên & Trạng Thái Hoạt Động -->
+<section class="rounded-2xl bg-white border border-glass-border-dark shadow-[0_4px_20px_-2px_rgba(0,0,0,0.04)] overflow-hidden">
+<!-- Table Header Toolbar -->
+<div class="p-6 border-b border-glass-border-dark flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+<div>
+<h2 class="text-headline-sm font-headline-sm font-bold text-ink-primary">Danh Sách Thành Viên Hoạt Động (17 Nhân Sự)</h2>
+<p class="text-body-sm font-body-sm text-ink-secondary mt-0.5">Quản lý tài khoản, gán vai trò và giám sát phiên đăng nhập nhân viên</p>
+</div>
+<!-- Filters & Filter Pills -->
+<div class="flex flex-wrap items-center gap-2">
+<button class="px-3 py-1.5 rounded-full bg-ink-primary text-white text-label-md font-label-md shadow-sm">
+              Tất cả (17)
+            </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-subtle text-ink-secondary hover:text-ink-primary text-label-md font-label-md transition-colors">
+              Super Admin (2)
+            </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-subtle text-ink-secondary hover:text-ink-primary text-label-md font-label-md transition-colors">
+              Telesale (5)
+            </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-subtle text-ink-secondary hover:text-ink-primary text-label-md font-label-md transition-colors">
+              Kho &amp; Vận Đơn (4)
+            </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-subtle text-ink-secondary hover:text-ink-primary text-label-md font-label-md transition-colors">
+              CSKH (6)
+            </button>
+</div>
+</div>
+<!-- Member Table -->
+<div class="overflow-x-auto custom-scroll">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-glass-border-dark bg-surface-subtle/50 text-label-md font-label-md text-ink-secondary">
+<th class="py-3 px-6 font-semibold">Nhân Sự &amp; Email</th>
+<th class="py-3 px-4 font-semibold">Số Điện Thoại</th>
+<th class="py-3 px-4 font-semibold">Vai Trò Phụ Trách</th>
+<th class="py-3 px-4 font-semibold">Trạng Thái</th>
+<th class="py-3 px-4 font-semibold">Hoạt Động Gần Nhất</th>
+<th class="py-3 px-6 font-semibold text-right">Tác Vụ</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-glass-border-dark text-body-sm font-body-sm">
+<!-- User 1 -->
+<tr class="hover:bg-surface-subtle/40 transition-colors">
+<td class="py-3.5 px-6">
+<div class="flex items-center gap-3">
+<img class="w-9 h-9 rounded-full object-cover border border-glass-border-dark" data-alt="Portrait of Asian male system administrator Nguyen Minh Huy wearing modern glasses and casual corporate dark shirt in sleek office space with bright subtle lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6BGtIiB2vhcHUZNGxaa3ADrsKTH0stBYMv82_jp8xLwJje4sX91V0UKBT6UZqO42uzhzD_TzqM5YmxH0W6E4FMNjMG3qmGvPJyVbNUuVWDIVEakMxSb1Lsf0w5VhqS635gcXFw58zHCJTAGxcl_ip3txhkg44WQE8ZMtFxAlIOBGsOne14BNgibwz5PBHwiVDVd0RMGPoI8OfyaX-AOTv4OK-HO_5hvOibcvWrMehgwLvSVSmK-24cQ"/>
+<div>
+<div class="font-bold text-ink-primary flex items-center gap-1.5">
+                        Nguyễn Minh Huy
+                        <span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div class="text-xs text-ink-tertiary">huy.nguyen@magicnexus.vn</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4 font-medium text-ink-primary">0988 123 456</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary/10 text-primary font-bold text-label-caps font-label-caps">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Super Admin
+                  </span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-status-success/10 text-status-success text-xs font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success animate-ping"></span> Đang online
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-ink-secondary">Vừa xong (10.0.1.42)</td>
+<td class="py-3.5 px-6 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 hover:bg-surface-subtle rounded-lg text-ink-secondary hover:text-primary transition-colors" title="Sửa vai trò">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="p-1.5 hover:bg-surface-subtle rounded-lg text-ink-secondary hover:text-ink-primary transition-colors" title="Đổi mật khẩu">
+<span class="material-symbols-outlined text-lg">lock_reset</span>
+</button>
+<button class="p-1.5 hover:bg-red-50 rounded-lg text-ink-tertiary hover:text-error transition-colors" title="Khóa tài khoản">
+<span class="material-symbols-outlined text-lg">block</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- User 2 -->
+<tr class="hover:bg-surface-subtle/40 transition-colors">
+<td class="py-3.5 px-6">
+<div class="flex items-center gap-3">
+<img class="w-9 h-9 rounded-full object-cover border border-glass-border-dark" data-alt="Portrait of Asian female sales specialist Tran Thi Mai wearing friendly headset and elegant light grey office blazer in soft warm white environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOSJnYKji6IRMT0ATb5qY5Hu7-Lq5Ult8l7uf3cpfDCOAX1_pQOXp2ZtY7NmVY7UowycWUuB3_bRI2gMS9AkLMMfsCJBphbdcK4pnRHgRvt_4tfW8RBnRln0nDgSkD5IAJBMZjlkc35G6TeTMH5rA0VFg9tMM04te4h4NcM8KZzsRQqDpKa4XeU__X0mhIah7Hz0nRWz02JBa9S8ZufI3l8AmCOsjpY-DzarbwqhQlwgOK5gYFg50kIQ"/>
+<div>
+<div class="font-bold text-ink-primary">Trần Thị Mai</div>
+<div class="text-xs text-ink-tertiary">mai.tran@magicnexus.vn</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4 font-medium text-ink-primary">0912 889 001</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 font-bold text-label-caps font-label-caps">
+                    Telesale Lead
+                  </span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-status-success/10 text-status-success text-xs font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span> Đang online
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-ink-secondary">4 phút trước</td>
+<td class="py-3.5 px-6 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 hover:bg-surface-subtle rounded-lg text-ink-secondary hover:text-primary transition-colors" title="Sửa vai trò">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="p-1.5 hover:bg-surface-subtle rounded-lg text-ink-secondary hover:text-ink-primary transition-colors" title="Đổi mật khẩu">
+<span class="material-symbols-outlined text-lg">lock_reset</span>
+</button>
+<button class="p-1.5 hover:bg-red-50 rounded-lg text-ink-tertiary hover:text-error transition-colors" title="Khóa tài khoản">
+<span class="material-symbols-outlined text-lg">block</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- User 3 -->
+<tr class="hover:bg-surface-subtle/40 transition-colors">
+<td class="py-3.5 px-6">
+<div class="flex items-center gap-3">
+<img class="w-9 h-9 rounded-full object-cover border border-glass-border-dark" data-alt="Portrait of Asian male warehouse operations officer Le Van Nam wearing comfortable high-visibility accent polo shirt against clean modern logistics facility background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-4XOw4JgnWkySkQpRG9vNlILLCmBVcsY6VIB3yiN55sz8tDoCh0-UEuCO5DNCDybFjL1EWl4keb2i9iEj1ysmz2LCjP8XlZaKzSdOnN_JylSbNTFNWr3VqxHf-h-cieNhGa0wv9CCW7g0SjV2VoK5orQP4xvNuzAp-DYrae-vm88Zom2Qq6E94Azokd3N2pSAbcscsW6rYp5709wcYIpmBSU3-MxmoDCPVispcuVlJg0J7gDnpOVbUA"/>
+<div>
+<div class="font-bold text-ink-primary">Lê Văn Nam</div>
+<div class="text-xs text-ink-tertiary">nam.le@magicnexus.vn</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4 font-medium text-ink-primary">0903 554 112</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 font-bold text-label-caps font-label-caps">
+                    Quản Lý Kho Hàng
+                  </span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-status-success/10 text-status-success text-xs font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span> Đang online
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-ink-secondary">18 phút trước</td>
+<td class="py-3.5 px-6 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 hover:bg-surface-subtle rounded-lg text-ink-secondary hover:text-primary transition-colors" title="Sửa vai trò">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="p-1.5 hover:bg-surface-subtle rounded-lg text-ink-secondary hover:text-ink-primary transition-colors" title="Đổi mật khẩu">
+<span class="material-symbols-outlined text-lg">lock_reset</span>
+</button>
+<button class="p-1.5 hover:bg-red-50 rounded-lg text-ink-tertiary hover:text-error transition-colors" title="Khóa tài khoản">
+<span class="material-symbols-outlined text-lg">block</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- User 4 -->
+<tr class="hover:bg-surface-subtle/40 transition-colors">
+<td class="py-3.5 px-6">
+<div class="flex items-center gap-3">
+<img class="w-9 h-9 rounded-full object-cover border border-glass-border-dark" data-alt="Portrait of Asian female customer support specialist Pham Thu Huong with friendly smile in modern bright showroom setting with subtle red accents in background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCc_OlJwBJg1PKYRYyIVwV-F_1kBlLgtJV4KTGY0BhqUjt7_OLg3K-299Fl318X2-lmbnGYp8XBekobvaCDfiT1tZDgtU0U33p41qMY6j3G_V8v8RaZJvwjL3G_ieriU6EU5Suxa0LRV1Ds0L91AwWxIlXoIRisZG-z1n8u5DX-CtKrMZ8TSJ11EfaKuTEudCRtq0u_5AahgxUv6G37Zb_rcufAU3f9GlYTIlvBqpF_F8CNS0t_JljvaA"/>
+<div>
+<div class="font-bold text-ink-primary">Phạm Thu Hương</div>
+<div class="text-xs text-ink-tertiary">huong.pham@magicnexus.vn</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4 font-medium text-ink-primary">0971 445 998</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 font-bold text-label-caps font-label-caps">
+                    CSKH &amp; Bảo Hành
+                  </span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-status-success/10 text-status-success text-xs font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span> Đang online
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-ink-secondary">32 phút trước</td>
+<td class="py-3.5 px-6 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 hover:bg-surface-subtle rounded-lg text-ink-secondary hover:text-primary transition-colors" title="Sửa vai trò">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="p-1.5 hover:bg-surface-subtle rounded-lg text-ink-secondary hover:text-ink-primary transition-colors" title="Đổi mật khẩu">
+<span class="material-symbols-outlined text-lg">lock_reset</span>
+</button>
+<button class="p-1.5 hover:bg-red-50 rounded-lg text-ink-tertiary hover:text-error transition-colors" title="Khóa tài khoản">
+<span class="material-symbols-outlined text-lg">block</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- User 5 (Locked / Inactive demo) -->
+<tr class="hover:bg-surface-subtle/40 transition-colors opacity-75">
+<td class="py-3.5 px-6">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-surface-subtle border border-glass-border-dark flex items-center justify-center font-bold text-ink-secondary">
+                      ĐT
+                    </div>
+<div>
+<div class="font-bold text-ink-primary">Đặng Tuấn Anh</div>
+<div class="text-xs text-ink-tertiary">tuananh.dang@magicnexus.vn</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4 font-medium text-ink-secondary">0934 009 881</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-subtle text-ink-secondary font-bold text-label-caps font-label-caps">
+                    Telesale Thử Việc
+                  </span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-error/10 text-error text-xs font-semibold">
+<span class="material-symbols-outlined text-xs">lock</span> Tạm khóa
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-ink-tertiary">3 ngày trước</td>
+<td class="py-3.5 px-6 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 hover:bg-surface-subtle rounded-lg text-primary transition-colors" title="Mở khóa tài khoản">
+<span class="material-symbols-outlined text-lg">lock_open</span>
+</button>
+<button class="p-1.5 hover:bg-red-50 rounded-lg text-error transition-colors" title="Xóa vĩnh viễn">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer Pagination -->
+<div class="px-6 py-3 border-t border-glass-border-dark bg-surface-subtle/30 flex items-center justify-between text-body-sm font-body-sm text-ink-secondary">
+<span>Hiển thị 1 - 5 trên 17 thành viên</span>
+<div class="flex items-center gap-1">
+<button class="px-3 py-1 rounded-md border border-glass-border-dark bg-white hover:bg-surface-subtle disabled:opacity-50" disabled="">Trước</button>
+<button class="px-3 py-1 rounded-md bg-ink-primary text-white font-medium">1</button>
+<button class="px-3 py-1 rounded-md border border-glass-border-dark bg-white hover:bg-surface-subtle">2</button>
+<button class="px-3 py-1 rounded-md border border-glass-border-dark bg-white hover:bg-surface-subtle">3</button>
+<button class="px-3 py-1 rounded-md border border-glass-border-dark bg-white hover:bg-surface-subtle">Sau</button>
+</div>
+</div>
+</section>
+<!-- Section: Realtime Audit Logs & F5Nexus Security Monitoring -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Audit Logs Preview (Spans 2 columns) -->
+<div class="lg:col-span-2 rounded-2xl bg-white border border-glass-border-dark shadow-[0_4px_20px_-2px_rgba(0,0,0,0.04)] p-6">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">history</span>
+<h2 class="text-headline-sm font-headline-sm font-bold text-ink-primary">Nhật Ký Kiểm Toán (Audit Logs Realtime)</h2>
+</div>
+<a class="text-label-md font-label-md text-primary font-semibold hover:underline" href="#">Xem toàn bộ 1,420 logs</a>
+</div>
+<div class="space-y-3">
+<!-- Log Item 1 -->
+<div class="p-3.5 rounded-xl bg-surface-subtle/50 border border-glass-border-dark flex items-start justify-between gap-3 hover:bg-surface-subtle transition-colors">
+<div class="flex items-start gap-3">
+<span class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-base">local_shipping</span>
+</span>
+<div>
+<p class="text-body-sm font-body-sm text-ink-primary font-medium">
+<span class="font-bold text-ink-primary">Admin Huy</span> đã chuyển đơn <span class="text-primary font-semibold">#7KZ1A</span> sang trạng thái <span class="text-status-success font-semibold">Đang Giao Hàng</span>
+</p>
+<p class="text-xs text-ink-tertiary mt-0.5">Mã vận đơn GHN: <span class="font-mono">GHN8921893VN</span> • Đích đến: Quận 1, TP.HCM</p>
+</div>
+</div>
+<span class="text-xs text-ink-tertiary whitespace-nowrap">2 phút trước</span>
+</div>
+<!-- Log Item 2 -->
+<div class="p-3.5 rounded-xl bg-surface-subtle/50 border border-glass-border-dark flex items-start justify-between gap-3 hover:bg-surface-subtle transition-colors">
+<div class="flex items-start gap-3">
+<span class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-base">call_end</span>
+</span>
+<div>
+<p class="text-body-sm font-body-sm text-ink-primary font-medium">
+<span class="font-bold text-ink-primary">Telesale Mai</span> đã xác nhận cuộc gọi thành công đơn <span class="text-primary font-semibold">#89XC2</span>
+</p>
+<p class="text-xs text-ink-tertiary mt-0.5">Bình giữ nhiệt Magic Nexus 800ml Inox 316 (Màu Đỏ Nhám) • Khách đồng kiểm COD</p>
+</div>
+</div>
+<span class="text-xs text-ink-tertiary whitespace-nowrap">11 phút trước</span>
+</div>
+<!-- Log Item 3 -->
+<div class="p-3.5 rounded-xl bg-surface-subtle/50 border border-glass-border-dark flex items-start justify-between gap-3 hover:bg-surface-subtle transition-colors">
+<div class="flex items-start gap-3">
+<span class="w-8 h-8 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-base">rate_review</span>
+</span>
+<div>
+<p class="text-body-sm font-body-sm text-ink-primary font-medium">
+<span class="font-bold text-ink-primary">CSKH Hương</span> đã duyệt đánh giá 5 sao kèm hình ảnh thực tế cho máy tăm nước W1 Pro
+                  </p>
+<p class="text-xs text-ink-tertiary mt-0.5">Gán nhãn xác thực <span class="text-primary font-medium">"Đã mua tại Magic Nexus"</span></p>
+</div>
+</div>
+<span class="text-xs text-ink-tertiary whitespace-nowrap">24 phút trước</span>
+</div>
+</div>
+</div>
+<!-- F5Nexus Assistant Guard & Policy Card (Spans 1 column) -->
+<div class="rounded-2xl bg-gradient-to-br from-white to-surface-subtle border border-glass-border-dark shadow-[0_4px_20px_-2px_rgba(0,0,0,0.04)] p-6 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="px-2.5 py-1 rounded-full bg-primary/10 text-primary text-label-caps font-label-caps font-bold">Nexus Guardian AI</span>
+<span class="w-2.5 h-2.5 rounded-full bg-status-success"></span>
+</div>
+<h2 class="text-headline-sm font-headline-sm font-bold text-ink-primary mb-2">Giám Sát Truy Cập Bất Thường</h2>
+<p class="text-body-sm font-body-sm text-ink-secondary leading-relaxed">
+              F5Nexus AI Engine tự động phát hiện hành vi xuất dữ liệu khách hàng hàng loạt hoặc đăng nhập từ dải IP lạ bên ngoài Việt Nam.
+            </p>
+<div class="mt-4 p-3 rounded-xl bg-white border border-glass-border-dark space-y-2">
+<div class="flex items-center justify-between text-xs">
+<span class="text-ink-secondary">Tỷ lệ truy cập an toàn:</span>
+<span class="font-bold text-status-success">100% (An toàn)</span>
+</div>
+<div class="w-full bg-surface-subtle h-1.5 rounded-full overflow-hidden">
+<div class="bg-status-success h-full w-full rounded-full"></div>
+</div>
+<div class="flex items-center justify-between text-[11px] text-ink-tertiary">
+<span>0 Cảnh báo vi phạm chính sách</span>
+<span>Audit hash: #SHA256-NX</span>
+</div>
+</div>
+</div>
+<div class="pt-4 mt-4 border-t border-glass-border-dark flex items-center justify-between">
+<span class="text-body-sm font-body-sm font-medium text-ink-primary">Cấu hình bảo mật nâng cao</span>
+<button class="p-2 rounded-full hover:bg-surface-subtle text-primary transition-all">
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- Footer Component adhering to Shared Components JSON -->
+<footer class="w-full rounded-t-3xl border-t border-glass-border-dark dark:border-glass-border bg-surface-subtle dark:bg-inverse-surface mt-12">
+<div class="w-full max-w-7xl mx-auto px-8 py-12 flex flex-col md:flex-row justify-between items-center gap-6">
+<!-- Brand & Copyright -->
+<div class="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+<span class="text-headline-sm font-headline-sm font-bold text-ink-primary dark:text-ink-inverse">
+          Magic Nexus
+        </span>
+<span class="hidden sm:inline-block text-ink-tertiary">|</span>
+<p class="text-body-sm font-body-sm text-ink-tertiary dark:text-secondary-fixed-dim">
+          © 2025 Magic Vietnam. Bảo hành chính hãng 24 tháng. Hotline 24/7: 1800 6868.
+        </p>
+</div>
+<!-- Links adhering to JSON -->
+<div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-label-md font-label-md">
+<a class="text-ink-tertiary dark:text-secondary-fixed-dim hover:text-ink-primary dark:hover:text-ink-inverse transition-colors" href="#">Chính sách bảo hành</a>
+<a class="text-ink-tertiary dark:text-secondary-fixed-dim hover:text-ink-primary dark:hover:text-ink-inverse transition-colors" href="#">Cam kết chính hãng</a>
+<a class="text-ink-tertiary dark:text-secondary-fixed-dim hover:text-ink-primary dark:hover:text-ink-inverse transition-colors" href="#">Hệ thống trạm dịch vụ</a>
+<a class="text-ink-tertiary dark:text-secondary-fixed-dim hover:text-ink-primary dark:hover:text-ink-inverse transition-colors" href="#">Zalo Official Hotline</a>
+<a class="text-ink-tertiary dark:text-secondary-fixed-dim hover:text-ink-primary dark:hover:text-ink-inverse transition-colors" href="#">Điều khoản mua hàng</a>
+<a class="text-ink-tertiary dark:text-secondary-fixed-dim hover:text-ink-primary dark:hover:text-ink-inverse transition-colors" href="#">Bảo mật thông tin</a>
+</div>
+</div>
+</footer>
+</body></html>

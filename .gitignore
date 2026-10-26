@@ -1,0 +1,8 @@
+.DS_Store
+*.zip
+*.tar.gz
+*.rar
+node_modules/
+.env
+.env.local
+Thumbs.db

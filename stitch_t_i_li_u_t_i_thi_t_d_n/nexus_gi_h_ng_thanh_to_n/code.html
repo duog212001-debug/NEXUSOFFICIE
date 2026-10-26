@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nexus - Giỏ Hàng &amp; Thanh Toán Nhanh</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Inter Google Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with container-queries and forms -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Verbatim Tailwind Configuration -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-glass-tint": "rgba(245, 245, 247, 0.8)",
+            "on-primary-fixed": "#410003",
+            "surface-bright": "#faf8fe",
+            "on-secondary-fixed": "#1b1b1d",
+            "inverse-surface": "#2f3034",
+            "ink-primary": "#1D1D1F",
+            "surface-dim": "#dad9df",
+            "surface-container": "#eeedf3",
+            "secondary-fixed": "#e4e2e4",
+            "on-secondary-fixed-variant": "#474649",
+            "on-primary-container": "#ffffff",
+            "on-tertiary": "#ffffff",
+            "primary-fixed": "#ffdad6",
+            "ink-tertiary": "#86868B",
+            "primary-container": "#e5252a",
+            "on-primary-fixed-variant": "#93000f",
+            "inverse-primary": "#ffb4ac",
+            "secondary-fixed-dim": "#c8c6c8",
+            "status-warning": "#FF9500",
+            "on-surface": "#1a1b1f",
+            "surface-variant": "#e3e2e7",
+            "on-secondary-container": "#636264",
+            "on-secondary": "#ffffff",
+            "secondary-container": "#e2dfe1",
+            "surface-canvas": "#FFFFFF",
+            "on-primary": "#ffffff",
+            "primary": "#be0017",
+            "on-tertiary-container": "#ffffff",
+            "nexus-glow": "rgba(229, 37, 42, 0.28)",
+            "surface-glass": "rgba(255, 255, 255, 0.72)",
+            "surface-container-low": "#f4f3f8",
+            "on-surface-variant": "#5d3f3c",
+            "tertiary-fixed": "#ffdad9",
+            "error-container": "#ffdad6",
+            "outline": "#926f6b",
+            "on-error-container": "#93000a",
+            "on-error": "#ffffff",
+            "background": "#faf8fe",
+            "status-success": "#34C759",
+            "on-background": "#1a1b1f",
+            "tertiary": "#be002b",
+            "primary-fixed-dim": "#ffb4ac",
+            "ink-secondary": "#6E6E73",
+            "on-tertiary-fixed": "#410008",
+            "ink-inverse": "#FFFFFF",
+            "secondary": "#5f5e60",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-highest": "#e3e2e7",
+            "tertiary-fixed-dim": "#ffb3b2",
+            "surface-container-high": "#e9e7ed",
+            "surface-tint": "#c00017",
+            "on-tertiary-fixed-variant": "#92001f",
+            "tertiary-container": "#e71d3d",
+            "surface": "#faf8fe",
+            "inverse-on-surface": "#f1f0f5",
+            "glass-border-dark": "rgba(0, 0, 0, 0.08)",
+            "glass-border": "rgba(255, 255, 255, 0.6)",
+            "surface-subtle": "#F5F5F7",
+            "outline-variant": "#e6bdb8",
+            "error": "#ba1a1a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin": "2rem",
+            "space-md": "1rem",
+            "gutter": "1.5rem",
+            "gutter-mobile": "0.75rem",
+            "space-xs": "0.25rem",
+            "space-xl": "2.5rem",
+            "space-lg": "1.5rem",
+            "margin-mobile": "1rem",
+            "space-2xl": "4rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "body-lg": ["Inter"],
+            "body-sm": ["Inter"],
+            "display-hero-mobile": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "label-lg": ["Inter"],
+            "label-caps": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-xl": ["Inter"],
+            "headline-lg": ["Inter"],
+            "price-card": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-md": ["Inter"],
+            "price-hero": ["Inter"],
+            "display-hero": ["Inter"],
+            "headline-sm": ["Inter"],
+            "headline-xl-mobile": ["Inter"]
+          },
+          "fontSize": {
+            "body-lg": ["17px", {"lineHeight": "25px", "letterSpacing": "-0.005em", "fontWeight": "400"}],
+            "body-sm": ["13px", {"lineHeight": "18px", "letterSpacing": "0.005em", "fontWeight": "400"}],
+            "display-hero-mobile": ["36px", {"lineHeight": "42px", "letterSpacing": "-0.025em", "fontWeight": "700"}],
+            "headline-lg-mobile": ["24px", {"lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+            "label-lg": ["14px", {"lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+            "label-caps": ["11px", {"lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "700"}],
+            "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+            "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.025em", "fontWeight": "600"}],
+            "headline-lg": ["32px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+            "price-card": ["20px", {"lineHeight": "24px", "letterSpacing": "-0.015em", "fontWeight": "700"}],
+            "body-md": ["15px", {"lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400"}],
+            "headline-md": ["24px", {"lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+            "price-hero": ["32px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "display-hero": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+            "headline-sm": ["20px", {"lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "headline-xl-mobile": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #FAF8FE;
+      color: #1D1D1F;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+    }
+
+    .glass-card-subtle {
+      background: rgba(245, 245, 247, 0.6);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .btn-crimson {
+      background: linear-gradient(135deg, #FF334B 0%, #E5252A 100%);
+      box-shadow: 0 8px 24px -4px rgba(229, 37, 42, 0.38);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-crimson:hover {
+      box-shadow: 0 10px 28px -2px rgba(229, 37, 42, 0.48);
+      transform: translateY(-1px);
+    }
+    .btn-crimson:active {
+      transform: scale(0.98);
+    }
+
+    /* Custom Checkbox & Radio */
+    input[type="radio"]:checked {
+      background-color: #E5252A;
+      border-color: #E5252A;
+      box-shadow: 0 0 0 3px rgba(229, 37, 42, 0.18);
+    }
+
+    /* Hide scrollbars for cleaner Apple aesthetic */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.12);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-primary-fixed selection:text-primary">
+<!-- Shared Component: TopNavBar -->
+<header class="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-7xl rounded-full bg-surface-glass backdrop-blur-xl border border-glass-border shadow-[0_10px_30px_-5px_rgba(0,0,0,0.06)] flex items-center justify-between px-6 py-3 w-full z-50">
+<div class="flex items-center gap-6">
+<a class="flex items-center gap-2.5 group" href="#">
+<!-- Logo Image with DataStore Placeholder -->
+<img alt="Nexus Logo" class="w-8 h-8 object-contain transition-transform group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTGh875mPiBY3BZOJrQk3fWMTQzV1YgscmaNibbxrj4374l3dsoCsTv6I7xaSbZLjRkWHK-bAvZHjmTgbmf8gh6eUQrsy6ZAJtlTiFaTRUVIVqADNMej6Hp_CmHzSECSDxwUKRCRnP_jJ_G6nvuGMJU9I50F-Eblf3b-sN7PnCIO5xGwbvbFespbTbnxGuxHWrqBdGER_yGz36qWZuqngiBeksz-IrNMUaWPAcHFa3nB655LOC5ECG9MClQUAcJnIjXjY"/>
+<span class="text-headline-sm font-headline-sm font-bold tracking-tight text-ink-primary">Magic Nexus</span>
+</a>
+<!-- Desktop Breadcrumb Step Indicator -->
+<nav class="hidden md:flex items-center gap-4 pl-4 border-l border-glass-border-dark">
+<a class="text-ink-secondary hover:text-ink-primary text-label-lg font-label-lg transition-colors flex items-center gap-1.5" href="#">
+<span>Răng miệng</span>
+</a>
+<a class="text-ink-secondary hover:text-ink-primary text-label-lg font-label-lg transition-colors flex items-center gap-1.5" href="#">
+<span>Bình giữ nhiệt</span>
+</a>
+<a class="text-ink-secondary hover:text-ink-primary text-label-lg font-label-lg transition-colors" href="#">
+<span>Quạt mini</span>
+</a>
+<a class="text-ink-secondary hover:text-ink-primary text-label-lg font-label-lg transition-colors" href="#">
+<span>So sánh</span>
+</a>
+<a class="text-primary font-label-lg font-semibold border-b-2 border-primary pb-1 flex items-center gap-1" href="#">
+<span>Giỏ hàng</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary inline-block"></span>
+</a>
+<a class="text-ink-secondary hover:text-ink-primary text-label-lg font-label-lg transition-colors" href="#">
+<span>Thanh toán</span>
+</a>
+</nav>
+</div>
+<!-- Trailing Action Cluster -->
+<div class="flex items-center gap-3">
+<div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-subtle/70 border border-glass-border text-label-md font-label-md text-ink-secondary">
+<span class="material-symbols-outlined text-[16px] text-status-success">verified_user</span>
+<span>Cam kết bảo mật 100%</span>
+</div>
+<button class="flex items-center gap-1.5 px-4 py-2 rounded-full bg-surface-subtle hover:bg-surface-subtle/80 text-ink-primary text-label-lg font-label-lg transition-all duration-200 active:scale-95 border border-glass-border-dark">
+<span class="material-symbols-outlined text-[18px]">support_agent</span>
+<span class="hidden lg:inline">Tư vấn F5Nexus</span>
+</button>
+<div class="flex items-center gap-1 pl-1">
+<button aria-label="Tìm kiếm" class="p-2 text-ink-secondary hover:text-primary transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</button>
+<button aria-label="Giỏ hàng" class="relative p-2 text-primary active:scale-95">
+<span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+<span class="absolute top-1 right-1 w-4 h-4 bg-primary text-on-primary text-[10px] font-bold rounded-full flex items-center justify-center">2</span>
+</button>
+<button aria-label="Tài khoản" class="p-2 text-ink-secondary hover:text-primary transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[20px]">person</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Space Container -->
+<main class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 flex-1">
+<!-- Top Context & Step Bar (Apple Style Breadcrumb) -->
+<div class="mb-8 pt-2">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-label-caps font-label-caps uppercase tracking-wider">
+              NEXUS OFFICIAL CHECKOUT
+            </span>
+<span class="text-ink-tertiary text-label-md font-label-md">• Giao nhanh toàn quốc</span>
+</div>
+<h1 class="text-headline-xl font-headline-xl text-ink-primary tracking-tight">
+            Giỏ Hàng &amp; Đặt Hàng Nhanh
+          </h1>
+</div>
+<!-- Trust Mini Badges -->
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1.5 text-ink-secondary text-label-sm font-label-md bg-white/70 px-3 py-1.5 rounded-full border border-glass-border shadow-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">local_shipping</span>
+<span>Miễn phí ship đơn từ 500k</span>
+</div>
+<div class="flex items-center gap-1.5 text-ink-secondary text-label-sm font-label-md bg-white/70 px-3 py-1.5 rounded-full border border-glass-border shadow-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">phone_in_talk</span>
+<span>Hotline: <strong class="text-ink-primary font-semibold">0787 712 566</strong></span>
+</div>
+</div>
+</div>
+</div>
+<!-- 2-Column Responsive Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- LEFT COLUMN: Customer Information & Delivery Form (7 cols) -->
+<section class="lg:col-span-7 flex flex-col gap-6">
+<!-- Step 1: Thông tin người nhận -->
+<div class="glass-card rounded-2xl p-6 sm:p-7 transition-all duration-300">
+<div class="flex items-center justify-between pb-4 mb-5 border-b border-glass-border-dark">
+<div class="flex items-center gap-3">
+<span class="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-label-md font-label-md">1</span>
+<h2 class="text-headline-sm font-headline-sm text-ink-primary">Thông tin nhận hàng</h2>
+</div>
+<span class="text-label-sm font-label-md text-ink-tertiary">Chính xác để liên hệ giao</span>
+</div>
+<form class="space-y-4" id="checkout-form" onsubmit="event.preventDefault();">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<!-- Họ và tên -->
+<div class="space-y-1.5">
+<label class="block text-label-lg font-label-lg text-ink-primary" for="fullName">
+                  Họ và tên <span class="text-primary">*</span>
+</label>
+<div class="relative">
+<input class="w-full bg-white/90 border border-glass-border-dark focus:border-primary focus:ring-4 focus:ring-primary/10 rounded-xl px-4 py-3 text-body-md font-body-md text-ink-primary placeholder-ink-tertiary transition-all" id="fullName" placeholder="Ví dụ: Nguyễn Văn A" required="" type="text" value="Nguyễn Minh Huy"/>
+<span class="material-symbols-outlined absolute right-3.5 top-3.5 text-ink-tertiary text-[18px]">person</span>
+</div>
+</div>
+<!-- Số điện thoại -->
+<div class="space-y-1.5">
+<label class="block text-label-lg font-label-lg text-ink-primary" for="phoneNumber">
+                  Số điện thoại (10 số) <span class="text-primary">*</span>
+</label>
+<div class="relative">
+<input class="w-full bg-white/90 border border-glass-border-dark focus:border-primary focus:ring-4 focus:ring-primary/10 rounded-xl px-4 py-3 text-body-md font-body-md text-ink-primary placeholder-ink-tertiary transition-all" id="phoneNumber" pattern="[0-9]{10}" placeholder="0987 654 321" required="" type="tel" value="0987654321"/>
+<span class="material-symbols-outlined absolute right-3.5 top-3.5 text-ink-tertiary text-[18px]">call</span>
+</div>
+</div>
+</div>
+<!-- Tỉnh / Thành & Quận / Huyện -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="space-y-1.5">
+<label class="block text-label-lg font-label-lg text-ink-primary" for="province">
+                  Tỉnh / Thành phố <span class="text-primary">*</span>
+</label>
+<div class="relative">
+<select class="w-full bg-white/90 border border-glass-border-dark focus:border-primary focus:ring-4 focus:ring-primary/10 rounded-xl px-4 py-3 text-body-md font-body-md text-ink-primary transition-all appearance-none cursor-pointer" id="province">
+<option selected="" value="hcm">Hồ Chí Minh</option>
+<option value="hn">Hà Nội</option>
+<option value="dn">Đà Nẵng</option>
+<option value="bd">Bình Dương</option>
+<option value="other">Tỉnh thành khác...</option>
+</select>
+<span class="material-symbols-outlined absolute right-3.5 top-3.5 text-ink-tertiary text-[18px] pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="block text-label-lg font-label-lg text-ink-primary" for="district">
+                  Quận / Huyện / Thị xã <span class="text-primary">*</span>
+</label>
+<div class="relative">
+<select class="w-full bg-white/90 border border-glass-border-dark focus:border-primary focus:ring-4 focus:ring-primary/10 rounded-xl px-4 py-3 text-body-md font-body-md text-ink-primary transition-all appearance-none cursor-pointer" id="district">
+<option value="q1">Quận 1</option>
+<option selected="" value="q7">Quận 7 (Khu Đô Thị Phú Mỹ Hưng)</option>
+<option value="td">TP. Thủ Đức</option>
+<option value="bt">Bình Thạnh</option>
+<option value="other">Khu vực khác...</option>
+</select>
+<span class="material-symbols-outlined absolute right-3.5 top-3.5 text-ink-tertiary text-[18px] pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Địa chỉ cụ thể -->
+<div class="space-y-1.5">
+<label class="block text-label-lg font-label-lg text-ink-primary" for="address">
+                Địa chỉ chi tiết (Số nhà, Tên đường, Tòa nhà/Căn hộ) <span class="text-primary">*</span>
+</label>
+<div class="relative">
+<input class="w-full bg-white/90 border border-glass-border-dark focus:border-primary focus:ring-4 focus:ring-primary/10 rounded-xl px-4 py-3 text-body-md font-body-md text-ink-primary placeholder-ink-tertiary transition-all" id="address" placeholder="Ví dụ: Tòa Sky Garden 2, Block B, Phòng 402, Nguyễn Văn Linh" required="" type="text" value="Số 102 Đường Số 7, Phường Tân Phong"/>
+<span class="material-symbols-outlined absolute right-3.5 top-3.5 text-ink-tertiary text-[18px]">location_on</span>
+</div>
+</div>
+<!-- Ghi chú đơn hàng -->
+<div class="space-y-1.5">
+<label class="block text-label-lg font-label-lg text-ink-primary" for="notes">
+                Ghi chú giao hàng (Tùy chọn)
+              </label>
+<textarea class="w-full bg-white/90 border border-glass-border-dark focus:border-primary focus:ring-4 focus:ring-primary/10 rounded-xl px-4 py-2.5 text-body-md font-body-md text-ink-primary placeholder-ink-tertiary transition-all resize-none" id="notes" placeholder="Ví dụ: Giao vào giờ hành chính, gọi trước 15 phút, gửi lễ tân nếu vắng mặt..." rows="2"></textarea>
+</div>
+</form>
+</div>
+<!-- Step 2: Phương thức thanh toán -->
+<div class="glass-card rounded-2xl p-6 sm:p-7 transition-all duration-300">
+<div class="flex items-center justify-between pb-4 mb-5 border-b border-glass-border-dark">
+<div class="flex items-center gap-3">
+<span class="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-label-md font-label-md">2</span>
+<h2 class="text-headline-sm font-headline-sm text-ink-primary">Phương thức thanh toán</h2>
+</div>
+<span class="text-label-sm font-label-md text-status-success flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">security</span> Không rủi ro
+            </span>
+</div>
+<div class="space-y-3.5" id="payment-options">
+<!-- COD Option (Active Default) -->
+<label class="payment-option relative flex items-start gap-4 p-4 rounded-xl border-2 border-primary bg-primary/5 cursor-pointer transition-all hover:bg-white/80">
+<input checked="" class="mt-1 h-5 w-5 text-primary border-gray-300 focus:ring-primary" name="payment_method" type="radio" value="cod"/>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">payments</span>
+<span class="text-label-lg font-label-lg font-bold text-ink-primary">Thanh toán tiền mặt khi nhận hàng (COD)</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-primary text-white text-[11px] font-bold tracking-wide">PHỔ BIẾN</span>
+</div>
+<p class="text-body-sm font-body-sm text-ink-secondary mt-1">
+                  Được kiểm tra hàng đúng chủng loại trước khi thanh toán. Nhân viên hỗ trợ tận nơi.
+                </p>
+<div class="mt-2 text-label-sm font-label-md text-ink-primary flex items-center gap-1.5 text-xs bg-white/60 w-fit px-2.5 py-1 rounded-md border border-glass-border">
+<span class="material-symbols-outlined text-status-success text-[15px]">check_circle</span>
+<span>Nhân viên Nexus sẽ gọi điện xác nhận đơn trước khi đóng gói</span>
+</div>
+</div>
+</label>
+<!-- Bank Transfer QR Code 24/7 -->
+<label class="payment-option relative flex items-start gap-4 p-4 rounded-xl border border-glass-border-dark bg-white/50 cursor-pointer transition-all hover:bg-white/80 hover:border-ink-secondary">
+<input class="mt-1 h-5 w-5 text-primary border-gray-300 focus:ring-primary" name="payment_method" type="radio" value="qr"/>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-ink-primary text-[22px]">qr_code_scanner</span>
+<span class="text-label-lg font-label-lg font-bold text-ink-primary">Chuyển khoản ngân hàng 24/7 (VietQR / Napas)</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-status-success/10 text-status-success text-[11px] font-semibold">Ưu tiên xử lý</span>
+</div>
+<p class="text-body-sm font-body-sm text-ink-secondary mt-1">
+                  Quét mã QR tự động điền số tiền và nội dung đơn. Xác nhận tức thì qua hệ thống Magic Nexus.
+                </p>
+<div class="mt-2 flex items-center gap-2">
+<span class="text-[11px] font-medium text-ink-tertiary">Hỗ trợ tất cả app ngân hàng (Vietcombank, MB, Techcombank, VPBank, MoMo...)</span>
+</div>
+</div>
+</label>
+</div>
+</div>
+<!-- Trust Callout Vietnam Commitment -->
+<div class="glass-card-subtle rounded-2xl p-4 sm:p-5 flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 text-primary">
+<span class="material-symbols-outlined text-[26px]">verified</span>
+</div>
+<div>
+<div class="text-label-lg font-label-lg text-ink-primary">Cam kết Magic Vietnam Official</div>
+<p class="text-body-sm font-body-sm text-ink-secondary mt-0.5">
+              100% sản phẩm phân phối chính ngạch, có tem phụ Tiếng Việt và phiếu bảo hành điện tử chính hãng 24 tháng trên toàn quốc.
+            </p>
+</div>
+</div>
+</section>
+<!-- RIGHT COLUMN: Sticky Order Summary & Direct CTA (5 cols) -->
+<aside class="lg:col-span-5 sticky top-24 space-y-6">
+<div class="glass-card rounded-2xl p-6 shadow-[0_12px_36px_-6px_rgba(0,0,0,0.08)]">
+<div class="flex items-center justify-between pb-4 mb-4 border-b border-glass-border-dark">
+<h2 class="text-headline-sm font-headline-sm text-ink-primary">Đơn hàng của bạn</h2>
+<span class="text-label-md font-label-md px-2.5 py-1 rounded-full bg-surface-subtle text-ink-secondary font-medium">2 sản phẩm</span>
+</div>
+<!-- Product 1: Tăm nước B-02PRO -->
+<div class="py-3.5 border-b border-glass-border-dark flex items-start gap-3.5">
+<div class="w-18 h-18 sm:w-20 sm:h-20 rounded-xl bg-surface-subtle border border-glass-border p-1.5 shrink-0 relative overflow-hidden flex items-center justify-center">
+<img class="w-full h-full object-contain" data-alt="A studio photograph of an ultra-modern oral irrigator dental flosser device in pristine matte white and brushed aluminum finishes, hovering against a minimalist clean showroom podium. Soft ambient daylight highlights precision laser engravings and crisp waterproof buttons. Styled in high-key Apple aesthetic with subtle fiery red status lights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoJHsgVMe9-wijK6jJo0KMtZU_7InxGnCvma9mAA0iWiOmVC1mm4h_10CO7hekMUCB-OU8xI7eq-IeD9Sqm1kdApGDQ7ou761mAEkrXBl3Hf-5kQOhMzErLW28UChIq6izvYW_Uj2pATEhR7W1Bb5FpI9sPtwKUowmp5UqDRAxgQhW6x6FrsY_10RrzxgUlNjlvClZmwvV1S4UChMLyqdeM5sfmgHnVolMwXU3GPoqIab2LvUZdR-odQ"/>
+<span class="absolute top-1 left-1 bg-primary text-white text-[9px] font-bold px-1 rounded">B-02PRO</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-start justify-between gap-2">
+<h3 class="text-label-lg font-label-lg text-ink-primary truncate">Máy tăm nước Magic Nexus B-02PRO</h3>
+<span class="text-price-card font-price-card text-ink-primary shrink-0">890.000đ</span>
+</div>
+<p class="text-body-sm font-body-sm text-ink-tertiary">Màu sắc: Trắng Ngọc Trai (Sonic Jet 4 chế độ)</p>
+<!-- Stepper & Actions -->
+<div class="flex items-center justify-between mt-2.5">
+<div class="flex items-center border border-glass-border-dark rounded-full bg-white/80 p-0.5">
+<button class="w-6 h-6 rounded-full flex items-center justify-center text-ink-secondary hover:text-primary transition-colors text-sm font-bold" onclick="updateQty('p1', -1)">-</button>
+<span class="w-8 text-center text-label-md font-label-md font-semibold text-ink-primary" id="qty-p1">1</span>
+<button class="w-6 h-6 rounded-full flex items-center justify-center text-ink-secondary hover:text-primary transition-colors text-sm font-bold" onclick="updateQty('p1', 1)">+</button>
+</div>
+<button class="text-ink-tertiary hover:text-primary text-body-sm font-body-sm flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+<span class="text-xs">Xóa</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product 2: Bình giữ nhiệt MC870 màu Vàng -->
+<div class="py-3.5 border-b border-glass-border-dark flex items-start gap-3.5">
+<div class="w-18 h-18 sm:w-20 sm:h-20 rounded-xl bg-surface-subtle border border-glass-border p-1.5 shrink-0 relative overflow-hidden flex items-center justify-center">
+<img class="w-full h-full object-contain" data-alt="A luxury insulated vacuum thermal flask tumbler in elegant brushed champagne yellow gold finish, displaying temperature sensor cap and minimalist ergonomic silhouette. Shot in an airy bright architectural studio with gentle reflections and pristine clean lines, highlighting durability and premium materials with subtle crimson accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGOV6Pq7-0azB7O2P1-pRTTx2h3zohYo2TjXuZFn4tpGfRYK6cWX6Q1B4bIzQs7z-_jUfT1k7ySAE2Pwl-8D_IdhSkWtXNwAkem99ylAjeWKDfw8hxTcWdo8UifJu9BWGICn1-ue6vRifGieqgf1sVEdBS4TbKFUhbHScMWRP_KPcFmxqm5_7sG7GsRpLbu8yvQZ0RQNXPbUWl9RhK_CpkaMjN_bykqMyb6P6DXVAqSTf_cb8trpag3w"/>
+<span class="absolute top-1 left-1 bg-status-warning text-white text-[9px] font-bold px-1 rounded">MC870</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-start justify-between gap-2">
+<h3 class="text-label-lg font-label-lg text-ink-primary truncate">Bình giữ nhiệt Nexus MC870 Cao Cấp</h3>
+<span class="text-price-card font-price-card text-ink-primary shrink-0">450.000đ</span>
+</div>
+<p class="text-body-sm font-body-sm text-ink-tertiary">Màu sắc: Vàng Champagne (Dung tích 850ml)</p>
+<!-- Stepper & Actions -->
+<div class="flex items-center justify-between mt-2.5">
+<div class="flex items-center border border-glass-border-dark rounded-full bg-white/80 p-0.5">
+<button class="w-6 h-6 rounded-full flex items-center justify-center text-ink-secondary hover:text-primary transition-colors text-sm font-bold" onclick="updateQty('p2', -1)">-</button>
+<span class="w-8 text-center text-label-md font-label-md font-semibold text-ink-primary" id="qty-p2">1</span>
+<button class="w-6 h-6 rounded-full flex items-center justify-center text-ink-secondary hover:text-primary transition-colors text-sm font-bold" onclick="updateQty('p2', 1)">+</button>
+</div>
+<button class="text-ink-tertiary hover:text-primary text-body-sm font-body-sm flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+<span class="text-xs">Xóa</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Coupon Input Section -->
+<div class="pt-4 pb-3">
+<label class="block text-label-md font-label-md text-ink-secondary mb-1.5">Mã giảm giá ưu đãi</label>
+<div class="flex gap-2">
+<div class="relative flex-1">
+<input class="w-full uppercase font-mono tracking-wider bg-white/80 border border-glass-border-dark focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-xl px-3.5 py-2 text-label-lg font-label-lg text-ink-primary placeholder-ink-tertiary transition-all" id="couponCode" placeholder="Nhập mã CAMP hoặc NEXUS50" type="text" value="CAMP"/>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-status-success text-[18px]">check_circle</span>
+</div>
+<button class="px-4 py-2 rounded-xl bg-ink-primary hover:bg-black text-white text-label-md font-label-md transition-all active:scale-95 shrink-0" onclick="applyCoupon()">
+                Áp dụng
+              </button>
+</div>
+<div class="mt-1.5 flex items-center gap-1 text-[12px] text-status-success font-medium">
+<span class="material-symbols-outlined text-[14px]">local_offer</span>
+<span>Đã áp dụng mã CAMP: Giảm ngay 50.000đ cho đơn đầu tiên!</span>
+</div>
+</div>
+<!-- Order Computation Line Items -->
+<div class="space-y-2.5 pt-3 border-t border-glass-border-dark text-body-md font-body-md">
+<div class="flex justify-between text-ink-secondary">
+<span>Tạm tính (2 món)</span>
+<span class="text-ink-primary font-medium" id="subtotal">1.340.000đ</span>
+</div>
+<div class="flex justify-between text-ink-secondary">
+<span class="flex items-center gap-1">
+<span>Ưu đãi voucher CAMP</span>
+</span>
+<span class="text-primary font-semibold" id="discount">-50.000đ</span>
+</div>
+<div class="flex justify-between text-ink-secondary">
+<div class="flex items-center gap-1">
+<span>Phí vận chuyển</span>
+<span class="material-symbols-outlined text-ink-tertiary text-[15px]" title="Miễn phí giao hàng tiêu chuẩn cho đơn trên 500k">info</span>
+</div>
+<span class="text-status-success font-semibold">MIỄN PHÍ</span>
+</div>
+<div class="pt-3 border-t border-glass-border-dark flex justify-between items-baseline">
+<div>
+<span class="text-headline-sm font-headline-sm text-ink-primary block">Tổng thanh toán</span>
+<span class="text-[12px] text-ink-tertiary">(Đã bao gồm VAT và cam kết đóng gói chuẩn Nexus)</span>
+</div>
+<div class="text-right">
+<span class="text-price-hero font-price-hero text-primary block tracking-tight" id="totalAmount">1.290.000đ</span>
+</div>
+</div>
+</div>
+<!-- Decisive Primary Action Button -->
+<div class="mt-6 space-y-3">
+<button class="w-full btn-crimson rounded-full py-4 px-6 text-on-primary font-label-lg font-bold text-base tracking-wide flex items-center justify-center gap-2 group" onclick="handlePlaceOrder()" type="button">
+<span>ĐẶT HÀNG NGAY (COD)</span>
+<span class="material-symbols-outlined text-[20px] transition-transform group-hover:translate-x-1">arrow_forward</span>
+</button>
+<!-- Reassurance micro-copy -->
+<div class="text-center">
+<p class="text-body-sm font-body-sm text-ink-secondary">
+                Không cần thanh toán trước • Kiểm tra hàng rồi mới trả tiền
+              </p>
+</div>
+</div>
+<!-- Secondary Quick Help & Security Badges -->
+<div class="mt-6 pt-5 border-t border-glass-border-dark grid grid-cols-3 gap-2 text-center text-ink-secondary">
+<div class="flex flex-col items-center">
+<span class="material-symbols-outlined text-primary text-[20px]">published_with_changes</span>
+<span class="text-[11px] font-medium mt-1 leading-tight">Đổi mới 30 ngày nếu lỗi</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="material-symbols-outlined text-primary text-[20px]">verified</span>
+<span class="text-[11px] font-medium mt-1 leading-tight">Bảo hành 24 tháng</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="material-symbols-outlined text-primary text-[20px]">headset_mic</span>
+<span class="text-[11px] font-medium mt-1 leading-tight">Hỗ trợ 24/7 nhiệt tình</span>
+</div>
+</div>
+<!-- Hotline Call Card -->
+<div class="mt-4 p-3 rounded-xl bg-surface-subtle/80 border border-glass-border flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-full bg-status-success/10 text-status-success flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">phone</span>
+</span>
+<div>
+<span class="text-[11px] text-ink-tertiary block">Tư vấn đặt hàng trực tiếp:</span>
+<span class="text-label-md font-label-md font-bold text-ink-primary">0787 712 566</span>
+</div>
+</div>
+<a class="px-3 py-1.5 rounded-full bg-white text-ink-primary hover:text-primary text-label-sm font-label-md border border-glass-border-dark shadow-sm transition-colors" href="tel:0787712566">
+              Gọi ngay
+            </a>
+</div>
+</div>
+<!-- Nexus Delivery Guarantee Toast-box -->
+<div class="rounded-xl p-4 bg-white/60 border border-glass-border flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">timer</span>
+<p class="text-body-sm font-body-sm text-ink-secondary">
+<strong class="text-ink-primary">Ưu đãi thời gian thực:</strong> Đơn hàng đặt trước 16:00 sẽ được chuyển sang bộ phận điều phối Nexus Express đóng gói và chuyển đi ngay trong ngày.
+          </p>
+</div>
+</aside>
+</div>
+</main>
+<!-- Shared Component: Footer -->
+<footer class="w-full rounded-t-3xl bg-surface-subtle border-t border-glass-border-dark mt-16">
+<div class="w-full max-w-7xl mx-auto px-8 py-12 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
+<span class="text-headline-sm font-headline-sm font-bold text-ink-primary">Magic Nexus</span>
+<span class="text-ink-tertiary hidden md:inline">|</span>
+<span class="text-body-sm font-body-sm text-ink-secondary">© 2025 Magic Vietnam. Bảo hành chính hãng 24 tháng. Hotline 24/7: 1800 6868.</span>
+</div>
+<nav class="flex flex-wrap justify-center items-center gap-x-6 gap-y-2">
+<a class="text-ink-tertiary hover:text-ink-primary text-label-md font-label-md transition-colors" href="#">Chính sách bảo hành</a>
+<a class="text-ink-tertiary hover:text-ink-primary text-label-md font-label-md transition-colors" href="#">Cam kết chính hãng</a>
+<a class="text-ink-tertiary hover:text-ink-primary text-label-md font-label-md transition-colors" href="#">Hệ thống trạm dịch vụ</a>
+<a class="text-ink-tertiary hover:text-ink-primary text-label-md font-label-md transition-colors" href="#">Zalo Official Hotline</a>
+<a class="text-ink-tertiary hover:text-ink-primary text-label-md font-label-md transition-colors" href="#">Điều khoản mua hàng</a>
+<a class="text-ink-tertiary hover:text-ink-primary text-label-md font-label-md transition-colors" href="#">Bảo mật thông tin</a>
+</nav>
+</div>
+</footer>
+<!-- Notification Toast Modal Container for Demo Interactions -->
+<div class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none" id="toast">
+<div class="glass-card rounded-2xl p-4 shadow-xl border border-glass-border flex items-center gap-3 max-w-md">
+<div class="w-9 h-9 rounded-full bg-status-success text-white flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">check</span>
+</div>
+<div>
+<h4 class="text-label-lg font-label-lg text-ink-primary font-semibold" id="toast-title">Đặt hàng thành công!</h4>
+<p class="text-body-sm font-body-sm text-ink-secondary" id="toast-desc">Chuyên viên Nexus sẽ gọi xác nhận qua số 0987 654 321 trong 5 phút.</p>
+</div>
+</div>
+</div>
+<!-- Inline Script for Reactive Quantity & Checkout Interaction -->
+<script>
+    let quantities = { p1: 1, p2: 1 };
+    const prices = { p1: 890000, p2: 450000 };
+    let discountAmount = 50000;
+
+    function formatVND(amount) {
+      return new Intl.NumberFormat('vi-VN').format(amount) + 'đ';
+    }
+
+    function updateQty(item, change) {
+      if (quantities[item] + change >= 1) {
+        quantities[item] += change;
+        document.getElementById(`qty-${item}`).innerText = quantities[item];
+        calculateTotals();
+      }
+    }
+
+    function calculateTotals() {
+      const subtotal = (quantities.p1 * prices.p1) + (quantities.p2 * prices.p2);
+      const total = Math.max(0, subtotal - discountAmount);
+      
+      document.getElementById('subtotal').innerText = formatVND(subtotal);
+      document.getElementById('totalAmount').innerText = formatVND(total);
+    }
+
+    function applyCoupon() {
+      const code = document.getElementById('couponCode').value.trim().toUpperCase();
+      if (code === 'CAMP' || code === 'NEXUS50') {
+        discountAmount = 50000;
+        showToast('Áp dụng thành công!', 'Mã ' + code + ' đã trừ 50.000đ trực tiếp vào đơn hàng.');
+      } else {
+        showToast('Mã không hợp lệ', 'Vui lòng sử dụng mã CAMP hoặc NEXUS50.');
+      }
+      calculateTotals();
+    }
+
+    function handlePlaceOrder() {
+      const name = document.getElementById('fullName').value.trim();
+      const phone = document.getElementById('phoneNumber').value.trim();
+      const address = document.getElementById('address').value.trim();
+
+      if (!name || !phone || !address) {
+        showToast('Vui lòng điền đủ thông tin', 'Họ tên, Số điện thoại và Địa chỉ là bắt buộc để giao COD.');
+        return;
+      }
+
+      showToast('Đã ghi nhận đơn hàng!', `Nexus sẽ liên hệ số ${phone} để xác nhận trước khi giao. Cảm ơn bạn!`);
+    }
+
+    function showToast(title, msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-title').innerText = title;
+      document.getElementById('toast-desc').innerText = msg;
+      
+      toast.classList.remove('translate-y-24', 'opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
+      }, 4000);
+    }
+
+    // Toggle Payment method highlights
+    const paymentRadios = document.querySelectorAll('input[name="payment_method"]');
+    paymentRadios.forEach(radio => {
+      radio.addEventListener('change', function() {
+        document.querySelectorAll('.payment-option').forEach(el => {
+          el.classList.remove('border-2', 'border-primary', 'bg-primary/5');
+          el.classList.add('border-glass-border-dark', 'bg-white/50');
+        });
+        const currentContainer = this.closest('.payment-option');
+        currentContainer.classList.remove('border-glass-border-dark', 'bg-white/50');
+        currentContainer.classList.add('border-2', 'border-primary', 'bg-primary/5');
+      });
+    });
+  </script>
+</body></html>

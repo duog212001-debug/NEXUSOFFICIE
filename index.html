@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Nexus Magic Vietnam | Đại Lý Thiết Bị Gia Dụng Magic Chính Hãng</title>
+  <meta name="description" content="Nexus - Đại lý ủy quyền chính thức sản phẩm gia dụng Magic tại Việt Nam. Tăm nước B-02PRO, bàn chải điện B-26, quạt làm lạnh Peltier A-014, bình giữ nhiệt inox 316 y tế cao cấp. Bảo hành 12 tháng 1 đổi 1.">
+  <link rel="icon" type="image/png" href="images/logo-nexus.png">
+
+  <!-- Google Fonts: Inter & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <!-- Master Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-ticker">
+    <div class="top-ticker-content">
+      <span class="ticker-badge">FLASH SALE HÔM NAY</span>
+      <span>⚡ Giảm tới 63% toàn bộ sản phẩm Magic chính hãng • Đổi mới 30 ngày • Kết thúc sau:</span>
+      <span class="ticker-countdown" id="tickerTimer">00:00:00</span>
+      <a href="#store" onclick="navigate('store')" style="text-decoration: underline; font-weight: 700; margin-left: 0.5rem; color: #fff;">Săn ngay &rarr;</a>
+    </div>
+  </div>
+
+  <!-- Sticky Glassmorphic Header (GNav) -->
+  <div class="gnav-wrapper">
+    <header class="gnav">
+      <!-- Brand Logo -->
+      <a href="#home" class="gnav-brand" onclick="navigate('home')">
+        <img src="images/logo-nexus.png" alt="Nexus Emblem" class="brand-emblem">
+        <span>NEXUS</span>
+        <span class="brand-tag">MAGIC OFFICIAL</span>
+      </a>
+
+      <!-- Center Nav Links -->
+      <nav class="gnav-menu">
+        <a class="gnav-link active" data-view="home" href="#home" onclick="navigate('home')">Trang chủ</a>
+        <a class="gnav-link" data-view="store" href="#store" onclick="navigate('store')">Cửa hàng</a>
+        <a class="gnav-link" href="#store" onclick="setCategoryFilter('rang'); navigate('store');">Răng miệng</a>
+        <a class="gnav-link" href="#store" onclick="setCategoryFilter('binh'); navigate('store');">Bình Inox 316</a>
+        <a class="gnav-link" href="#store" onclick="setCategoryFilter('quat'); navigate('store');">Quạt sạc</a>
+        <a class="gnav-link" data-view="compare" href="#compare" onclick="navigate('compare')">So sánh</a>
+        <a class="gnav-link" data-view="support" href="#support" onclick="navigate('support')">Hỗ trợ</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="gnav-actions">
+        <!-- Search Trigger -->
+        <button class="action-btn" onclick="openSearchFlyout()" title="Tìm kiếm sản phẩm">
+          <span class="material-symbols-outlined">search</span>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button class="action-btn" onclick="toggleTheme()" title="Chuyển chế độ sáng / tối">
+          <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+
+        <!-- Wishlist -->
+        <button class="action-btn" onclick="navigate('account')" title="Sản phẩm yêu thích">
+          <span class="material-symbols-outlined">favorite</span>
+        </button>
+
+        <!-- Cart Button -->
+        <button class="action-btn" onclick="openCartFlyout()" title="Giỏ hàng">
+          <span class="material-symbols-outlined">shopping_bag</span>
+          <span class="badge-count cart-count-badge" style="display: none;">0</span>
+        </button>
+
+        <!-- Account -->
+        <button class="action-btn" id="navAccountBtn" onclick="handleNavAccountClick()" title="Tài khoản & Đơn hàng">
+          <span class="material-symbols-outlined" id="navAccountIcon">person</span>
+          <span class="badge-count" id="navAccountBadge" style="display:none; background:var(--status-success);">✓</span>
+        </button>
+
+        <!-- Mobile Menu -->
+        <button class="action-btn mobile-menu-btn" onclick="navigate('store')" title="Cửa hàng">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+      </div>
+    </header>
+  </div>
+
+  <!-- Dynamic Application Container -->
+  <main id="appMain"></main>
+
+  <!-- Global Footer -->
+  <footer class="gfoot">
+    <div class="container">
+      <div class="gfoot-grid">
+        <div class="gfoot-col">
+          <div class="flex items-center gap-2" style="margin-bottom: 1rem;">
+            <img src="images/logo-nexus.png" alt="Nexus" style="width: 30px; height: 30px; border-radius: 9999px;">
+            <strong style="font-size: 1.25rem; color: var(--primary);">NEXUS MAGIC VIETNAM</strong>
+          </div>
+          <p style="font-size: 0.875rem; color: var(--ink-secondary); line-height: 1.6; margin-bottom: 1rem;">
+            Đại lý ủy quyền chính thức các dòng sản phẩm gia dụng công nghệ cao từ thương hiệu Magic. Cam kết 100% chính hãng, bảo hành 12 tháng 1 đổi 1 và hỗ trợ kỹ thuật trọn đời.
+          </p>
+          <div style="font-size: 0.825rem; color: var(--ink-tertiary);">
+            <div>📍 Trụ sở: Khu Công Nghệ Cao, TP. Thủ Đức, TP. Hồ Chí Minh</div>
+            <div>📞 Hotline 24/7: <a href="tel:0787712566" style="color: var(--primary); font-weight: 700;">0787 712 566</a></div>
+            <div>✉️ Email: hotro@nexus-magic.vn</div>
+          </div>
+        </div>
+
+        <div class="gfoot-col">
+          <h4>Sản Phẩm</h4>
+          <ul>
+            <li><a href="#store" onclick="setCategoryFilter('all'); navigate('store');">Tất cả sản phẩm (10)</a></li>
+            <li><a href="#store" onclick="setCategoryFilter('rang'); navigate('store');">Tăm nước B-02PRO</a></li>
+            <li><a href="#store" onclick="setCategoryFilter('rang'); navigate('store');">Bàn chải điện B-26</a></li>
+            <li><a href="#store" onclick="setCategoryFilter('binh'); navigate('store');">Bình giữ nhiệt Inox 316</a></li>
+            <li><a href="#store" onclick="setCategoryFilter('quat'); navigate('store');">Quạt làm lạnh Peltier A-014</a></li>
+            <li><a href="#compare" onclick="navigate('compare');">Bảng so sánh thông số</a></li>
+          </ul>
+        </div>
+
+        <div class="gfoot-col">
+          <h4>Hỗ Trợ & Dịch Vụ</h4>
+          <ul>
+            <li><a href="#support" onclick="navigate('support')">Chính sách bảo hành 1 đổi 1</a></li>
+            <li><a href="#support" onclick="navigate('support')">Giao hàng & Kiểm tra hàng</a></li>
+            <li><a href="#support" onclick="navigate('support')">Câu hỏi thường gặp (FAQ)</a></li>
+            <li><a href="#account" onclick="navigate('account')">Tra cứu đơn hàng của tôi</a></li>
+            <li><a href="#cart" onclick="navigate('cart')">Giỏ hàng & Khuyến mãi</a></li>
+            <li><a href="#admin" onclick="openAdminAuthModal(); return false;">Quản trị cửa hàng (Admin)</a></li>
+          </ul>
+        </div>
+
+        <div class="gfoot-col">
+          <h4>Chứng Nhận & Uy Tín</h4>
+          <p style="font-size: 0.85rem; color: var(--ink-secondary); margin-bottom: 1rem;">
+            Được bảo chứng chất lượng bởi tập đoàn Magic với đầy đủ kiểm định an toàn vật liệu y sinh Inox 316 và kháng nước IPX7.
+          </p>
+          <div class="flex gap-2" style="flex-wrap: wrap;">
+            <span class="brand-tag">✓ 100% CHÍNH HÃNG</span>
+            <span class="brand-tag">✓ ĐỔI MỚI 30 NGÀY</span>
+            <span class="brand-tag">✓ BẢO HÀNH 12 THÁNG</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gfoot-bottom">
+        <div>Bản quyền &copy; 2026 Nexus Magic Vietnam. Bảo lưu mọi quyền.</div>
+        <div>Thiết kế & Vận hành theo chuẩn <strong>Nexus Precision Living</strong></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slide-over Cart Drawer -->
+  <div class="modal-overlay" id="cartDrawerOverlay" onclick="closeCartFlyout()"></div>
+  <div class="flyout-drawer" id="cartDrawer">
+    <div class="flyout-head">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined" style="color: var(--primary);">shopping_bag</span>
+        <h3 class="flyout-title">Giỏ Hàng Của Bạn</h3>
+      </div>
+      <button class="modal-close" style="position:static;" onclick="closeCartFlyout()">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <div class="flyout-body" id="cartDrawerBody"></div>
+    <div class="flyout-foot" id="cartDrawerFoot"></div>
+  </div>
+
+  <!-- Global Instant Search Modal -->
+  <div class="modal-overlay" id="searchModalOverlay" onclick="closeSearchFlyout()">
+    <div class="modal-content" style="max-width: 580px; padding: 1.5rem;" onclick="event.stopPropagation()">
+      <div class="flex items-center gap-3" style="border-bottom: 2px solid var(--primary); padding-bottom: 0.75rem; margin-bottom: 1.25rem;">
+        <span class="material-symbols-outlined" style="color: var(--primary); font-size: 24px;">search</span>
+        <input type="text" id="globalSearchInput" class="form-control" style="border:none; box-shadow:none; font-size: 1.05rem; padding: 0.25rem 0;" placeholder="Nhập tên sản phẩm, mã hoặc tính năng...">
+        <button class="modal-close" style="position:static;" onclick="closeSearchFlyout()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div id="searchSuggestionsContainer"></div>
+    </div>
+  </div>
+
+  <!-- Customer Review Submission Modal -->
+  <div class="modal-overlay" id="reviewModalOverlay" onclick="closeReviewDialog()">
+    <div class="modal-content" style="max-width: 520px;" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeReviewDialog()">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+      <h3 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.25rem;">Viết Đánh Giá Sản Phẩm</h3>
+      <p style="color: var(--ink-secondary); font-size: 0.85rem; margin-bottom: 1.25rem;" id="reviewModalProdTitle"></p>
+
+      <form onsubmit="handleReviewSubmit(event)">
+        <!-- Star Picker -->
+        <div style="margin-bottom: 1.25rem; text-align: center;">
+          <div style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Bạn đánh giá sản phẩm mấy sao?</div>
+          <div class="flex justify-center gap-2">
+            <button type="button" id="starBtn-1" onclick="setReviewRating(1)" style="background:none; border:none; font-size: 32px; color: #f59e0b; cursor:pointer;">★</button>
+            <button type="button" id="starBtn-2" onclick="setReviewRating(2)" style="background:none; border:none; font-size: 32px; color: #f59e0b; cursor:pointer;">★</button>
+            <button type="button" id="starBtn-3" onclick="setReviewRating(3)" style="background:none; border:none; font-size: 32px; color: #f59e0b; cursor:pointer;">★</button>
+            <button type="button" id="starBtn-4" onclick="setReviewRating(4)" style="background:none; border:none; font-size: 32px; color: #f59e0b; cursor:pointer;">★</button>
+            <button type="button" id="starBtn-5" onclick="setReviewRating(5)" style="background:none; border:none; font-size: 32px; color: #f59e0b; cursor:pointer;">★</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reviewAuthorName">Họ và tên của bạn *</label>
+          <input type="text" id="reviewAuthorName" class="form-control" placeholder="Ví dụ: Hoàng Long" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reviewTitle">Tiêu đề đánh giá</label>
+          <input type="text" id="reviewTitle" class="form-control" placeholder="Ví dụ: Máy dùng cực thích, rất êm...">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reviewContent">Nội dung chia sẻ trải nghiệm *</label>
+          <textarea id="reviewContent" class="form-control" rows="4" placeholder="Cảm nhận về áp lực nước, độ giữ nhiệt, độ mát, chất liệu..." required></textarea>
+        </div>
+
+        <div class="flex gap-2 justify-end" style="margin-top: 1.5rem;">
+          <button type="button" class="btn btn-outline" onclick="closeReviewDialog()">Hủy</button>
+          <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Floating AI Advisor FAB (Nexus) -->
+  <button class="chat-fab" id="chatFabBtn" onclick="toggleChatAdvisor()" aria-label="Tư vấn với trợ lý Nexus">
+    <span class="pulse-dot"></span>
+    <span class="material-symbols-outlined" style="font-size: 20px;">smart_toy</span>
+    <span class="fab-label">Tư vấn với Nexus</span>
+  </button>
+
+  <!-- Floating Chat Modal Widget -->
+  <div class="chat-modal" id="chatModal">
+    <div class="chat-head">
+      <div class="chat-avatar-title">
+        <div style="width: 32px; height: 32px; background: rgba(255,255,255,0.2); border-radius: 9999px; display: flex; align-items: center; justify-content: center;">
+          <span class="material-symbols-outlined" style="font-size: 18px;">smart_toy</span>
+        </div>
+        <div>
+          <div style="font-weight: 700; font-size: 0.95rem;">Tư vấn với Nexus</div>
+          <div style="font-size: 0.725rem; opacity: 0.85;">Trợ lý tư vấn sản phẩm Magic chính hãng</div>
+        </div>
+      </div>
+      <button style="background:none; border:none; color:#fff; cursor:pointer;" onclick="toggleChatAdvisor()">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <!-- Messages Body -->
+    <div class="chat-messages" id="chatMessagesContainer"></div>
+
+    <!-- Quick Chips -->
+    <div class="chat-chips">
+      <span class="chat-chip" onclick="sendChatMessage('Nên chọn bình giữ nhiệt nào tốt nhất?')">Bình giữ nhiệt nào tốt?</span>
+      <span class="chat-chip" onclick="sendChatMessage('Tăm nước B-02PRO có những phụ kiện gì?')">Tăm nước B-02PRO</span>
+      <span class="chat-chip" onclick="sendChatMessage('Quạt làm lạnh A-014 hoạt động thế nào?')">Quạt lạnh A-014</span>
+      <span class="chat-chip" onclick="sendChatMessage('Chính sách bảo hành và đổi trả?')">Bảo hành 12 tháng</span>
+    </div>
+
+    <!-- Input Bar -->
+    <form class="chat-input-bar" id="chatMsgForm">
+      <input type="text" id="chatMsgInput" class="chat-input" placeholder="Hỏi về sản phẩm, giá bán, dung tích..." maxlength="300" autocomplete="off">
+      <button type="submit" class="btn btn-primary btn-sm" style="padding: 0.4rem 0.8rem;">
+        <span class="material-symbols-outlined" style="font-size: 16px;">send</span>
+      </button>
+    </form>
+  </div>
+
+
+       AUTH MODAL: Đăng Nhập / Đăng Ký Tài Khoản
+       ===================================================== -->
+  <div class="auth-overlay" id="authOverlay" onclick="handleAuthOverlayClick(event)">
+    <div class="auth-modal" id="authModal">
+
+      <!-- Header with brand -->
+      <div class="auth-modal-head">
+        <button class="auth-close-btn" onclick="closeAuthModal()" title="Đóng">
+          <span class="material-symbols-outlined" style="font-size:16px;">close</span>
+        </button>
+        <img src="images/logo-nexus.png" alt="Nexus" class="auth-modal-logo">
+        <h2>Nexus Magic Vietnam</h2>
+        <p>Đại lý ủy quyền thiết bị gia dụng Magic chính hãng</p>
+      </div>
+
+      <!-- Tabs: Đăng nhập / Đăng ký -->
+      <div class="auth-tabs">
+        <button class="auth-tab-btn active" id="tabLoginBtn" onclick="switchAuthTab('login')">
+          <span class="material-symbols-outlined" style="font-size:15px; vertical-align:middle; margin-right:4px;">login</span>
+          Đăng Nhập
+        </button>
+        <button class="auth-tab-btn" id="tabRegisterBtn" onclick="switchAuthTab('register')">
+          <span class="material-symbols-outlined" style="font-size:15px; vertical-align:middle; margin-right:4px;">person_add</span>
+          Đăng Ký
+        </button>
+      </div>
+
+      <!-- ---- LOGIN PANEL ---- -->
+      <div class="auth-tab-panel active" id="panelLogin">
+        <div class="auth-error-msg" id="loginErrorMsg">
+          <span class="material-symbols-outlined" style="font-size:16px;">error</span>
+          <span id="loginErrorText">Email hoặc mật khẩu không đúng.</span>
+        </div>
+
+        <form id="loginForm" onsubmit="handleLogin(event)" novalidate>
+          <!-- Email -->
+          <div class="auth-input-group">
+            <span class="material-symbols-outlined input-icon">email</span>
+            <input type="email" id="loginEmail" placeholder="Email của bạn" autocomplete="email" required>
+          </div>
+
+          <!-- Password -->
+          <div class="auth-input-group">
+            <span class="material-symbols-outlined input-icon">lock</span>
+            <input type="password" id="loginPassword" placeholder="Mật khẩu" autocomplete="current-password" required>
+            <button type="button" class="toggle-pw" onclick="togglePwVisibility('loginPassword', this)" title="Hiện/ẩn mật khẩu">
+              <span class="material-symbols-outlined" style="font-size:18px;">visibility</span>
+            </button>
+          </div>
+
+          <!-- Remember + Forgot -->
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+            <label class="auth-checkbox-row" style="margin:0;">
+              <input type="checkbox" id="loginRemember"> Ghi nhớ đăng nhập
+            </label>
+            <a href="#" class="forgot-pw-link" style="margin:0;" onclick="showForgotPw(event)">Quên mật khẩu?</a>
+          </div>
+
+          <!-- CAPTCHA -->
+          <div class="captcha-wrap" id="loginCaptchaWrap">
+            <div class="captcha-canvas-wrap">
+              <canvas id="loginCaptchaCanvas" width="120" height="48"></canvas>
+            </div>
+            <div class="captcha-input-wrap">
+              <label for="loginCaptchaInput">Nhập mã bảo mật</label>
+              <input type="text" id="loginCaptchaInput" placeholder="_ _ _ _ _ _" maxlength="6" autocomplete="off" spellcheck="false">
+            </div>
+            <button type="button" class="captcha-refresh-btn" onclick="refreshCaptcha('login')" title="Làm mới mã">
+              <span class="material-symbols-outlined" style="font-size:14px;">refresh</span> Đổi mã
+            </button>
+          </div>
+          <div class="captcha-error" id="loginCaptchaError">⚠ Mã xác nhận không đúng. Vui lòng thử lại.</div>
+
+          <button type="submit" class="auth-submit-btn">
+            <span class="material-symbols-outlined" style="font-size:16px; vertical-align:middle; margin-right:6px;">login</span>
+            Đăng Nhập
+          </button>
+        </form>
+
+        <p class="auth-footer-note">
+          Chưa có tài khoản? <a href="#" onclick="switchAuthTab('register'); return false;">Tạo tài khoản miễn phí</a>
+        </p>
+      </div>
+
+      <!-- ---- REGISTER PANEL ---- -->
+      <div class="auth-tab-panel" id="panelRegister">
+        <div class="auth-error-msg" id="registerErrorMsg">
+          <span class="material-symbols-outlined" style="font-size:16px;">error</span>
+          <span id="registerErrorText">Vui lòng kiểm tra lại thông tin.</span>
+        </div>
+
+        <form id="registerForm" onsubmit="handleRegister(event)" novalidate>
+          <!-- Full Name -->
+          <div class="auth-input-group">
+            <span class="material-symbols-outlined input-icon">badge</span>
+            <input type="text" id="regName" placeholder="Họ và tên đầy đủ" autocomplete="name" required>
+          </div>
+
+          <!-- Email -->
+          <div class="auth-input-group">
+            <span class="material-symbols-outlined input-icon">email</span>
+            <input type="email" id="regEmail" placeholder="Email (dùng để đăng nhập)" autocomplete="email" required>
+          </div>
+
+          <!-- Phone -->
+          <div class="auth-input-group">
+            <span class="material-symbols-outlined input-icon">phone</span>
+            <input type="tel" id="regPhone" placeholder="Số điện thoại (10 số)" autocomplete="tel" required>
+          </div>
+
+          <!-- Password -->
+          <div class="auth-input-group">
+            <span class="material-symbols-outlined input-icon">lock</span>
+            <input type="password" id="regPassword" placeholder="Mật khẩu (ít nhất 6 ký tự)" autocomplete="new-password" required>
+            <button type="button" class="toggle-pw" onclick="togglePwVisibility('regPassword', this)" title="Hiện/ẩn mật khẩu">
+              <span class="material-symbols-outlined" style="font-size:18px;">visibility</span>
+            </button>
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="auth-input-group">
+            <span class="material-symbols-outlined input-icon">lock_reset</span>
+            <input type="password" id="regPasswordConfirm" placeholder="Nhập lại mật khẩu" autocomplete="new-password" required>
+          </div>
+
+          <!-- CAPTCHA -->
+          <div class="captcha-wrap" id="registerCaptchaWrap">
+            <div class="captcha-canvas-wrap">
+              <canvas id="registerCaptchaCanvas" width="120" height="48"></canvas>
+            </div>
+            <div class="captcha-input-wrap">
+              <label for="registerCaptchaInput">Nhập mã xác nhận</label>
+              <input type="text" id="registerCaptchaInput" placeholder="_ _ _ _ _ _" maxlength="6" autocomplete="off" spellcheck="false">
+            </div>
+            <button type="button" class="captcha-refresh-btn" onclick="refreshCaptcha('register')" title="Làm mới mã">
+              <span class="material-symbols-outlined" style="font-size:14px;">refresh</span> Đổi mã
+            </button>
+          </div>
+          <div class="captcha-error" id="registerCaptchaError">⚠ Mã xác nhận không đúng. Vui lòng thử lại.</div>
+
+          <!-- Terms -->
+          <label class="auth-checkbox-row" style="margin-bottom:1.25rem;">
+            <input type="checkbox" id="regTerms" required>
+            Tôi đồng ý với <a href="#support" onclick="closeAuthModal(); navigate('support');" style="color:var(--primary); font-weight:600;">Điều khoản & Chính sách</a> của Nexus
+          </label>
+
+          <button type="submit" class="auth-submit-btn">
+            <span class="material-symbols-outlined" style="font-size:16px; vertical-align:middle; margin-right:6px;">person_add</span>
+            Tạo Tài Khoản
+          </button>
+        </form>
+
+        <p class="auth-footer-note">
+          Đã có tài khoản? <a href="#" onclick="switchAuthTab('login'); return false;">Đăng nhập ngay</a>
+        </p>
+      </div>
+
+    </div><!-- /.auth-modal -->
+  </div><!-- /.auth-overlay -->
+
+
+  <!-- =====================================================
+       ADMIN LOGIN MODAL (Dark Secure Portal)
+       ===================================================== -->
+  <div class="admin-auth-overlay" id="adminAuthOverlay" onclick="handleAdminOverlayClick(event)">
+    <div class="admin-auth-modal" id="adminAuthModal">
+
+      <!-- Header -->
+      <div class="admin-auth-header">
+        <button style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.08);border:none;color:rgba(255,255,255,0.5);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'" onclick="closeAdminAuthModal()">
+          <span class="material-symbols-outlined" style="font-size:16px;">close</span>
+        </button>
+        <div class="admin-shield-icon">
+          <span class="material-symbols-outlined">admin_panel_settings</span>
+        </div>
+        <h2>Cổng Quản Trị Nexus</h2>
+        <p>Dành cho quản trị viên hệ thống</p>
+        <div>
+          <span class="admin-security-badge">
+            <span class="material-symbols-outlined" style="font-size:11px;">verified_user</span>
+            SECURE ACCESS — ENCRYPTED
+          </span>
+        </div>
+      </div>
+
+      <!-- Body -->
+      <div class="admin-auth-body">
+        <div class="admin-error-msg" id="adminErrorMsg">
+          <span class="material-symbols-outlined" style="font-size:16px;">gpp_bad</span>
+          <span id="adminErrorText">Tài khoản hoặc mật khẩu admin không đúng.</span>
+        </div>
+
+        <form id="adminLoginForm" onsubmit="handleAdminLogin(event)" novalidate>
+          <!-- Username -->
+          <div class="admin-input-group">
+            <span class="material-symbols-outlined input-icon">manage_accounts</span>
+            <input type="text" id="adminUsername" placeholder="Tên đăng nhập Admin" autocomplete="username" required>
+          </div>
+
+          <!-- Password -->
+          <div class="admin-input-group">
+            <span class="material-symbols-outlined input-icon">key</span>
+            <input type="password" id="adminPassword" placeholder="Mật khẩu quản trị" autocomplete="current-password" required>
+            <button type="button" class="toggle-pw" onclick="toggleAdminPwVisibility(this)" title="Hiện/ẩn mật khẩu">
+              <span class="material-symbols-outlined" style="font-size:18px;">visibility</span>
+            </button>
+          </div>
+
+          <!-- CAPTCHA for Admin -->
+          <div class="captcha-wrap" id="adminCaptchaWrap" style="background:rgba(255,255,255,0.04); border-color:rgba(255,255,255,0.1);">
+            <div class="captcha-canvas-wrap">
+              <canvas id="adminCaptchaCanvas" width="120" height="48"></canvas>
+            </div>
+            <div class="captcha-input-wrap">
+              <label for="adminCaptchaInput" style="color:rgba(255,255,255,0.45);">Mã xác thực an ninh</label>
+              <input type="text" id="adminCaptchaInput" placeholder="Nhập mã" maxlength="6" autocomplete="off" spellcheck="false" style="background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.12); color:#fff;">
+            </div>
+            <button type="button" class="captcha-refresh-btn" onclick="refreshCaptcha('admin')" style="border-color:rgba(255,255,255,0.15); color:rgba(255,255,255,0.45);">
+              <span class="material-symbols-outlined" style="font-size:14px;">refresh</span> Đổi
+            </button>
+          </div>
+          <div class="captcha-error" id="adminCaptchaError" style="color:#ff8080;">⚠ Mã xác nhận không đúng. Vui lòng thử lại.</div>
+
+          <button type="submit" class="admin-submit-btn">
+            <span class="material-symbols-outlined" style="font-size:16px; vertical-align:middle; margin-right:6px;">shield</span>
+            Xác Thực & Đăng Nhập Admin
+          </button>
+        </form>
+
+        <p class="admin-hint-text">
+          🔒 Phiên đăng nhập admin được mã hóa và ghi log tự động<br>
+          Tài khoản demo: <strong style="color:rgba(255,255,255,0.4);">admin</strong> / <strong style="color:rgba(255,255,255,0.4);">nexus2026</strong>
+        </p>
+      </div>
+
+    </div><!-- /.admin-auth-modal -->
+  </div><!-- /.admin-auth-overlay -->
+
+
+  <!-- Toast Notification Node -->
+  <div id="toastMsg" class="toast-msg"></div>
+
+  <!-- Master Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

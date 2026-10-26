@@ -1,0 +1,27 @@
+NEXUS – WEBSITE BÁN HÀNG (MÃ NGUỒN)
+
+MỞ TRANG
+Nháy đúp vào index.html để mở bằng trình duyệt.
+Nếu chỉ cần một tệp duy nhất để gửi hoặc đăng lên host, dùng nexus-shop.html (đã gói sẵn ảnh bên trong).
+
+CẤU TRÚC
+index.html        Khung trang
+css/style.css     Giao diện: màu sắc, chữ, bố cục, giao diện tối, điện thoại
+js/app.js         Dữ liệu sản phẩm và toàn bộ chức năng
+images/           Ảnh sản phẩm và logo Nexus
+
+SỬA NHANH (mục CONFIG ở đầu tệp js/app.js)
+SHOP        Tên cửa hàng
+ADVISOR     Tên trợ lý tư vấn
+HOTLINE     Số điện thoại cửa hàng
+PRICE_MODE  "daily" = giá bán hằng ngày, "camp" = giá chiến dịch
+COUPONS     Mã khuyến mãi khách nhập ở giỏ hàng
+Sản phẩm, giá, màu, thông số nằm trong mảng P, ngay bên dưới CONFIG.
+
+LƯU Ý KHI ĐƯA LÊN HOST KHÁC (ngoài claude.ai)
+Trợ lý tư vấn AI, đơn hàng và đánh giá dùng chung, trang Quản lý cửa hàng chỉ chạy khi trang mở trên claude.ai.
+Ở nơi khác, trang tự chuyển sang chế độ đơn giản:
+- Khung tư vấn mời khách gọi hotline.
+- Tài khoản, đơn hàng, đánh giá lưu trên trình duyệt của từng khách.
+- Khách gửi đơn bằng tin nhắn, gọi điện hoặc sao chép đơn.
+Muốn các chức năng này chạy đầy đủ trên web riêng, cần thêm máy chủ, ví dụ Firebase cho tài khoản, đơn hàng, đánh giá và Claude API cho trợ lý tư vấn.

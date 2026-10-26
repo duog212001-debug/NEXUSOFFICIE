@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ma Trận So Sánh Kỹ Thuật - Magic Nexus Flagship</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Inter Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with Forms and Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Configuration -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-glass-tint": "rgba(245, 245, 247, 0.8)",
+            "on-primary-fixed": "#410003",
+            "surface-bright": "#faf8fe",
+            "on-secondary-fixed": "#1b1b1d",
+            "inverse-surface": "#2f3034",
+            "ink-primary": "#1D1D1F",
+            "surface-dim": "#dad9df",
+            "surface-container": "#eeedf3",
+            "secondary-fixed": "#e4e2e4",
+            "on-secondary-fixed-variant": "#474649",
+            "on-primary-container": "#ffffff",
+            "on-tertiary": "#ffffff",
+            "primary-fixed": "#ffdad6",
+            "ink-tertiary": "#86868B",
+            "primary-container": "#e5252a",
+            "on-primary-fixed-variant": "#93000f",
+            "inverse-primary": "#ffb4ac",
+            "secondary-fixed-dim": "#c8c6c8",
+            "status-warning": "#FF9500",
+            "on-surface": "#1a1b1f",
+            "surface-variant": "#e3e2e7",
+            "on-secondary-container": "#636264",
+            "on-secondary": "#ffffff",
+            "secondary-container": "#e2dfe1",
+            "surface-canvas": "#FFFFFF",
+            "on-primary": "#ffffff",
+            "primary": "#be0017",
+            "on-tertiary-container": "#ffffff",
+            "nexus-glow": "rgba(229, 37, 42, 0.28)",
+            "surface-glass": "rgba(255, 255, 255, 0.72)",
+            "surface-container-low": "#f4f3f8",
+            "on-surface-variant": "#5d3f3c",
+            "tertiary-fixed": "#ffdad9",
+            "error-container": "#ffdad6",
+            "outline": "#926f6b",
+            "on-error-container": "#93000a",
+            "on-error": "#ffffff",
+            "background": "#faf8fe",
+            "status-success": "#34C759",
+            "on-background": "#1a1b1f",
+            "tertiary": "#be002b",
+            "primary-fixed-dim": "#ffb4ac",
+            "ink-secondary": "#6E6E73",
+            "on-tertiary-fixed": "#410008",
+            "ink-inverse": "#FFFFFF",
+            "secondary": "#5f5e60",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-highest": "#e3e2e7",
+            "tertiary-fixed-dim": "#ffb3b2",
+            "surface-container-high": "#e9e7ed",
+            "surface-tint": "#c00017",
+            "on-tertiary-fixed-variant": "#92001f",
+            "tertiary-container": "#e71d3d",
+            "surface": "#faf8fe",
+            "inverse-on-surface": "#f1f0f5",
+            "glass-border-dark": "rgba(0, 0, 0, 0.08)",
+            "glass-border": "rgba(255, 255, 255, 0.6)",
+            "surface-subtle": "#F5F5F7",
+            "outline-variant": "#e6bdb8",
+            "error": "#ba1a1a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin": "2rem",
+            "space-md": "1rem",
+            "gutter": "1.5rem",
+            "gutter-mobile": "0.75rem",
+            "space-xs": "0.25rem",
+            "space-xl": "2.5rem",
+            "space-lg": "1.5rem",
+            "margin-mobile": "1rem",
+            "space-2xl": "4rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "body-lg": ["Inter"],
+            "body-sm": ["Inter"],
+            "display-hero-mobile": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "label-lg": ["Inter"],
+            "label-caps": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-xl": ["Inter"],
+            "headline-lg": ["Inter"],
+            "price-card": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-md": ["Inter"],
+            "price-hero": ["Inter"],
+            "display-hero": ["Inter"],
+            "headline-sm": ["Inter"],
+            "headline-xl-mobile": ["Inter"]
+          },
+          "fontSize": {
+            "body-lg": ["17px", {"lineHeight": "25px", "letterSpacing": "-0.005em", "fontWeight": "400"}],
+            "body-sm": ["13px", {"lineHeight": "18px", "letterSpacing": "0.005em", "fontWeight": "400"}],
+            "display-hero-mobile": ["36px", {"lineHeight": "42px", "letterSpacing": "-0.025em", "fontWeight": "700"}],
+            "headline-lg-mobile": ["24px", {"lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+            "label-lg": ["14px", {"lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+            "label-caps": ["11px", {"lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "700"}],
+            "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+            "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.025em", "fontWeight": "600"}],
+            "headline-lg": ["32px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+            "price-card": ["20px", {"lineHeight": "24px", "letterSpacing": "-0.015em", "fontWeight": "700"}],
+            "body-md": ["15px", {"lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400"}],
+            "headline-md": ["24px", {"lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+            "price-hero": ["32px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "display-hero": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+            "headline-sm": ["20px", {"lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "headline-xl-mobile": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #faf8fe;
+      color: #1D1D1F;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      text-transform: none;
+      letter-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      direction: ltr;
+    }
+    .apple-glass-card {
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+    }
+    .glass-sticky-header {
+      backdrop-filter: blur(20px) saturate(180%);
+      background: rgba(250, 248, 254, 0.88);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    .crimson-glow {
+      box-shadow: 0 8px 24px -4px rgba(229, 37, 42, 0.35);
+    }
+    .crimson-gradient-btn {
+      background: linear-gradient(135deg, #FF334B 0%, #E5252A 100%);
+    }
+  </style>
+</head>
+<body class="bg-background min-h-screen text-ink-primary flex flex-col justify-between selection:bg-primary-container selection:text-on-primary-container">
+<!-- TOPNAVBAR (Shared Component Implementation) -->
+<header class="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-7xl rounded-full bg-surface-glass dark:bg-inverse-surface/80 backdrop-blur-xl border border-glass-border dark:border-glass-border-dark shadow-[0_10px_30px_-5px_rgba(0,0,0,0.06)] flex items-center justify-between px-6 py-3 z-50">
+<!-- Brand Logo Anchor -->
+<a class="flex items-center gap-2.5 active:scale-95 transition-transform duration-150 ease-out" href="#">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container shadow-sm">
+<span class="material-symbols-outlined text-on-primary font-bold" data-icon="cyclone">cyclone</span>
+</div>
+<span class="text-headline-md font-headline-md font-bold tracking-tight text-ink-primary dark:text-ink-inverse">Magic Nexus</span>
+</a>
+<!-- Navigation Links -->
+<nav class="hidden lg:flex items-center gap-8">
+<a class="text-ink-secondary dark:text-ink-tertiary font-label-lg transition-colors hover:text-ink-primary dark:hover:text-ink-inverse hover:text-primary hover:bg-surface-subtle/50 transition-all duration-200" href="#">Răng miệng</a>
+<a class="text-ink-secondary dark:text-ink-tertiary font-label-lg transition-colors hover:text-ink-primary dark:hover:text-ink-inverse hover:text-primary hover:bg-surface-subtle/50 transition-all duration-200" href="#">Bình giữ nhiệt</a>
+<a class="text-ink-secondary dark:text-ink-tertiary font-label-lg transition-colors hover:text-ink-primary dark:hover:text-ink-inverse hover:text-primary hover:bg-surface-subtle/50 transition-all duration-200" href="#">Quạt mini</a>
+<!-- Active navigation item matching page intent: So sánh -->
+<a class="text-primary dark:text-inverse-primary font-label-lg font-semibold border-b-2 border-primary pb-1" href="#">So sánh</a>
+<a class="text-ink-secondary dark:text-ink-tertiary font-label-lg transition-colors hover:text-ink-primary dark:hover:text-ink-inverse hover:text-primary hover:bg-surface-subtle/50 transition-all duration-200" href="#">Giỏ hàng</a>
+<a class="text-ink-secondary dark:text-ink-tertiary font-label-lg transition-colors hover:text-ink-primary dark:hover:text-ink-inverse hover:text-primary hover:bg-surface-subtle/50 transition-all duration-200" href="#">Thanh toán</a>
+</nav>
+<!-- Trailing Icon Actions and Primary Action -->
+<div class="flex items-center gap-3">
+<button aria-label="Search" class="w-9 h-9 rounded-full flex items-center justify-center text-ink-secondary hover:text-ink-primary hover:bg-surface-subtle/50 transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<button aria-label="Cart" class="w-9 h-9 rounded-full flex items-center justify-center text-ink-secondary hover:text-ink-primary hover:bg-surface-subtle/50 transition-colors active:scale-95 duration-150 relative">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+<span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-primary-container"></span>
+</button>
+<button aria-label="User profile" class="w-9 h-9 rounded-full flex items-center justify-center text-ink-secondary hover:text-ink-primary hover:bg-surface-subtle/50 transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</button>
+<button class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full crimson-gradient-btn text-on-primary font-label-lg font-semibold crimson-glow active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined text-base" data-icon="auto_awesome">auto_awesome</span>
+        Tư vấn F5Nexus
+      </button>
+</div>
+</header>
+<!-- MAIN COMPARISON HERO & MATRIX CANVAS -->
+<main class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20">
+<!-- Hero Title & Breadcrumb Section -->
+<div class="text-center max-w-3xl mx-auto mb-12">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-container/10 border border-primary-container/20 text-primary font-label-caps mb-4">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+        MA TRẬN CÔNG NGHỆ THỰC NGHIỆM
+      </div>
+<h1 class="text-headline-xl font-headline-xl text-ink-primary tracking-tight mb-3">
+        So sánh Thiết bị Magic Nexus
+      </h1>
+<p class="text-body-lg font-body-lg text-ink-secondary">
+        Đối chiếu trực quan thông số phần cứng, vật liệu gia công chuẩn y tế và hiệu năng thực tế. Lựa chọn thiết bị phù hợp nhất với phong cách sống hiện đại của bạn.
+      </p>
+<!-- Category Filter Pills -->
+<div class="flex items-center justify-center gap-2 mt-6 overflow-x-auto py-2">
+<button class="px-5 py-2 rounded-full bg-ink-primary text-white font-label-lg shadow-sm flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm" data-icon="dentistry">dentistry</span>
+          Chăm sóc răng miệng
+        </button>
+<button class="px-5 py-2 rounded-full bg-black/5 hover:bg-black/10 text-ink-secondary font-label-lg transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm" data-icon="mode_fan">mode_fan</span>
+          Làm mát cá nhân
+        </button>
+<button class="px-5 py-2 rounded-full bg-black/5 hover:bg-black/10 text-ink-secondary font-label-lg transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm" data-icon="thermostat">thermostat</span>
+          Bình giữ nhiệt Titan
+        </button>
+</div>
+</div>
+<!-- COMPARISON TABLE CONTAINER -->
+<div class="apple-glass-card rounded-3xl overflow-hidden border border-white/60">
+<!-- STICKY TOP PRODUCT HEADER CARDS (3 Columns Matrix) -->
+<div class="sticky top-20 z-30 glass-sticky-header p-6 lg:p-8">
+<div class="grid grid-cols-12 gap-4 lg:gap-8 items-end">
+<!-- Column Labels Guide (Cols 3 on desktop) -->
+<div class="col-span-12 md:col-span-3 pb-2 hidden md:block">
+<span class="text-label-caps font-label-caps text-ink-tertiary">DANH MỤC THÔNG SỐ</span>
+<h3 class="text-headline-sm font-headline-sm text-ink-primary mt-1">Sản phẩm đối chiếu</h3>
+<p class="text-body-sm font-body-sm text-ink-secondary mt-1">Đang hiển thị 3 model flagships bán chạy nhất Quý 1/2025.</p>
+</div>
+<!-- Product 1 Header Column -->
+<div class="col-span-12 md:col-span-3 flex flex-col justify-between h-full bg-white/70 p-4 rounded-2xl border border-white/80 shadow-sm relative group hover:border-primary-container/40 transition-colors">
+<div class="flex items-center justify-between mb-3">
+<span class="px-2 py-0.5 rounded-full bg-primary-container/10 text-primary font-label-caps flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                Flagship Nha Khoa
+              </span>
+<!-- Product Switcher Dropdown -->
+<div class="relative">
+<button class="text-ink-tertiary hover:text-ink-primary flex items-center gap-0.5 text-label-md font-label-md">
+                  Đổi mẫu
+                  <span class="material-symbols-outlined text-sm" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Product Visual Staging -->
+<div class="w-full h-40 flex items-center justify-center p-2 mb-3 bg-surface-subtle/80 rounded-xl overflow-hidden relative">
+<img class="h-36 object-contain group-hover:scale-105 transition-transform duration-300" data-alt="Official flagship high-frequency oral irrigator dental water flosser in matte glacier white finish with crimson accents and transparent water reservoir, photographed in studio high-key lighting with Apple aesthetic clean background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuZHDXfN2unaHJfYVF4lgPJNETcLTOH_-RaPhQQzoS4Jo72x4VeI6v7Gt2ZXnS8pPZf3lFH2X-XiFEiGtvx1dNI956n1WAktd1TPQMRRhNJh5HtLj6BSly-xeALPCmRiecNUNIsSL3ZUdOKLiOxchC2qqXnSB_CVt_RJ_07ZGPCSo8capNnmmrjiakNkmHnM6kGxOJqlBTGW_DT2bWtDRchc0LdyxN1uavuO7wZ6sMR27WBzItX3TBXQ"/>
+</div>
+<div class="space-y-1">
+<h4 class="text-headline-sm font-headline-sm text-ink-primary font-bold">Tăm Nước B-02PRO</h4>
+<p class="text-body-sm font-body-sm text-ink-secondary">Áp lực xung siêu vi điểm 1400 nhịp</p>
+</div>
+<div class="mt-4 pt-3 border-t border-black/5 flex items-baseline justify-between">
+<div>
+<span class="text-price-card font-price-card text-primary font-bold">1.290.000đ</span>
+<span class="text-body-sm font-body-sm text-ink-tertiary line-through ml-2">1.890.000đ</span>
+</div>
+</div>
+<a class="mt-3 w-full py-2.5 rounded-full crimson-gradient-btn text-on-primary text-center font-label-lg font-semibold crimson-glow hover:opacity-95 active:scale-95 transition-all" href="#">
+              Mua Ngay
+            </a>
+</div>
+<!-- Product 2 Header Column -->
+<div class="col-span-12 md:col-span-3 flex flex-col justify-between h-full bg-white/70 p-4 rounded-2xl border border-white/80 shadow-sm relative group hover:border-primary-container/40 transition-colors">
+<div class="flex items-center justify-between mb-3">
+<span class="px-2 py-0.5 rounded-full bg-primary-container/10 text-primary font-label-caps flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                Sóng Âm Maglev
+              </span>
+<div class="relative">
+<button class="text-ink-tertiary hover:text-ink-primary flex items-center gap-0.5 text-label-md font-label-md">
+                  Đổi mẫu
+                  <span class="material-symbols-outlined text-sm" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+</div>
+<div class="w-full h-40 flex items-center justify-center p-2 mb-3 bg-surface-subtle/80 rounded-xl overflow-hidden relative">
+<img class="h-36 object-contain group-hover:scale-105 transition-transform duration-300" data-alt="Sleek premium electric sonic toothbrush in matte ceramic finish with magnetic charging base, precision DuPont bristles and stainless steel ring detailing, isolated on a bright neutral glass surface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkMQM0u0eg8KBZw7XrICXd8r3QReGo4xPVbMOwjfS-QTstrFsU8rGtcUF1CHac5I4vrrwM-cl1wqCz-uAoWfnJSyv4v-Zw-a4KClFLvqzjVpp96DBk6LX3p-CVhmUTnfc5sMJywf7HL5ocamIEjiA0U1MEjlmTq_rU1f9ecSaSfZ8rV67IXV-mIeb3KRF0ZVeRM3ihgF7RMG6R9LpZDhmoAOYMYYoqxHZh1vUo6ptKtQHMEar9rFmKMQ"/>
+</div>
+<div class="space-y-1">
+<h4 class="text-headline-sm font-headline-sm text-ink-primary font-bold">Bàn Chải Điện B-26</h4>
+<p class="text-body-sm font-body-sm text-ink-secondary">Động cơ từ tính 40.000 nhịp/phút</p>
+</div>
+<div class="mt-4 pt-3 border-t border-black/5 flex items-baseline justify-between">
+<div>
+<span class="text-price-card font-price-card text-primary font-bold">890.000đ</span>
+<span class="text-body-sm font-body-sm text-ink-tertiary line-through ml-2">1.250.000đ</span>
+</div>
+</div>
+<a class="mt-3 w-full py-2.5 rounded-full crimson-gradient-btn text-on-primary text-center font-label-lg font-semibold crimson-glow hover:opacity-95 active:scale-95 transition-all" href="#">
+              Mua Ngay
+            </a>
+</div>
+<!-- Product 3 Header Column -->
+<div class="col-span-12 md:col-span-3 flex flex-col justify-between h-full bg-white/70 p-4 rounded-2xl border border-white/80 shadow-sm relative group hover:border-primary-container/40 transition-colors">
+<div class="flex items-center justify-between mb-3">
+<span class="px-2 py-0.5 rounded-full bg-primary-container/10 text-primary font-label-caps flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                Lạnh Tức Thì TEC
+              </span>
+<div class="relative">
+<button class="text-ink-tertiary hover:text-ink-primary flex items-center gap-0.5 text-label-md font-label-md">
+                  Đổi mẫu
+                  <span class="material-symbols-outlined text-sm" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+</div>
+<div class="w-full h-40 flex items-center justify-center p-2 mb-3 bg-surface-subtle/80 rounded-xl overflow-hidden relative">
+<img class="h-36 object-contain group-hover:scale-105 transition-transform duration-300" data-alt="Handheld high-velocity turbo personal mini fan with metallic semiconductor cooling plate at the center, aerospace aluminum styling with crimson accents, high-end commercial tech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGx6_XcOAgFvo8XsJeTIkVRWq7I4K0woArbFWSfJ93co28SX2hxFVUAQ-CrvhNtDHh2tbduAkSbcCotW_8ifyjSr3Qf7ckuqr9VaBMzcO3J9E66TYPms_3Kl7CglpeNQcC45CvOsddkUumHGGgdkvy17DRqHP-5O2LsFUzOBnGKRBbMzsS91-bn9PaD2ewk_QTWBPDiYrPEkBJzNseh6ABOgz04cF9DlUCaquLR-jKoBv43890nFjJjw"/>
+</div>
+<div class="space-y-1">
+<h4 class="text-headline-sm font-headline-sm text-ink-primary font-bold">Quạt Bán Dẫn A-014</h4>
+<p class="text-body-sm font-body-sm text-ink-secondary">Tấm lạnh đóng băng Peltier siêu tốc</p>
+</div>
+<div class="mt-4 pt-3 border-t border-black/5 flex items-baseline justify-between">
+<div>
+<span class="text-price-card font-price-card text-primary font-bold">690.000đ</span>
+<span class="text-body-sm font-body-sm text-ink-tertiary line-through ml-2">990.000đ</span>
+</div>
+</div>
+<a class="mt-3 w-full py-2.5 rounded-full crimson-gradient-btn text-on-primary text-center font-label-lg font-semibold crimson-glow hover:opacity-95 active:scale-95 transition-all" href="#">
+              Mua Ngay
+            </a>
+</div>
+</div>
+</div>
+<!-- DETAILED SPECIFICATION ROWS GROUPED BY CATEGORY -->
+<div class="divide-y divide-black/5 p-6 lg:p-8">
+<!-- GROUP 1: CÔNG NGHỆ CỐT LÕI & CƠ CHẾ HOẠT ĐỘNG -->
+<div class="py-6">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary" data-icon="memory">memory</span>
+<h3 class="text-headline-sm font-headline-sm font-bold text-ink-primary">1. Công nghệ cốt lõi &amp; Cơ chế hoạt động</h3>
+</div>
+<!-- Spec 1.1 -->
+<div class="grid grid-cols-12 gap-4 py-3.5 items-center hover:bg-black/[0.015] rounded-xl px-2 transition-colors">
+<div class="col-span-12 md:col-span-3 text-body-md font-body-md font-medium text-ink-secondary">
+              Động cơ trung tâm
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary font-semibold">
+              Bơm màng áp suất kép<br/>
+<span class="text-body-sm font-body-sm text-ink-tertiary font-normal">1.400 xung/phút</span>
+</div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary font-semibold">
+              Sonic Magnetic Levitation<br/>
+<span class="text-body-sm font-body-sm text-ink-tertiary font-normal">40.000 dao động/phút</span>
+</div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary font-semibold">
+              Lõi bán dẫn TEC Peltier<br/>
+<span class="text-body-sm font-body-sm text-ink-tertiary font-normal">Hạ tức thì 15°C trong 3s</span>
+</div>
+</div>
+<!-- Spec 1.2 -->
+<div class="grid grid-cols-12 gap-4 py-3.5 items-center hover:bg-black/[0.015] rounded-xl px-2 transition-colors">
+<div class="col-span-12 md:col-span-3 text-body-md font-body-md font-medium text-ink-secondary">
+              Chế độ điều chỉnh
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary">
+<span class="font-semibold">4 Cấp độ:</span> Nhẹ, Chuẩn, Massage, Siêu lực
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary">
+<span class="font-semibold">5 Chế độ:</span> Clean, White, Polish, Gum Care, Sensitive
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary">
+<span class="font-semibold">100 Cấp gió:</span> Con lăn vô cực kèm mặt băng
+            </div>
+</div>
+<!-- Spec 1.3 -->
+<div class="grid grid-cols-12 gap-4 py-3.5 items-center hover:bg-black/[0.015] rounded-xl px-2 transition-colors">
+<div class="col-span-12 md:col-span-3 text-body-md font-body-md font-medium text-ink-secondary">
+              Cảm biến bảo vệ
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-status-success text-base" data-icon="check_circle">check_circle</span>
+              Tự ngắt sau 2 phút
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-status-success text-base" data-icon="check_circle">check_circle</span>
+              Đèn báo lực tì đè nướu
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-status-success text-base" data-icon="check_circle">check_circle</span>
+              Cảm biến nhiệt độ NTC
+            </div>
+</div>
+</div>
+<!-- GROUP 2: CHẤT LIỆU CHẾ TÁC & HOÀN THIỆN -->
+<div class="py-6">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary" data-icon="layers">layers</span>
+<h3 class="text-headline-sm font-headline-sm font-bold text-ink-primary">2. Chất liệu chế tác &amp; Hoàn thiện</h3>
+</div>
+<!-- Spec 2.1 -->
+<div class="grid grid-cols-12 gap-4 py-3.5 items-center hover:bg-black/[0.015] rounded-xl px-2 transition-colors">
+<div class="col-span-12 md:col-span-3 text-body-md font-body-md font-medium text-ink-secondary">
+              Vật liệu tiếp xúc
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary">
+              Nhựa sinh học ABS/PC chuẩn FDA không chứa BPA
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary">
+              Lông bàn chải DuPont kháng khuẩn 99.9%
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary">
+              Nhôm Anodized phi thuyền + Tấm tản nhiệt gốm
+            </div>
+</div>
+<!-- Spec 2.2 -->
+<div class="grid grid-cols-12 gap-4 py-3.5 items-center hover:bg-black/[0.015] rounded-xl px-2 transition-colors">
+<div class="col-span-12 md:col-span-3 text-body-md font-body-md font-medium text-ink-secondary">
+              Trọng lượng thân máy
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary">
+              265 gram (Bình nước 200ml)
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary">
+              118 gram (Cực nhẹ tay)
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary">
+              195 gram (Bỏ túi áo)
+            </div>
+</div>
+</div>
+<!-- GROUP 3: CHUẨN KHÁNG NƯỚC & ĐỘ BỀN -->
+<div class="py-6">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary" data-icon="water_drop">water_drop</span>
+<h3 class="text-headline-sm font-headline-sm font-bold text-ink-primary">3. Kháng nước &amp; Độ bền công nghiệp</h3>
+</div>
+<!-- Spec 3.1 -->
+<div class="grid grid-cols-12 gap-4 py-3.5 items-center hover:bg-black/[0.015] rounded-xl px-2 transition-colors">
+<div class="col-span-12 md:col-span-3 text-body-md font-body-md font-medium text-ink-secondary">
+              Chỉ số chống nước
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-status-success/10 text-status-success font-semibold text-body-sm">
+<span class="material-symbols-outlined text-sm" data-icon="verified">verified</span>
+                IPX7 Toàn thân
+              </span>
+<p class="text-body-sm font-body-sm text-ink-tertiary mt-1">Ngâm sâu 1m trong 30 phút</p>
+</div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-status-success/10 text-status-success font-semibold text-body-sm">
+<span class="material-symbols-outlined text-sm" data-icon="verified">verified</span>
+                IPX7 Tuyệt đối
+              </span>
+<p class="text-body-sm font-body-sm text-ink-tertiary mt-1">Rửa vòi sen trực tiếp</p>
+</div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-ink-primary/10 text-ink-primary font-semibold text-body-sm">
+                IPX4 Chống giọt bắn
+              </span>
+<p class="text-body-sm font-body-sm text-ink-tertiary mt-1">Kháng mồ hôi &amp; mưa phùn</p>
+</div>
+</div>
+</div>
+<!-- GROUP 4: DUNG LƯỢNG PIN & HIỆU SUẤT SẠC -->
+<div class="py-6">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary" data-icon="battery_charging_full">battery_charging_full</span>
+<h3 class="text-headline-sm font-headline-sm font-bold text-ink-primary">4. Dung lượng pin &amp; Quản trị năng lượng</h3>
+</div>
+<!-- Spec 4.1 -->
+<div class="grid grid-cols-12 gap-4 py-3.5 items-center hover:bg-black/[0.015] rounded-xl px-2 transition-colors">
+<div class="col-span-12 md:col-span-3 text-body-md font-body-md font-medium text-ink-secondary">
+              Cell Pin &amp; Thời lượng
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary">
+<span class="font-semibold text-ink-primary">1500mAh Lithium</span><br/>
+              Dùng 45 ngày (1 lần/ngày)
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary">
+<span class="font-semibold text-ink-primary">800mAh Tối ưu</span><br/>
+              Dùng 60 ngày liên tục
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary">
+<span class="font-semibold text-ink-primary">3600mAh High-Rate</span><br/>
+              4 - 12 tiếng tùy tốc độ gió
+            </div>
+</div>
+<!-- Spec 4.2 -->
+<div class="grid grid-cols-12 gap-4 py-3.5 items-center hover:bg-black/[0.015] rounded-xl px-2 transition-colors">
+<div class="col-span-12 md:col-span-3 text-body-md font-body-md font-medium text-ink-secondary">
+              Giao thức sạc
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary">
+              USB Type-C Fast Charge (2h đầy)
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary">
+              Đế sạc từ tính không dây / Type-C
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary">
+              USB Type-C PD 10W (3h đầy)
+            </div>
+</div>
+</div>
+<!-- GROUP 5: PHỤ KIỆN & CHÍNH SÁCH BẢO HÀNH -->
+<div class="py-6">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary" data-icon="handshake">handshake</span>
+<h3 class="text-headline-sm font-headline-sm font-bold text-ink-primary">5. Hệ sinh thái phụ kiện &amp; Bảo hành chính hãng</h3>
+</div>
+<!-- Spec 5.1 -->
+<div class="grid grid-cols-12 gap-4 py-3.5 items-center hover:bg-black/[0.015] rounded-xl px-2 transition-colors">
+<div class="col-span-12 md:col-span-3 text-body-md font-body-md font-medium text-ink-secondary">
+              Bộ phụ kiện trong hộp
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary">
+              4 Đầu tăm chuyên dụng (Nha chu, Chỉnh nha, Cạo lưỡi, Tiêu chuẩn) + Hộp du lịch
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary">
+              2 Đầu chải DuPont + Hộp bảo quản du lịch kháng khuẩn UV
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary">
+              Dây đeo cổ dù bện cao cấp + Cáp bọc dù Type-C Magic Nexus
+            </div>
+</div>
+<!-- Spec 5.2 -->
+<div class="grid grid-cols-12 gap-4 py-3.5 items-center hover:bg-black/[0.015] rounded-xl px-2 transition-colors">
+<div class="col-span-12 md:col-span-3 text-body-md font-body-md font-medium text-ink-secondary">
+              Cam kết dịch vụ Nexus
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary font-semibold text-primary">
+              Bảo hành 24 tháng (1 đổi 1 12 tháng)
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary font-semibold text-primary">
+              Bảo hành 24 tháng (1 đổi 1 12 tháng)
+            </div>
+<div class="col-span-4 md:col-span-3 text-body-md font-body-md text-ink-primary font-semibold text-primary">
+              Bảo hành 12 tháng chính hãng Magic
+            </div>
+</div>
+</div>
+</div>
+</div>
+<!-- CALLOUT ASSIST BOX: NEXUS AI SHOPPING ASSIST & HOTLINE -->
+<div class="mt-12 apple-glass-card rounded-3xl p-8 lg:p-10 border border-primary-container/20 relative overflow-hidden">
+<div class="absolute -right-16 -top-16 w-64 h-64 bg-primary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+<div class="flex items-start gap-5">
+<div class="w-14 h-14 rounded-2xl bg-primary-container flex items-center justify-center text-on-primary-container crimson-glow shrink-0">
+<span class="material-symbols-outlined text-3xl" data-icon="smart_toy">smart_toy</span>
+</div>
+<div>
+<div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-primary-container/10 text-primary font-label-caps mb-1.5">
+              HỖ TRỢ TRỰC TUYẾN TỨC THÌ
+            </div>
+<h3 class="text-headline-md font-headline-md text-ink-primary font-bold">
+              Chưa biết chọn mẫu nào phù hợp với nhu cầu của bạn?
+            </h3>
+<p class="text-body-md font-body-md text-ink-secondary mt-1 max-w-2xl">
+              Trợ lý thông minh F5Nexus sẽ phân tích độ nhạy cảm của nướu, thói quen đi làm hay sở thích cá nhân để gợi ý model tối ưu trong 30 giây.
+            </p>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row items-center gap-4 shrink-0 w-full lg:w-auto">
+<!-- Chat AI CTA -->
+<button class="w-full sm:w-auto px-6 py-3.5 rounded-full crimson-gradient-btn text-on-primary font-label-lg font-semibold crimson-glow flex items-center justify-center gap-2 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-lg" data-icon="chat_bubble">chat_bubble</span>
+            Chat với Trợ Lý F5Nexus
+          </button>
+<!-- Hotline Phone Link -->
+<a class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-white/80 border border-black/10 hover:bg-white text-ink-primary font-label-lg font-semibold flex items-center justify-center gap-2 active:scale-95 transition-all" href="tel:0787712566">
+<span class="material-symbols-outlined text-primary text-lg" data-icon="call">call</span>
+            Hotline: 0787 712 566
+          </a>
+</div>
+</div>
+</div>
+<!-- VIETNAM LOCALIZED TRUST BADGES GRID -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+<div class="apple-glass-card p-5 rounded-2xl flex items-center gap-3.5">
+<div class="w-10 h-10 rounded-xl bg-status-success/10 text-status-success flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+</div>
+<div>
+<h5 class="text-label-lg font-label-lg font-bold text-ink-primary">100% Chính Hãng</h5>
+<p class="text-body-sm font-body-sm text-ink-secondary">Magic Vietnam uỷ quyền</p>
+</div>
+</div>
+<div class="apple-glass-card p-5 rounded-2xl flex items-center gap-3.5">
+<div class="w-10 h-10 rounded-xl bg-primary-container/10 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined" data-icon="sync_saved_locally">sync_saved_locally</span>
+</div>
+<div>
+<h5 class="text-label-lg font-label-lg font-bold text-ink-primary">1 Đổi 1 Trong 12T</h5>
+<p class="text-body-sm font-body-sm text-ink-secondary">Lỗi phần cứng NSX</p>
+</div>
+</div>
+<div class="apple-glass-card p-5 rounded-2xl flex items-center gap-3.5">
+<div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+</div>
+<div>
+<h5 class="text-label-lg font-label-lg font-bold text-ink-primary">Giao Hoả Tốc 2H</h5>
+<p class="text-body-sm font-body-sm text-ink-secondary">Nội thành HN &amp; TP.HCM</p>
+</div>
+</div>
+<div class="apple-glass-card p-5 rounded-2xl flex items-center gap-3.5">
+<div class="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-600 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
+</div>
+<div>
+<h5 class="text-label-lg font-label-lg font-bold text-ink-primary">Hỗ Trợ Trọn Đời</h5>
+<p class="text-body-sm font-body-sm text-ink-secondary">Zalo CSKH Official</p>
+</div>
+</div>
+</div>
+</main>
+<!-- FOOTER (Shared Component Implementation) -->
+<footer class="w-full rounded-t-3xl bg-surface-subtle dark:bg-inverse-surface border-t border-glass-border-dark dark:border-glass-border">
+<div class="w-full max-w-7xl mx-auto px-8 py-12 flex flex-col md:flex-row justify-between items-center gap-6">
+<!-- Brand & Copyright -->
+<div class="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
+<span class="text-headline-sm font-headline-sm font-bold text-ink-primary dark:text-ink-inverse">Magic Vietnam</span>
+<span class="text-ink-secondary dark:text-secondary-fixed-dim text-body-sm font-body-sm">
+          © 2025 Magic Vietnam. Bảo hành chính hãng 24 tháng. Hotline 24/7: 1800 6868.
+        </span>
+</div>
+<!-- Footer Policy Links -->
+<div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-2">
+<a class="text-label-md font-label-md text-ink-tertiary dark:text-secondary-fixed-dim hover:text-ink-primary dark:hover:text-ink-inverse transition-colors hover:text-primary dark:hover:text-inverse-primary" href="#">Chính sách bảo hành</a>
+<a class="text-label-md font-label-md text-ink-tertiary dark:text-secondary-fixed-dim hover:text-ink-primary dark:hover:text-ink-inverse transition-colors hover:text-primary dark:hover:text-inverse-primary" href="#">Cam kết chính hãng</a>
+<a class="text-label-md font-label-md text-ink-tertiary dark:text-secondary-fixed-dim hover:text-ink-primary dark:hover:text-ink-inverse transition-colors hover:text-primary dark:hover:text-inverse-primary" href="#">Hệ thống trạm dịch vụ</a>
+<a class="text-label-md font-label-md text-ink-tertiary dark:text-secondary-fixed-dim hover:text-ink-primary dark:hover:text-ink-inverse transition-colors hover:text-primary dark:hover:text-inverse-primary" href="#">Zalo Official Hotline</a>
+<a class="text-label-md font-label-md text-ink-tertiary dark:text-secondary-fixed-dim hover:text-ink-primary dark:hover:text-ink-inverse transition-colors hover:text-primary dark:hover:text-inverse-primary" href="#">Điều khoản mua hàng</a>
+<a class="text-label-md font-label-md text-ink-tertiary dark:text-secondary-fixed-dim hover:text-ink-primary dark:hover:text-ink-inverse transition-colors hover:text-primary dark:hover:text-inverse-primary" href="#">Bảo mật thông tin</a>
+</div>
+</div>
+</footer>
+</body></html>
