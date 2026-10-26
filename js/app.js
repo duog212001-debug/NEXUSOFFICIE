@@ -24,7 +24,14 @@ const State = {
   adminLoggedIn: localStorage.getItem("nexus_admin_logged_in") === "true",
   adminRole: localStorage.getItem("nexus_admin_role") || "super_admin",
   adminTab: "overview", // 'overview' | 'orders' | 'staff' | 'rbac' | 'audit'
-  users: JSON.parse(localStorage.getItem("nexus_staff_users") || JSON.stringify(INITIAL_USERS)),
+  users: (() => {
+    let saved = JSON.parse(localStorage.getItem("nexus_staff_users") || "[]");
+    if (saved.length > 0 && (saved[0].name === "Nguyễn Minh Huy" || saved[0].id === "usr-1")) {
+      saved = [];
+      localStorage.setItem("nexus_staff_users", JSON.stringify([]));
+    }
+    return saved;
+  })(),
   permissions: JSON.parse(localStorage.getItem("nexus_permissions") || JSON.stringify(PERMISSION_MATRIX)),
   auditLogs: JSON.parse(localStorage.getItem("nexus_audit_logs") || JSON.stringify([
     { id: "log-1", time: "26/10/2026 13:45", user: "Nguyễn Minh Huy", role: "super_admin", action: "Đăng nhập hệ thống quản trị", ip: "118.69.182.45", status: "success" },
@@ -1994,70 +2001,89 @@ function renderAdminStaffTab(p) {
     </div>
 
     <div style="background: var(--surface); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-sm); overflow-x: auto;">
-      <table class="staff-table">
-        <thead>
-          <tr>
-            <th>Nhân Sự</th>
-            <th>Email</th>
-            <th>Số Điện Thoại</th>
-            <th>Vai Trò Phân Quyền</th>
-            <th>Trạng Thái</th>
-            <th>Ngày Tham Gia</th>
-            <th>Thao Tác</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${State.users.map(staff => {
-            const role = ROLES[staff.role] || ROLES.telesale;
-            const isSelf = staff.id === 'usr-1';
-            return `
-              <tr>
-                <td>
-                  <div class="flex items-center gap-3">
-                    <img src="${staff.avatar}" class="staff-avatar" alt="${staff.name}">
-                    <div>
-                      <strong style="font-size: 0.9rem; display: block;">${staff.name}</strong>
-                      <span style="font-size: 0.72rem; color: var(--ink-tertiary);">ID: ${staff.id}</span>
+      ${State.users.length > 0 ? `
+        <table class="staff-table">
+          <thead>
+            <tr>
+              <th>Nhân Sự</th>
+              <th>Email</th>
+              <th>Số Điện Thoại</th>
+              <th>Vai Trò Phân Quyền</th>
+              <th>Trạng Thái</th>
+              <th>Ngày Tham Gia</th>
+              <th>Thao Tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${State.users.map(staff => {
+              const role = ROLES[staff.role] || ROLES.telesale;
+              return `
+                <tr>
+                  <td>
+                    <div class="flex items-center gap-3">
+                      <img src="${staff.avatar}" class="staff-avatar" alt="${staff.name}">
+                      <div>
+                        <strong style="font-size: 0.9rem; display: block;">${staff.name}</strong>
+                        <span style="font-size: 0.72rem; color: var(--ink-tertiary);">ID: ${staff.id}</span>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td style="font-size: 0.85rem;">${staff.email}</td>
-                <td style="font-size: 0.85rem;">${staff.phone}</td>
-                <td>
-                  ${p.canManageRBAC && !isSelf ? `
-                    <select class="staff-role-select" onchange="updateStaffRole('${staff.id}', this.value)" style="border-left: 3px solid ${role.color};">
-                      <option value="super_admin" ${staff.role === 'super_admin' ? 'selected' : ''}>👑 Super Admin</option>
-                      <option value="telesale" ${staff.role === 'telesale' ? 'selected' : ''}>📞 Telesale</option>
-                      <option value="warehouse" ${staff.role === 'warehouse' ? 'selected' : ''}>📦 Thủ Kho</option>
-                      <option value="support" ${staff.role === 'support' ? 'selected' : ''}>🎧 CSKH</option>
-                      <option value="customer" ${staff.role === 'customer' ? 'selected' : ''}>👤 Khách hàng</option>
-                    </select>
-                  ` : `
-                    <span class="role-badge-pill" style="background: ${role.bg}; color: ${role.color};">
-                      ${role.name}
+                  </td>
+                  <td style="font-size: 0.85rem;">${staff.email}</td>
+                  <td style="font-size: 0.85rem;">${staff.phone}</td>
+                  <td>
+                    ${p.canManageRBAC ? `
+                      <select class="staff-role-select" onchange="updateStaffRole('${staff.id}', this.value)" style="border-left: 3px solid ${role.color};">
+                        <option value="super_admin" ${staff.role === 'super_admin' ? 'selected' : ''}>👑 Super Admin</option>
+                        <option value="telesale" ${staff.role === 'telesale' ? 'selected' : ''}>📞 Telesale</option>
+                        <option value="warehouse" ${staff.role === 'warehouse' ? 'selected' : ''}>📦 Thủ Kho</option>
+                        <option value="support" ${staff.role === 'support' ? 'selected' : ''}>🎧 CSKH</option>
+                        <option value="customer" ${staff.role === 'customer' ? 'selected' : ''}>👤 Khách hàng</option>
+                      </select>
+                    ` : `
+                      <span class="role-badge-pill" style="background: ${role.bg}; color: ${role.color};">
+                        ${role.name}
+                      </span>
+                    `}
+                  </td>
+                  <td>
+                    <span class="role-badge-pill" style="background: ${staff.status === 'active' ? 'rgba(16,185,129,0.12)' : 'rgba(239,68,68,0.12)'}; color: ${staff.status === 'active' ? '#10b981' : '#ef4444'};">
+                      ${staff.status === 'active' ? '● Hoạt động' : '✕ Tạm khóa'}
                     </span>
-                  `}
-                </td>
-                <td>
-                  <span class="role-badge-pill" style="background: ${staff.status === 'active' ? 'rgba(16,185,129,0.12)' : 'rgba(239,68,68,0.12)'}; color: ${staff.status === 'active' ? '#10b981' : '#ef4444'};">
-                    ${staff.status === 'active' ? '● Hoạt động' : '✕ Tạm khóa'}
-                  </span>
-                </td>
-                <td style="font-size: 0.8rem; color: var(--ink-tertiary);">${staff.createdAt || '01/10/2026'}</td>
-                <td>
-                  ${p.canManageRBAC && !isSelf ? `
-                    <button class="btn btn-outline btn-sm" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="toggleStaffStatus('${staff.id}')">
-                      ${staff.status === 'active' ? 'Khóa' : 'Mở'}
-                    </button>
-                  ` : `
-                    <span style="font-size: 0.75rem; color: var(--ink-tertiary);">-</span>
-                  `}
-                </td>
-              </tr>
-            `;
-          }).join('')}
-        </tbody>
-      </table>
+                  </td>
+                  <td style="font-size: 0.8rem; color: var(--ink-tertiary);">${staff.createdAt || '01/10/2026'}</td>
+                  <td>
+                    ${p.canManageRBAC ? `
+                      <div class="flex items-center gap-1">
+                        <button class="btn btn-outline btn-sm" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="toggleStaffStatus('${staff.id}')" title="${staff.status === 'active' ? 'Tạm khóa' : 'Mở khóa'}">
+                          ${staff.status === 'active' ? 'Khóa' : 'Mở'}
+                        </button>
+                        <button class="btn btn-outline btn-sm" style="padding: 0.25rem 0.45rem; font-size: 0.75rem; color: #ef4444; border-color: rgba(239, 68, 68, 0.3);" onclick="deleteStaff('${staff.id}')" title="Xóa nhân sự">
+                          <span class="material-symbols-outlined" style="font-size: 14px;">delete</span>
+                        </button>
+                      </div>
+                    ` : `
+                      <span style="font-size: 0.75rem; color: var(--ink-tertiary);">-</span>
+                    `}
+                  </td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      ` : `
+        <div style="text-align: center; padding: 3.5rem 1.5rem; color: var(--ink-secondary);">
+          <div style="width: 58px; height: 58px; background: rgba(229, 37, 42, 0.08); border-radius: 9999px; display: inline-flex; align-items: center; justify-content: center; color: var(--primary); margin-bottom: 1rem;">
+            <span class="material-symbols-outlined" style="font-size: 30px;">person_add</span>
+          </div>
+          <h4 style="font-size: 1.15rem; font-weight: 700; margin: 0 0 0.5rem; color: var(--ink-primary);">Danh sách nhân sự chưa có thành viên</h4>
+          <p style="font-size: 0.85rem; max-width: 460px; margin: 0 auto 1.5rem; line-height: 1.5;">
+            Hệ thống đang để trống danh sách để bạn tự thiết lập nhân viên theo nhu cầu thực tế. Hãy bấm nút bên dưới để tạo nhân sự và phân bổ vai trò RBAC đầu tiên!
+          </p>
+          <button class="btn btn-primary btn-sm" onclick="openAddStaffModal()">
+            <span class="material-symbols-outlined" style="font-size: 16px;">person_add</span> Thêm Nhân Sự Mới
+          </button>
+        </div>
+      `}
     </div>
   `;
 }
@@ -2267,6 +2293,22 @@ window.toggleStaffStatus = function(staffId) {
     addAuditLog(`${staff.status === 'active' ? 'Mở khóa' : 'Tạm khóa'} tài khoản nhân viên ${staff.name}`);
     renderApp();
   }
+};
+
+window.deleteStaff = function(staffId) {
+  if (!hasPermission("Tạo nhân sự mới, gán vai trò & phân quyền RBAC")) {
+    showToast("⚠️ Bạn không có quyền xóa nhân sự!", "lock");
+    return;
+  }
+  const staff = State.users.find(u => u.id === staffId);
+  if (!staff) return;
+  if (!confirm(`Bạn có chắc muốn xóa nhân sự "${staff.name}" (${staff.email}) khỏi hệ thống?`)) return;
+  
+  State.users = State.users.filter(u => u.id !== staffId);
+  saveState("nexus_staff_users", State.users);
+  showToast(`Đã xóa nhân sự: ${staff.name}`, "delete");
+  addAuditLog(`Xóa nhân sự ${staff.name} (${staff.email}) khỏi hệ thống`);
+  renderApp();
 };
 
 window.cycleMatrixPerm = function(categoryIndex, roleKey) {
@@ -3165,7 +3207,7 @@ window.logoutUser = function() {
 const ADMIN_CREDENTIALS = {
   email: 'admin@nexus.vn',
   username: 'admin',
-  password: 'nexus2026'
+  password: 'admin123'
 };
 
 window.openAdminAuthModal = function() {
